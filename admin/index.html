@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midnight Collective — Админка</title>
+<style>
+@font-face { font-family: 'Inter'; font-weight: 400; src: url('../fonts/inter-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 500; src: url('../fonts/inter-500.woff2') format('woff2'); }
+@font-face { font-family: 'Roboto Mono'; font-weight: 400; src: url('../fonts/roboto-mono-400.woff2') format('woff2'); }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #f5f5f5; color: #000; min-height: 100vh; }
+
+/* Login */
+#login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+.login-box { background: #fff; padding: 48px; border-radius: 8px; width: 400px; }
+.login-box h1 { font-size: 24px; font-weight: 500; letter-spacing: -0.04em; margin-bottom: 32px; }
+.login-box input { width: 100%; border: none; border-bottom: 1px solid #000; padding: 12px 0; font-family: inherit; font-size: 16px; background: none; outline: none; display: block; margin-bottom: 24px; }
+.login-box button { background: #000; color: #fff; border: none; padding: 14px 32px; font-family: inherit; font-size: 14px; cursor: pointer; }
+
+/* App */
+#app { display: none; }
+.admin-nav { background: #000; color: #fff; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; }
+.admin-nav h1 { font-size: 16px; font-weight: 500; letter-spacing: -0.04em; }
+.admin-nav a { color: #888; font-size: 12px; text-decoration: none; }
+.admin-nav a:hover { color: #fff; }
+
+.main { max-width: 1100px; margin: 0 auto; padding: 32px; }
+
+/* Projects list */
+.section-title { font-size: 12px; font-family: 'Roboto Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em; color: #666; margin-bottom: 16px; }
+.project-card { background: #fff; border-radius: 6px; padding: 20px 24px; margin-bottom: 12px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: box-shadow 0.15s; }
+.project-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+.project-thumb { width: 64px; height: 64px; border-radius: 4px; background: #e0e0e0; object-fit: cover; flex-shrink: 0; }
+.project-info { flex: 1; }
+.project-title { font-size: 16px; font-weight: 500; letter-spacing: -0.02em; }
+.project-meta { font-size: 12px; color: #888; font-family: 'Roboto Mono', monospace; margin-top: 4px; }
+.project-actions { display: flex; gap: 8px; }
+.btn { background: #000; color: #fff; border: none; padding: 8px 16px; font-family: inherit; font-size: 12px; cursor: pointer; border-radius: 2px; }
+.btn-ghost { background: none; color: #000; border: 1px solid #ccc; }
+.btn-red { background: #e53e3e; }
+.btn:hover { opacity: 0.8; }
+
+.add-btn { width: 100%; background: #fff; border: 1px dashed #ccc; border-radius: 6px; padding: 20px; font-family: inherit; font-size: 14px; color: #888; cursor: pointer; margin-top: 8px; }
+.add-btn:hover { border-color: #000; color: #000; }
+
+/* Editor */
+#editor { display: none; position: fixed; inset: 0; background: #f5f5f5; overflow-y: auto; z-index: 100; }
+.editor-nav { background: #000; color: #fff; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; }
+.editor-nav h2 { font-size: 16px; font-weight: 500; }
+.editor-nav-btns { display: flex; gap: 12px; }
+
+.editor-body { max-width: 900px; margin: 0 auto; padding: 32px; }
+
+.field-group { margin-bottom: 28px; }
+.field-label { font-size: 11px; font-family: 'Roboto Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em; color: #666; margin-bottom: 8px; display: block; }
+.field-input { width: 100%; border: 1px solid #ddd; border-radius: 4px; padding: 12px; font-family: inherit; font-size: 15px; outline: none; background: #fff; }
+.field-input:focus { border-color: #000; }
+.field-textarea { min-height: 80px; resize: vertical; }
+
+.tags-input { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.tag-chip { background: #000; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-family: 'Roboto Mono', monospace; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+.tag-chip button { background: none; border: none; color: #fff; cursor: pointer; font-size: 14px; line-height: 1; padding: 0; }
+.tag-add { border: 1px dashed #ccc; background: none; padding: 4px 12px; border-radius: 20px; font-family: inherit; font-size: 12px; cursor: pointer; }
+
+/* Thumbnail */
+.thumb-area { width: 200px; height: 140px; border: 1px dashed #ccc; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; background: #fafafa; }
+.thumb-area img { width: 100%; height: 100%; object-fit: cover; }
+.thumb-area span { font-size: 12px; color: #888; }
+
+/* Rows editor */
+.rows-list { display: flex; flex-direction: column; gap: 16px; }
+.row-card { background: #fff; border-radius: 6px; padding: 20px; border: 1px solid #eee; }
+.row-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.row-header select { flex: 1; border: 1px solid #ddd; border-radius: 4px; padding: 8px 12px; font-family: inherit; font-size: 13px; outline: none; }
+.row-images { display: flex; gap: 12px; flex-wrap: wrap; }
+.img-slot { position: relative; }
+.img-slot-inner { width: 100px; height: 120px; border: 1px dashed #ccc; border-radius: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; overflow: hidden; background: #fafafa; }
+.img-slot-inner img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.img-slot-inner span { font-size: 10px; color: #888; text-align: center; }
+.img-ratio { font-size: 10px; color: #666; font-family: 'Roboto Mono', monospace; margin-top: 4px; text-align: center; }
+.img-ratio select { width: 100%; border: 1px solid #ddd; border-radius: 2px; font-size: 10px; padding: 2px 4px; }
+.img-del { position: absolute; top: -6px; right: -6px; background: #e53e3e; color: #fff; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.add-img-btn { width: 100px; height: 120px; border: 1px dashed #ccc; border-radius: 4px; background: none; cursor: pointer; font-size: 24px; color: #ccc; display: flex; align-items: center; justify-content: center; }
+.add-img-btn:hover { border-color: #000; color: #000; }
+.add-row-btn { width: 100%; background: none; border: 1px dashed #ccc; border-radius: 6px; padding: 14px; font-family: inherit; font-size: 13px; color: #888; cursor: pointer; margin-top: 8px; }
+.add-row-btn:hover { border-color: #000; color: #000; }
+
+/* Status */
+.status { position: fixed; bottom: 24px; right: 24px; background: #000; color: #fff; padding: 12px 20px; border-radius: 4px; font-size: 13px; display: none; z-index: 999; }
+.status.visible { display: block; }
+.status.error { background: #e53e3e; }
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>Midnight Collective</h1>
+    <input type="password" id="pwd-input" placeholder="Пароль" onkeydown="if(event.key==='Enter')doLogin()">
+    <input type="text" id="token-input" placeholder="GitHub Token" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Войти</button>
+  </div>
+</div>
+
+<!-- App -->
+<div id="app">
+  <nav class="admin-nav">
+    <h1>Midnight Collective — Админка</h1>
+    <a href="../" target="_blank">← Открыть сайт</a>
+  </nav>
+  <div class="main">
+    <div class="section-title">Проекты</div>
+    <div id="projects-list"></div>
+    <button class="add-btn" onclick="newProject()">+ Добавить проект</button>
+  </div>
+</div>
+
+<!-- Editor -->
+<div id="editor">
+  <nav class="editor-nav">
+    <h2 id="editor-title">Проект</h2>
+    <div class="editor-nav-btns">
+      <button class="btn btn-ghost" onclick="closeEditor()">Отмена</button>
+      <button class="btn" onclick="saveProject()">Сохранить</button>
+    </div>
+  </nav>
+  <div class="editor-body">
+
+    <div class="field-group">
+      <label class="field-label">Slug (URL: /cases/?slug=...)</label>
+      <input class="field-input" id="e-slug" placeholder="tselovalnik">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Название проекта</label>
+      <input class="field-input" id="e-title" placeholder="Tselovalnik Vodka">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Год</label>
+      <input class="field-input" id="e-year" placeholder="2024" style="max-width:120px">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Теги</label>
+      <div class="tags-input" id="e-tags-wrap">
+        <button class="tag-add" onclick="addTag()">+ Тег</button>
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Обложка</label>
+      <div class="thumb-area" id="thumb-area" onclick="uploadThumbnail()">
+        <span>Нажмите для загрузки</span>
+      </div>
+      <label style="display:flex;align-items:center;gap:8px;margin-top:8px;font-size:13px">
+        <input type="checkbox" id="e-thumb-dark"> Тёмная обложка
+      </label>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Описание (абзацы)</label>
+      <textarea class="field-input field-textarea" id="e-desc1" placeholder="Первый абзац..."></textarea>
+      <textarea class="field-input field-textarea" id="e-desc2" placeholder="Второй абзац (необязательно)..." style="margin-top:8px"></textarea>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Сетка изображений</label>
+      <div class="rows-list" id="rows-list"></div>
+      <button class="add-row-btn" onclick="addRow()">+ Добавить ряд</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="status" id="status"></div>
+
+<script src="https://upload-widget.cloudinary.com/global/all.js"></script>
+<script>
+const CLOUD = 'dckjt7i6f';
+const PRESET = 'midnight-collective';
+const REPO = 'egorasus/midnight-collective';
+const FILE_PATH = 'data/projects.json';
+const ADMIN_PASSWORD = 'mc2024admin';
+
+let githubToken = '';
+let projects = [];
+let editIdx = -1;
+let editTags = [];
+let editRows = [];
+let thumbUrl = '';
+
+// ---- AUTH ----
+function doLogin() {
+  const pwd = document.getElementById('pwd-input').value;
+  const token = document.getElementById('token-input').value;
+  if (pwd !== ADMIN_PASSWORD) { alert('Неверный пароль'); return; }
+  if (!token) { alert('Введите GitHub Token'); return; }
+  githubToken = token;
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  loadProjects();
+}
+
+// ---- LOAD ----
+async function loadProjects() {
+  try {
+    const r = await fetch('../data/projects.json?t=' + Date.now());
+    projects = await r.json();
+    renderList();
+  } catch(e) { projects = []; renderList(); }
+}
+
+function renderList() {
+  const el = document.getElementById('projects-list');
+  if (!projects.length) { el.innerHTML = '<p style="color:#888;font-size:14px;padding:20px 0">Проектов пока нет</p>'; return; }
+  el.innerHTML = projects.map((p, i) => `
+    <div class="project-card">
+      ${p.thumbnail ? `<img class="project-thumb" src="${p.thumbnail}" alt="">` : '<div class="project-thumb"></div>'}
+      <div class="project-info">
+        <div class="project-title">${p.title}</div>
+        <div class="project-meta">${p.year} · ${p.tags.join(', ')}</div>
+      </div>
+      <div class="project-actions">
+        <button class="btn btn-ghost" onclick="editProject(${i})">Редактировать</button>
+        <button class="btn btn-red" onclick="deleteProject(${i})">Удалить</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ---- EDITOR ----
+function newProject() {
+  editIdx = -1;
+  editTags = [];
+  editRows = [];
+  thumbUrl = '';
+  document.getElementById('e-slug').value = '';
+  document.getElementById('e-title').value = '';
+  document.getElementById('e-year').value = new Date().getFullYear();
+  document.getElementById('e-desc1').value = '';
+  document.getElementById('e-desc2').value = '';
+  document.getElementById('e-thumb-dark').checked = false;
+  document.getElementById('editor-title').textContent = 'Новый проект';
+  document.getElementById('thumb-area').innerHTML = '<span>Нажмите для загрузки</span>';
+  renderTags();
+  renderRows();
+  document.getElementById('editor').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function editProject(i) {
+  editIdx = i;
+  const p = projects[i];
+  editTags = [...p.tags];
+  editRows = JSON.parse(JSON.stringify(p.rows || []));
+  thumbUrl = p.thumbnail || '';
+  document.getElementById('e-slug').value = p.slug;
+  document.getElementById('e-title').value = p.title;
+  document.getElementById('e-year').value = p.year;
+  document.getElementById('e-desc1').value = p.desc[0] || '';
+  document.getElementById('e-desc2').value = p.desc[1] || '';
+  document.getElementById('e-thumb-dark').checked = !!p.thumbnailDark;
+  document.getElementById('editor-title').textContent = p.title;
+  if (thumbUrl) {
+    document.getElementById('thumb-area').innerHTML = `<img src="${thumbUrl}" alt="">`;
+  } else {
+    document.getElementById('thumb-area').innerHTML = '<span>Нажмите для загрузки</span>';
+  }
+  renderTags();
+  renderRows();
+  document.getElementById('editor').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function closeEditor() {
+  document.getElementById('editor').style.display = 'none';
+}
+
+// ---- TAGS ----
+function renderTags() {
+  const wrap = document.getElementById('e-tags-wrap');
+  const chips = editTags.map((t, i) => `
+    <div class="tag-chip">${t}<button onclick="removeTag(${i})">×</button></div>
+  `).join('');
+  wrap.innerHTML = chips + `<button class="tag-add" onclick="addTag()">+ Тег</button>`;
+}
+
+function addTag() {
+  const t = prompt('Название тега:');
+  if (t && t.trim()) { editTags.push(t.trim()); renderTags(); }
+}
+
+function removeTag(i) { editTags.splice(i, 1); renderTags(); }
+
+// ---- THUMBNAIL ----
+function uploadThumbnail() {
+  const widget = cloudinary.createUploadWidget(
+    { cloudName: CLOUD, uploadPreset: PRESET, sources: ['local', 'url'], multiple: false },
+    (err, result) => {
+      if (!err && result.event === 'success') {
+        thumbUrl = result.info.secure_url;
+        document.getElementById('thumb-area').innerHTML = `<img src="${thumbUrl}" alt="">`;
+      }
+    }
+  );
+  widget.open();
+}
+
+// ---- ROWS ----
+const ROW_TYPES = { c1: '1 изображение', c2: '2 изображения', c3: '3 изображения', 'c2-ratio': '2 (широкое + узкое)' };
+const RATIOS = ['portrait', 'landscape', 'square', 'fixed-h'];
+
+function renderRows() {
+  const list = document.getElementById('rows-list');
+  list.innerHTML = editRows.map((row, ri) => `
+    <div class="row-card">
+      <div class="row-header">
+        <strong style="font-size:13px">Ряд ${ri + 1}</strong>
+        <select onchange="changeRowType(${ri}, this.value)">
+          ${Object.entries(ROW_TYPES).map(([k,v]) => `<option value="${k}" ${row.type===k?'selected':''}>${v}</option>`).join('')}
+        </select>
+        <button class="btn btn-ghost" style="padding:6px 12px;font-size:11px" onclick="moveRow(${ri},-1)">↑</button>
+        <button class="btn btn-ghost" style="padding:6px 12px;font-size:11px" onclick="moveRow(${ri},1)">↓</button>
+        <button class="btn btn-red" style="padding:6px 12px;font-size:11px" onclick="deleteRow(${ri})">Удалить</button>
+      </div>
+      <div class="row-images">
+        ${row.images.map((img, ii) => `
+          <div class="img-slot">
+            <div class="img-slot-inner" onclick="uploadImage(${ri},${ii})">
+              ${img.url ? `<img src="${img.url}" alt="">` : '<span>Загрузить</span>'}
+            </div>
+            <div class="img-ratio">
+              <select onchange="changeRatio(${ri},${ii},this.value)">
+                ${RATIOS.map(r => `<option value="${r}" ${img.ratio===r?'selected':''}>${r}</option>`).join('')}
+              </select>
+            </div>
+            <button class="img-del" onclick="removeImage(${ri},${ii})">×</button>
+          </div>
+        `).join('')}
+        <button class="add-img-btn" onclick="addImage(${ri})">+</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addRow() {
+  editRows.push({ type: 'c2', images: [] });
+  renderRows();
+}
+
+function deleteRow(ri) {
+  if (confirm('Удалить ряд?')) { editRows.splice(ri, 1); renderRows(); }
+}
+
+function changeRowType(ri, type) { editRows[ri].type = type; }
+
+function moveRow(ri, dir) {
+  const ni = ri + dir;
+  if (ni < 0 || ni >= editRows.length) return;
+  [editRows[ri], editRows[ni]] = [editRows[ni], editRows[ri]];
+  renderRows();
+}
+
+function addImage(ri) {
+  editRows[ri].images.push({ url: '', ratio: 'portrait' });
+  renderRows();
+}
+
+function removeImage(ri, ii) { editRows[ri].images.splice(ii, 1); renderRows(); }
+function changeRatio(ri, ii, val) { editRows[ri].images[ii].ratio = val; }
+
+function uploadImage(ri, ii) {
+  const widget = cloudinary.createUploadWidget(
+    { cloudName: CLOUD, uploadPreset: PRESET, sources: ['local', 'url'], multiple: false },
+    (err, result) => {
+      if (!err && result.event === 'success') {
+        editRows[ri].images[ii].url = result.info.secure_url;
+        renderRows();
+      }
+    }
+  );
+  widget.open();
+}
+
+// ---- SAVE ----
+async function saveProject() {
+  const slug = document.getElementById('e-slug').value.trim();
+  const title = document.getElementById('e-title').value.trim();
+  const year = document.getElementById('e-year').value.trim();
+  if (!slug || !title) { showStatus('Заполните slug и название', true); return; }
+
+  const desc = [document.getElementById('e-desc1').value.trim(), document.getElementById('e-desc2').value.trim()].filter(Boolean);
+
+  const project = {
+    slug, title, year, tags: editTags,
+    thumbnail: thumbUrl,
+    thumbnailDark: document.getElementById('e-thumb-dark').checked,
+    desc, rows: editRows
+  };
+
+  if (editIdx === -1) {
+    projects.push(project);
+  } else {
+    projects[editIdx] = project;
+  }
+
+  await saveToGitHub();
+}
+
+async function deleteProject(i) {
+  if (!confirm(`Удалить проект «${projects[i].title}»?`)) return;
+  projects.splice(i, 1);
+  await saveToGitHub();
+}
+
+async function saveToGitHub() {
+  showStatus('Сохраняем...');
+  try {
+    // Get current SHA
+    const metaR = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
+      headers: { Authorization: `token ${githubToken}` }
+    });
+    const meta = await metaR.json();
+    const sha = meta.sha;
+
+    // Update file
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(projects, null, 2))));
+    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`, {
+      method: 'PUT',
+      headers: { Authorization: `token ${githubToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: `Update projects: ${new Date().toISOString()}`, content, sha })
+    });
+
+    if (!r.ok) throw new Error(await r.text());
+
+    showStatus('Сохранено! Сайт обновится через ~1 минуту');
+    closeEditor();
+    renderList();
+  } catch(e) {
+    showStatus('Ошибка: ' + e.message, true);
+    console.error(e);
+  }
+}
+
+function showStatus(msg, isError) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = 'status visible' + (isError ? ' error' : '');
+  setTimeout(() => el.className = 'status', isError ? 5000 : 3000);
+}
+</script>
+
+</body>
+</html>

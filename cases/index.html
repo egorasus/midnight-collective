@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кейс — Midnight Collective</title>
+<style>
+@font-face { font-family: 'Inter'; font-weight: 300; src: url('../fonts/inter-300.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 400; src: url('../fonts/inter-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 500; src: url('../fonts/inter-500.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 600; src: url('../fonts/inter-600.woff2') format('woff2'); }
+@font-face { font-family: 'Roboto Mono'; font-weight: 400; src: url('../fonts/roboto-mono-400.woff2') format('woff2'); }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #fff; color: #000; }
+
+nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; }
+.logo { font-size: 24px; font-weight: 500; letter-spacing: -0.06em; text-decoration: none; color: #000; }
+.nav-links { display: flex; gap: 56px; }
+.nav-links a { font-size: 32px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; }
+.nav-links a:hover { text-decoration: underline; }
+
+.case-top { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; padding: 78px 48px 62px; }
+.case-desc { font-size: 12px; line-height: 1.4; color: #333; max-width: 280px; }
+.case-desc p + p { margin-top: 16px; }
+
+.case-meta-bar { display: flex; align-items: center; gap: 12px; padding: 0 48px 20px; font-size: 12px; font-weight: 500; letter-spacing: -0.03em; }
+.case-meta-tags { color: #aaa; }
+
+.case-grid { padding: 0 48px; display: flex; flex-direction: column; gap: 16px; }
+.grid-row { display: grid; gap: 16px; width: 100%; }
+.grid-row.c3 { grid-template-columns: 1fr 1fr 1fr; }
+.grid-row.c2 { grid-template-columns: 1fr 1fr; }
+.grid-row.c2-ratio { grid-template-columns: 1.6fr 1fr; }
+.grid-row.c1 { grid-template-columns: 1fr; }
+.ci { border-radius: 6px; overflow: hidden; width: 100%; background: #e0e0e0; }
+.ci img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ci.portrait { aspect-ratio: 2/3; }
+.ci.landscape { aspect-ratio: 16/9; }
+.ci.square { aspect-ratio: 1/1; }
+.ci.fixed-h { height: 480px; }
+
+.nav-between { display: flex; justify-content: space-between; align-items: flex-end; padding: 80px 48px; margin-top: 64px; }
+.nav-prev, .nav-next { font-size: clamp(36px, 5vw, 72px); font-weight: 700; color: #d0d0d0; text-decoration: none; letter-spacing: -0.04em; line-height: 1; }
+.nav-prev:hover, .nav-next:hover { color: #aaa; }
+
+footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
+.footer-phone, .footer-email { font-size: 44px; font-weight: 500; letter-spacing: -0.06em; line-height: 1.1; color: #000; }
+.footer-contacts { padding: 0 0 48px; }
+.footer-wm { font-weight: 600; letter-spacing: -0.06em; color: #ebebeb; line-height: 1; white-space: nowrap; display: block; font-size: 11.35vw; padding-bottom: 0.1em; }
+.footer-btm { display: flex; gap: 32px; padding: 48px 0 32px; }
+.footer-btm a { font-size: 12px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; }
+.footer-btm a:hover { text-decoration: underline; }
+
+.loading { padding: 200px 48px; font-size: 24px; color: #aaa; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../" class="logo">Midnight Collective</a>
+  <div class="nav-links">
+    <a href="../#cases">Работы</a>
+    <a href="../#form">Заказать проект</a>
+  </div>
+</nav>
+
+<div id="content"><div class="loading">Загрузка...</div></div>
+
+<footer>
+  <div class="footer-contacts">
+    <div class="footer-phone">+7 (912) 000 0000</div>
+    <div class="footer-email">midnightcollective@gmail.com</div>
+  </div>
+  <div class="footer-wm">Midnight Collective</div>
+  <div class="footer-btm">
+    <a href="#">Пользовательское соглашение</a>
+    <a href="#">Политика конфиденциальности</a>
+  </div>
+</footer>
+
+<script>
+const RATIO_CLASS = { portrait: 'portrait', landscape: 'landscape', square: 'square', 'fixed-h': 'fixed-h' };
+
+function renderRow(row) {
+  const imgs = row.images.map(img => `
+    <div class="ci ${RATIO_CLASS[img.ratio] || 'portrait'}">
+      ${img.url ? `<img src="${img.url}" alt="">` : ''}
+    </div>
+  `).join('');
+  return `<div class="grid-row ${row.type}">${imgs}</div>`;
+}
+
+async function load() {
+  const slug = new URLSearchParams(location.search).get('slug');
+  if (!slug) { document.getElementById('content').innerHTML = '<div class="loading">Кейс не найден</div>'; return; }
+
+  try {
+    const r = await fetch('../data/projects.json');
+    const projects = await r.json();
+    const idx = projects.findIndex(p => p.slug === slug);
+    if (idx === -1) { document.getElementById('content').innerHTML = '<div class="loading">Кейс не найден</div>'; return; }
+
+    const p = projects[idx];
+    document.title = `${p.title} — Midnight Collective`;
+
+    const prev = idx > 0 ? projects[idx - 1] : null;
+    const next = idx < projects.length - 1 ? projects[idx + 1] : null;
+
+    document.getElementById('content').innerHTML = `
+      <div class="case-top">
+        <div class="case-desc">
+          ${p.desc.map(d => `<p>${d}</p>`).join('')}
+        </div>
+        <div></div>
+      </div>
+
+      <div class="case-meta-bar">
+        <span>${p.title}</span>
+        <span class="case-meta-tags">${p.tags.join(' &nbsp; ')} &nbsp; ${p.year}</span>
+      </div>
+
+      <div class="case-grid">
+        ${(p.rows || []).map(renderRow).join('')}
+      </div>
+
+      <div class="nav-between">
+        ${prev ? `<a href="?slug=${prev.slug}" class="nav-prev">Предыдущий</a>` : '<span></span>'}
+        ${next ? `<a href="?slug=${next.slug}" class="nav-next">Следующий</a>` : '<span></span>'}
+      </div>
+    `;
+  } catch(e) {
+    document.getElementById('content').innerHTML = '<div class="loading">Ошибка загрузки</div>';
+    console.error(e);
+  }
+}
+
+load();
+</script>
+
+</body>
+</html>

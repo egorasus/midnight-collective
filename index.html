@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midnight Collective</title>
+<style>
+@font-face { font-family: 'Inter'; font-weight: 300; src: url('./fonts/inter-300.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 400; src: url('./fonts/inter-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 500; src: url('./fonts/inter-500.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 600; src: url('./fonts/inter-600.woff2') format('woff2'); }
+@font-face { font-family: 'Roboto Mono'; font-weight: 400; src: url('./fonts/roboto-mono-400.woff2') format('woff2'); }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #fff; color: #000; }
+
+nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; }
+.logo { font-size: 24px; font-weight: 500; letter-spacing: -0.06em; text-decoration: none; color: #000; }
+.nav-links { display: flex; gap: 56px; }
+.nav-links a { font-size: 32px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; }
+.nav-links a:hover { text-decoration: underline; }
+
+.hero-video { margin: 0 48px; height: calc(100vh - 130px); background: #000; border-radius: 6px; overflow: hidden; position: relative; }
+.hero-video video { width: 100%; height: 100%; object-fit: cover; }
+
+.description { padding: 48px 48px 72px; }
+.description p { font-size: 48px; font-weight: 500; line-height: 1.15; letter-spacing: -0.06em; }
+
+.sec-head { font-size: 120px; font-weight: 300; letter-spacing: -0.06em; line-height: 0.92; padding: 0 48px; }
+.sec-head sup { font-size: 16px; font-weight: 400; vertical-align: baseline; position: relative; top: -3.8em; letter-spacing: 0; margin-left: 12px; }
+.divider { border: none; border-top: 1px solid #000; margin: 18px 48px 0; }
+
+.cases { padding: 0 48px; }
+.case-row { display: grid; grid-template-columns: 30% 1fr; gap: 24px; padding: 36px 0; border-bottom: 1px solid #ddd; align-items: start; position: relative; }
+.case-year { font-family: 'Roboto Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: -0.06em; text-transform: uppercase; padding-top: 6px; }
+.case-title { font-size: 32px; font-weight: 500; letter-spacing: -0.06em; margin-bottom: 12px; }
+.tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+.tag { font-family: 'Roboto Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; text-transform: uppercase; border: 1px solid #000; border-radius: 20px; padding: 4px 14px; }
+.case-thumb { height: 360px; background: #e4e4e4; border-radius: 4px; overflow: hidden; }
+.case-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.case-thumb.dark { background: #222; }
+.case-link { position: absolute; top: 36px; right: 0; font-size: 12px; font-weight: 400; letter-spacing: -0.03em; text-decoration: none; color: #000; white-space: nowrap; }
+.case-link:hover { text-decoration: underline; }
+
+.see-all { display: grid; grid-template-columns: 30% 1fr; gap: 24px; padding: 0 48px; }
+.see-all a { font-size: 32px; font-weight: 400; letter-spacing: -0.06em; color: #000; text-decoration: none; display: inline-block; padding: 36px 0; }
+.see-all a:hover { text-decoration: underline; }
+
+.services { padding: 120px 48px 240px; display: grid; grid-template-columns: 30% 1fr; gap: 24px; }
+.svc-label { font-family: 'Roboto Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: -0.06em; text-transform: uppercase; padding-top: 6px; color: #000; }
+.svc-list p { font-size: 50px; font-weight: 500; line-height: 1.0; letter-spacing: -0.06em; }
+
+.team { padding: 0 48px 72px; }
+.team-grid { display: grid; grid-template-columns: 328px 40px 328px 1fr; margin-top: 220px; align-items: stretch; }
+.team-photo { width: 328px; height: 420px; background: #c0c0c0; border-radius: 4px; margin-bottom: 10px; overflow: hidden; }
+.team-photo img { width: 100%; height: 100%; object-fit: cover; }
+.team-photo.p2 { background: #a8a8a8; }
+.team-name { font-size: 22px; font-weight: 400; letter-spacing: -0.06em; margin-top: 10px; }
+.team-role { font-family: 'Roboto Mono', monospace; font-size: 8px; font-weight: 400; text-transform: uppercase; letter-spacing: -0.02em; color: #666; margin-top: 3px; }
+.team-right { display: flex; flex-direction: column; justify-content: space-between; align-self: stretch; margin: 0 auto; width: 280px; }
+.team-bio { font-size: 12px; font-weight: 400; line-height: 1.4; color: #333; max-width: 280px; }
+.clients-lbl { font-size: 12px; font-weight: 400; letter-spacing: -0.06em; color: #000; margin-bottom: 6px; }
+.clients-list { font-family: 'Roboto Mono', monospace; font-size: 8px; font-weight: 400; line-height: 1.7; letter-spacing: -0.02em; color: #666; text-transform: uppercase; }
+.team-clients { margin-top: auto; }
+
+.process { padding: 20px 48px 480px; }
+.proc-grid { display: grid; grid-template-columns: 30% 1fr 1fr; gap: 32px; margin-top: 180px; }
+.proc-label { font-family: 'Roboto Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: -0.06em; text-transform: uppercase; color: #000; padding-top: 4px; }
+.proc-step { display: flex; align-items: baseline; gap: 8px; cursor: pointer; transition: color .15s; line-height: 1.1; }
+.proc-step.on { color: #000; }
+.proc-step:not(.on) { color: #ccc; }
+.proc-num { font-size: 20px; font-weight: 400; letter-spacing: -0.06em; position: relative; top: -0.55em; }
+.proc-name { font-size: 50px; font-weight: 500; letter-spacing: -0.06em; line-height: 1.1; }
+.proc-desc { font-size: 12px; font-weight: 400; line-height: 1.4; color: #333; max-width: 280px; }
+
+.form-sec { padding: 20px 48px 80px; }
+.mc-form { margin-top: 120px; margin-left: calc(30% + 48px); margin-right: 96px; }
+.fld { width: 100%; border: none; border-bottom: 1px solid #000; padding: 28px 0; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 500; letter-spacing: -0.02em; background: none; color: #000; display: block; outline: none; }
+.fld::placeholder { color: #000; font-weight: 500; }
+.sel-wrap { position: relative; border-bottom: 1px solid #000; display: flex; align-items: center; }
+.sel-wrap select { flex: 1; padding: 28px 0; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 500; letter-spacing: -0.02em; background: none; border: none; outline: none; color: #000; appearance: none; cursor: pointer; }
+.sel-wrap::after { content: '⌄'; font-size: 20px; pointer-events: none; }
+.chk-row { display: flex; align-items: center; gap: 12px; padding: 60px 0 28px; }
+.chk-box { width: 18px; height: 18px; border: 1px solid #000; cursor: pointer; flex-shrink: 0; appearance: none; }
+.chk-box:checked { background: #000; }
+.chk-lbl { font-family: 'Roboto Mono', monospace; font-size: 16px; font-weight: 500; text-transform: uppercase; }
+.chk-lbl u { cursor: pointer; }
+.submit-btn { background: #000; color: #fff; border: none; padding: 20px 40px; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 500; letter-spacing: -0.02em; cursor: pointer; display: block; margin-top: 56px; }
+.submit-btn:hover { background: #222; }
+
+footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
+.footer-phone, .footer-email { font-size: 44px; font-weight: 500; letter-spacing: -0.06em; line-height: 1.1; color: #000; }
+.footer-contacts { padding: 0 0 48px; }
+.footer-wm { font-weight: 600; letter-spacing: -0.06em; color: #ebebeb; line-height: 1; white-space: nowrap; display: block; font-size: 11.35vw; padding-bottom: 0.1em; }
+.footer-btm { display: flex; gap: 32px; padding: 48px 0 32px; }
+.footer-btm a { font-size: 12px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; }
+.footer-btm a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Midnight Collective</a>
+  <div class="nav-links">
+    <a href="#cases">Работы</a>
+    <a href="#form">Заказать проект</a>
+  </div>
+</nav>
+
+<div class="hero-video" id="hero">
+  <!-- Сюда вставится видео если есть -->
+</div>
+
+<div class="description">
+  <p>Midnight Collective — студия двух упоротых, которые делают дизайн, фирменный стиль, 3D и моушен. Если срочно — уже поздно. Если не срочно — скорее всего тоже.</p>
+</div>
+
+<h2 class="sec-head" id="cases">Кейсы<sup>(1)</sup></h2>
+<hr class="divider">
+
+<div class="cases" id="cases-list">
+  <!-- Загружается из projects.json -->
+</div>
+
+<div class="see-all"><div></div><a href="#cases">Смотреть все кейсы</a></div>
+
+<div class="services">
+  <div class="svc-label">Услуги</div>
+  <div class="svc-list">
+    <p>Сайт</p>
+    <p>Фирменный стиль</p>
+    <p>Motion</p>
+    <p>3D</p>
+    <p>Монтаж</p>
+    <p>Рилсы</p>
+  </div>
+</div>
+
+<h2 class="sec-head" style="padding-left: calc(48px + 30%); text-align: left;">Кто мы?<sup>(2)</sup></h2>
+
+<div class="team">
+  <div class="team-grid">
+    <div>
+      <div class="team-photo" id="photo-elisey"></div>
+      <div class="team-name">Елисей Лебедев</div>
+      <div class="team-role">Арт-директор</div>
+    </div>
+    <div></div>
+    <div>
+      <div class="team-photo p2" id="photo-egor"></div>
+      <div class="team-name">Егор Куракин</div>
+      <div class="team-role">Аналитик, Влиятель</div>
+    </div>
+    <div class="team-right">
+      <p class="team-bio">Как и было написано ранее, эти двое — два огромных ельдака в мире дизайна, которые вот уже более 7 лет трахают бизнесы в попку и награждают их визуальными кримпаями.</p>
+      <div class="team-clients">
+        <div class="clients-lbl">Наши клиенты</div>
+        <div class="clients-list">El Copitas Bar<br>Sergey Nasonov<br>И т.д.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 class="sec-head" style="padding-left: calc(48px + 30%); text-align: left; margin-top: 330px;">Процесс<br>работы<sup>(3)</sup></h2>
+
+<div class="process">
+  <div class="proc-grid">
+    <div class="proc-label">Процесс работы</div>
+    <div id="steps">
+      <div class="proc-step on" data-i="0"><span class="proc-num">(1)</span><span class="proc-name">Созвон</span></div>
+      <div class="proc-step" data-i="1"><span class="proc-num">(2)</span><span class="proc-name">Договор</span></div>
+      <div class="proc-step" data-i="2"><span class="proc-num">(3)</span><span class="proc-name">Оплата</span></div>
+      <div class="proc-step" data-i="3"><span class="proc-num">(4)</span><span class="proc-name">Мудборды</span></div>
+      <div class="proc-step" data-i="4"><span class="proc-num">(5)</span><span class="proc-name">Работа</span></div>
+      <div class="proc-step" data-i="5"><span class="proc-num">(6)</span><span class="proc-name">Оплата</span></div>
+      <div class="proc-step" data-i="6"><span class="proc-num">(7)</span><span class="proc-name">Сдача материала</span></div>
+    </div>
+    <div class="proc-desc" id="pdesc">Сначала созваниваемся — обсуждаем задачу, смотрим референсы, задаём неудобные вопросы. После разговора у нас есть всё, чтобы не облажаться.</div>
+  </div>
+</div>
+
+<h2 class="sec-head" style="padding-left: calc(48px + 30%); text-align: left;" id="form">Заявка<sup>(4)</sup></h2>
+
+<div class="form-sec">
+  <div class="mc-form">
+    <input class="fld" type="text" id="f-name" placeholder="Как вас зовут?">
+    <input class="fld" type="tel" id="f-phone" placeholder="+7 (999) 999 99 99">
+    <div class="sel-wrap">
+      <select id="f-service">
+        <option value="" disabled selected>Выберите услугу</option>
+        <option>Сайт</option>
+        <option>Фирменный стиль</option>
+        <option>Motion</option>
+        <option>3D</option>
+        <option>Монтаж</option>
+        <option>Рилсы</option>
+      </select>
+    </div>
+    <input class="fld" type="text" id="f-budget" placeholder="Бюджет">
+    <input class="fld" type="text" id="f-info" placeholder="Дополнительная информация">
+    <div class="chk-row">
+      <input type="checkbox" class="chk-box" id="f-agree">
+      <label class="chk-lbl" for="f-agree">Я согласен с <u>политикой конфиденциальности</u></label>
+    </div>
+    <button class="submit-btn" onclick="submitForm()">Оставить заявку</button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-contacts">
+    <div class="footer-phone">+7 (912) 000 0000</div>
+    <div class="footer-email">midnightcollective@gmail.com</div>
+  </div>
+  <div class="footer-wm">Midnight Collective</div>
+  <div class="footer-btm">
+    <a href="#">Пользовательское соглашение</a>
+    <a href="#">Политика конфиденциальности</a>
+  </div>
+</footer>
+
+<script>
+const descs = [
+  'Сначала созваниваемся — обсуждаем задачу, смотрим референсы, задаём неудобные вопросы. После разговора у нас есть всё, чтобы не облажаться.',
+  'Фиксируем договорённости на бумаге. Прописываем объём, сроки и стоимость. Без договора не работаем — это защищает обоих.',
+  'Берём предоплату 50% до старта. Так мы знаем, что вы серьёзны, а вы знаете, что мы не испаримся.',
+  'Собираем мудборды и согласовываем визуальное направление — до того, как начнём что-то рисовать.',
+  'Работаем по согласованному направлению. Показываем промежуточные результаты, собираем правки, итерируем.',
+  'Берём финальную оплату 50%. Проект готов — осталось передать файлы.',
+  'Отдаём все исходники, файлы и доступы. Проект закрыт, все довольны — или почти.'
+];
+
+document.querySelectorAll('.proc-step').forEach(s => {
+  s.addEventListener('click', () => {
+    document.querySelectorAll('.proc-step').forEach(x => x.classList.remove('on'));
+    s.classList.add('on');
+    document.getElementById('pdesc').textContent = descs[+s.dataset.i];
+  });
+});
+
+// Load projects
+async function loadProjects() {
+  try {
+    const r = await fetch('./data/projects.json');
+    const projects = await r.json();
+    const list = document.getElementById('cases-list');
+    list.innerHTML = projects.map(p => `
+      <div class="case-row">
+        <span class="case-year">${p.year}</span>
+        <div>
+          <div class="case-title">${p.title}</div>
+          <div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+          <div class="case-thumb${p.thumbnailDark ? ' dark' : ''}">
+            ${p.thumbnail ? `<img src="${p.thumbnail}" alt="${p.title}">` : ''}
+          </div>
+        </div>
+        <a href="./cases/?slug=${p.slug}" class="case-link">Смотреть кейс</a>
+      </div>
+    `).join('');
+  } catch(e) { console.error(e); }
+}
+loadProjects();
+
+function submitForm() {
+  const agree = document.getElementById('f-agree').checked;
+  if (!agree) { alert('Пожалуйста, согласитесь с политикой конфиденциальности'); return; }
+  alert('Заявка отправлена! Мы свяжемся с вами скоро.');
+}
+</script>
+
+</body>
+</html>
