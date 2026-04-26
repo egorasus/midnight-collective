@@ -296,7 +296,7 @@ function uploadThumbnail() {
     { cloudName: CLOUD, uploadPreset: PRESET, sources: ['local', 'url'], multiple: false },
     (err, result) => {
       if (!err && result.event === 'success') {
-        thumbUrl = result.info.secure_url;
+        thumbUrl = result["info"]["secure_url"];
         document.getElementById('thumb-area').innerHTML = `<img src="${thumbUrl}" alt="">`;
       }
     }
@@ -372,7 +372,7 @@ function uploadImage(ri, ii) {
     { cloudName: CLOUD, uploadPreset: PRESET, sources: ['local', 'url'], multiple: false },
     (err, result) => {
       if (!err && result.event === 'success') {
-        editRows[ri].images[ii].url = result.info.secure_url;
+        editRows[ri].images[ii].url = result["info"]["secure_url"];
         renderRows();
       }
     }
