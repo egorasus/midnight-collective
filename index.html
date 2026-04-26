@@ -415,10 +415,40 @@ async function loadSettings() {
 loadSettings();
 
 
-function submitForm() {
+async function submitForm() {
   const agree = document.getElementById('f-agree').checked;
   if (!agree) { alert('Пожалуйста, согласитесь с политикой конфиденциальности'); return; }
-  alert('Заявка отправлена! Мы свяжемся с вами скоро.');
+  const name = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const service = document.getElementById('f-service').value;
+  const budget = document.getElementById('f-budget').value.trim();
+  const info = document.getElementById('f-info').value.trim();
+  if (!name || !phone) { alert('Пожалуйста, заполните имя и телефон'); return; }
+  const btn = document.querySelector('.submit-btn');
+  btn.textContent = 'Отправляем...';
+  btn.disabled = true;
+  try {
+    const res = await fetch('https://formspree.io/f/mojybgrz', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name, phone, service, budget, info })
+    });
+    if (res.ok) {
+      btn.textContent = 'Заявка отправлена!';
+      document.getElementById('f-name').value = '';
+      document.getElementById('f-phone').value = '';
+      document.getElementById('f-service').value = '';
+      document.getElementById('f-budget').value = '';
+      document.getElementById('f-info').value = '';
+      document.getElementById('f-agree').checked = false;
+    } else {
+      throw new Error();
+    }
+  } catch(e) {
+    btn.textContent = 'Оставить заявку';
+    btn.disabled = false;
+    alert('Ошибка отправки. Попробуйте ещё раз.');
+  }
 }
 </script>
 
