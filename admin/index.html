@@ -181,6 +181,11 @@ const FILE_PATH = 'data/projects.json';
 const ADMIN_PASSWORD = 'mc2024admin';
 
 let githubToken = localStorage.getItem('mc_token') || '';
+function logout() {
+  localStorage.removeItem('mc_token');
+  localStorage.removeItem('mc_auth');
+  location.reload();
+}
 // Автологин если токен есть
 window.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('mc_auth') === '1' && githubToken) {
