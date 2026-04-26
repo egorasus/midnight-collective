@@ -41,8 +41,8 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .ci.fixed-h { height: 480px; }
 
 .nav-between { display: flex; justify-content: space-between; align-items: flex-end; padding: 80px 48px; margin-top: 64px; }
-.nav-prev, .nav-next { font-size: clamp(36px, 5vw, 72px); font-weight: 700; color: #888; text-decoration: none; letter-spacing: -0.04em; line-height: 1; }
-.nav-prev:hover, .nav-next:hover { color: #444; }
+.nav-prev, .nav-next { font-size: clamp(36px, 5vw, 72px); font-weight: 700; color: #ebebeb; text-decoration: none; letter-spacing: -0.04em; line-height: 1; }
+.nav-prev:hover, .nav-next:hover { color: #bbb; }
 
 footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
 .footer-phone, .footer-email { font-size: 44px; font-weight: 500; letter-spacing: -0.06em; line-height: 1.1; color: #000; }
@@ -154,8 +154,8 @@ async function load() {
     const p = projects[idx];
     document.title = `${p.title} — Midnight Collective`;
 
-    const prev = idx > 0 ? projects[idx - 1] : null;
-    const next = idx < projects.length - 1 ? projects[idx + 1] : null;
+    const prev = projects[(idx - 1 + projects.length) % projects.length];
+    const next = projects[(idx + 1) % projects.length];
 
     document.getElementById('content').innerHTML = `
       <div class="case-top">
@@ -175,8 +175,8 @@ async function load() {
       </div>
 
       <div class="nav-between">
-        ${prev ? `<a href="?slug=${prev.slug}" class="nav-prev">Предыдущий</a>` : '<span></span>'}
-        ${next ? `<a href="?slug=${next.slug}" class="nav-next">Следующий</a>` : '<span></span>'}
+        <a href="?slug=${prev.slug}" class="nav-prev">Предыдущий</a>
+        <a href="?slug=${next.slug}" class="nav-next">Следующий</a>
       </div>
     `;
   } catch(e) {

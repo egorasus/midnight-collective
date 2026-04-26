@@ -37,5 +37,38 @@
         ]
       }
     ]
+  },
+  {
+    "slug": "wolrusnight",
+    "title": "Вечер хвалы",
+    "year": "2025",
+    "tags": [
+      "Фирменный стиль",
+      "3D",
+      "Моушен"
+    ],
+    "thumbnail": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777219256/sm3rnkqnfksfqzdg9y9a.png",
+    "thumbnailDark": false,
+    "desc": [],
+    "rows": [
+      {
+        "type": "c1",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777219287/ngjjcczjmh1rdintks6h.jpg",
+            "ratio": "portrait"
+          }
+        ]
+      },
+      {
+        "type": "c1",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777219327/aq34emn1fixtxcfjjhbd.jpg",
+            "ratio": "portrait"
+          }
+        ]
+      }
+    ]
   }
 ]
