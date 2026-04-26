@@ -163,7 +163,8 @@ footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
 .burger-menu { display: none; position: fixed; inset: 0; background: #fff; z-index: 1000; flex-direction: column; justify-content: center; align-items: flex-start; padding: 0 48px; }
 .burger-menu.open { display: flex; }
 .burger-nav-fixed { position: fixed; top: 0; left: 0; right: 0; padding: 20px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1001; background: #fff; }
-.burger-menu a { font-size: 56px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; line-height: 1.1; display: block; }
+.burger-nav-fixed .logo { font-size: 18px; }
+.burger-menu a { font-size: 36px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; line-height: 1.1; display: block; }
 .burger-menu a:hover { text-decoration: underline; }
 .burger-menu .burger-order { margin-bottom: 32px; }
 .burger-menu .burger-links { display: flex; flex-direction: column; gap: 4px; }
@@ -183,8 +184,8 @@ footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
     <a href="#form">Заказать проект</a>
   </div>
   <button class="burger" onclick="toggleBurger()" id="burger-btn" aria-label="Меню">
-    <span></span>
-    <span></span>
+    <span id="b1"></span>
+    <span id="b2"></span>
   </button>
 </nav>
 
@@ -192,10 +193,6 @@ footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
 <div class="burger-menu" id="burger-menu">
   <div class="burger-nav-fixed">
     <a href="/" class="logo">Midnight Collective</a>
-    <button class="burger" onclick="toggleBurger()" style="position:static">
-      <span style="transform:rotate(45deg) translate(5px,5px)"></span>
-      <span style="transform:rotate(-45deg) translate(5px,-5px)"></span>
-    </button>
   </div>
   <a href="#form" class="burger-order" onclick="toggleBurger()">Заказать проект</a>
   <div class="burger-links">
@@ -356,7 +353,17 @@ loadProjects();
 function toggleBurger() {
   const menu = document.getElementById('burger-menu');
   menu.classList.toggle('open');
-  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  const open = menu.classList.contains('open');
+  document.body.style.overflow = open ? 'hidden' : '';
+  const b1 = document.getElementById('b1');
+  const b2 = document.getElementById('b2');
+  if (open) {
+    b1.style.transform = 'rotate(45deg) translate(5px, 5px)';
+    b2.style.transform = 'rotate(-45deg) translate(5px, -5px)';
+  } else {
+    b1.style.transform = '';
+    b2.style.transform = '';
+  }
 }
 
 function updateClock() {
