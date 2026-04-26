@@ -23,7 +23,7 @@ body { font-family: 'Inter', sans-serif; background: #f5f5f5; color: #000; min-h
 #app { display: none; }
 .admin-nav { background: #000; color: #fff; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; }
 .admin-nav h1 { font-size: 16px; font-weight: 500; letter-spacing: -0.04em; }
-.admin-nav a { color: #888; font-size: 12px; text-decoration: none; }
+.admin-nav a { color: #fff; font-size: 12px; text-decoration: none; }
 .admin-nav a:hover { color: #fff; }
 
 .main { max-width: 1100px; margin: 0 auto; padding: 32px; }
@@ -180,7 +180,15 @@ const REPO = 'egorasus/midnight-collective';
 const FILE_PATH = 'data/projects.json';
 const ADMIN_PASSWORD = 'mc2024admin';
 
-let githubToken = '';
+let githubToken = localStorage.getItem('mc_token') || '';
+// Автологин если токен есть
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('mc_auth') === '1' && githubToken) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadProjects();
+  }
+});
 let projects = [];
 let editIdx = -1;
 let editTags = [];
@@ -194,6 +202,8 @@ function doLogin() {
   if (pwd !== ADMIN_PASSWORD) { alert('Неверный пароль'); return; }
   if (!token) { alert('Введите GitHub Token'); return; }
   githubToken = token;
+  localStorage.setItem('mc_token', token);
+  localStorage.setItem('mc_auth', '1');
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
   loadProjects();
