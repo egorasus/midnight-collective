@@ -80,6 +80,7 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .mc-form { margin-top: 120px; margin-left: calc(30% + 48px); margin-right: 96px; }
 .fld { width: 100%; border: none; border-bottom: 1px solid #000; padding: 28px 0; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 500; letter-spacing: -0.02em; background: none; color: #000; display: block; outline: none; }
 .fld::placeholder { color: #000; font-weight: 500; }
+.fld:focus::placeholder { color: transparent; }
 .sel-wrap { position: relative; border-bottom: 1px solid #000; display: flex; align-items: center; }
 .sel-wrap select { flex: 1; padding: 28px 0; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 500; letter-spacing: -0.02em; background: none; border: none; outline: none; color: #000; appearance: none; cursor: pointer; }
 .sel-wrap::after { content: '⌄'; font-size: 20px; pointer-events: none; }
