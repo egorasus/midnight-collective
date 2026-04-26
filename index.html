@@ -113,7 +113,7 @@ footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
 </div>
 
 <div class="description">
-  <p>Midnight Collective — студия двух упоротых, которые делают дизайн, фирменный стиль, 3D и моушен. Если срочно — уже поздно. Если не срочно — скорее всего тоже.</p>
+  <p id="site-description">Midnight Collective — студия двух упоротых, которые делают дизайн, фирменный стиль, 3D и моушен. Если срочно — уже поздно. Если не срочно — скорее всего тоже.</p>
 </div>
 
 <h2 class="sec-head" id="cases">Кейсы<sup>(1)</sup></h2>
@@ -127,14 +127,7 @@ footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
 
 <div class="services">
   <div class="svc-label">Услуги</div>
-  <div class="svc-list">
-    <p>Сайт</p>
-    <p>Фирменный стиль</p>
-    <p>Motion</p>
-    <p>3D</p>
-    <p>Монтаж</p>
-    <p>Рилсы</p>
-  </div>
+  <div class="svc-list" id="site-services"><p>Сайт</p><p>Фирменный стиль</p><p>Motion</p><p>3D</p><p>Монтаж</p><p>Рилсы</p></div>
 </div>
 
 <h2 class="sec-head" style="padding-left: calc(48px + 30%); text-align: left;">Кто мы?<sup>(2)</sup></h2>
@@ -143,20 +136,20 @@ footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
   <div class="team-grid">
     <div>
       <div class="team-photo" id="photo-elisey"><img src="/el.png" alt="Елисей Лебедев"></div>
-      <div class="team-name">Елисей Лебедев</div>
-      <div class="team-role">Арт-директор</div>
+      <div class="team-name" id="site-name1">Елисей Лебедев</div>
+      <div class="team-role" id="site-role1">Арт-директор</div>
     </div>
     <div></div>
     <div>
       <div class="team-photo p2" id="photo-egor"><img src="/e.png" alt="Егор Куракин"></div>
-      <div class="team-name">Егор Куракин</div>
-      <div class="team-role">Аналитик, Влиятель</div>
+      <div class="team-name" id="site-name2">Егор Куракин</div>
+      <div class="team-role" id="site-role2">Аналитик, Влиятель</div>
     </div>
     <div class="team-right">
-      <p class="team-bio">Как и было написано ранее, эти двое — два огромных ельдака в мире дизайна, которые вот уже более 7 лет трахают бизнесы в попку и награждают их визуальными кримпаями.</p>
+      <p class="team-bio" id="site-bio">Как и было написано ранее, эти двое — два огромных ельдака в мире дизайна, которые вот уже более 7 лет трахают бизнесы в попку и награждают их визуальными кримпаями.</p>
       <div class="team-clients">
         <div class="clients-lbl">Наши клиенты</div>
-        <div class="clients-list">El Copitas Bar<br>Sergey Nasonov<br>И т.д.</div>
+        <div class="clients-list" id="site-clients">El Copitas Bar<br>Sergey Nasonov<br>И т.д.</div>
       </div>
     </div>
   </div>
@@ -260,6 +253,35 @@ async function loadProjects() {
   } catch(e) { console.error(e); }
 }
 loadProjects();
+
+async function loadSettings() {
+  try {
+    const r = await fetch('https://raw.githubusercontent.com/egorasus/midnight-collective/main/data/settings.json?t=' + Date.now());
+    const s = await r.json();
+    if (s.description) document.getElementById('site-description').textContent = s.description;
+    if (s.services) document.getElementById('site-services').innerHTML = s.services.map(sv => `<p>${sv}</p>`).join('');
+    if (s.team) {
+      if (s.team[0]) { document.getElementById('site-name1').textContent = s.team[0].name; document.getElementById('site-role1').textContent = s.team[0].role; }
+      if (s.team[1]) { document.getElementById('site-name2').textContent = s.team[1].name; document.getElementById('site-role2').textContent = s.team[1].role; }
+    }
+    if (s.bio) document.getElementById('site-bio').textContent = s.bio;
+    if (s.clients) document.getElementById('site-clients').innerHTML = s.clients.split('\n').join('<br>');
+    if (s.steps) {
+      document.getElementById('steps').innerHTML = s.steps.map((st, i) => `<div class="proc-step${i===0?' on':''}" data-i="${i}"><span class="proc-num">(${i+1})</span><span class="proc-name">${st.name}</span></div>`).join('');
+      const descs = s.steps.map(st => st.desc);
+      document.getElementById('pdesc').textContent = descs[0] || '';
+      document.querySelectorAll('.proc-step').forEach(s => {
+        s.addEventListener('click', () => {
+          document.querySelectorAll('.proc-step').forEach(x => x.classList.remove('on'));
+          s.classList.add('on');
+          document.getElementById('pdesc').textContent = descs[+s.dataset.i];
+        });
+      });
+    }
+  } catch(e) { console.error('settings error', e); }
+}
+loadSettings();
+
 
 function submitForm() {
   const agree = document.getElementById('f-agree').checked;
