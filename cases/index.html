@@ -28,17 +28,13 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .case-meta-tags { color: #aaa; }
 
 .case-grid { padding: 0 48px; display: flex; flex-direction: column; gap: 16px; }
-.grid-row { display: grid; gap: 16px; width: 100%; }
+.grid-row { display: grid; gap: 16px; width: 100%; max-height: 85vh; }
 .grid-row.c3 { grid-template-columns: 1fr 1fr 1fr; }
 .grid-row.c2 { grid-template-columns: 1fr 1fr; }
 .grid-row.c2-ratio { grid-template-columns: 1.6fr 1fr; }
-.grid-row.c1 { grid-template-columns: 1fr; }
-.ci { border-radius: 6px; overflow: hidden; width: 100%; background: #e0e0e0; }
-.ci img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.ci.portrait { aspect-ratio: 2/3; }
-.ci.landscape { aspect-ratio: 16/9; }
-.ci.square { aspect-ratio: 1/1; }
-.ci.fixed-h { height: 480px; }
+.grid-row.c1 { grid-template-columns: 1fr; max-height: 120vh; }
+.ci { border-radius: 6px; overflow: hidden; width: 100%; height: 100%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; }
+.ci img, .ci video { width: 100%; height: 100%; object-fit: contain; display: block; }
 
 .nav-between { display: flex; justify-content: space-between; align-items: flex-end; padding: 80px 48px; margin-top: 64px; }
 .nav-prev, .nav-next { font-size: clamp(36px, 5vw, 72px); font-weight: 700; color: #ebebeb; text-decoration: none; letter-spacing: -0.04em; line-height: 1; }
@@ -130,15 +126,22 @@ footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
 </footer>
 
 <script>
-const RATIO_CLASS = { portrait: 'portrait', landscape: 'landscape', square: 'square', 'fixed-h': 'fixed-h' };
+function renderMedia(img) {
+  if (!img.url) return '';
+  const url = img.url.toLowerCase();
+  if (url.includes('.mp4') || url.includes('.webm') || url.includes('video')) {
+    return `<video src="${img.url}" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:contain;display:block;"></video>`;
+  }
+  return `<img src="${img.url}" alt="" loading="lazy">`;
+}
 
 function renderRow(row) {
-  const imgs = row.images.map(img => `
-    <div class="ci ${RATIO_CLASS[img.ratio] || 'portrait'}">
-      ${img.url ? `<img src="${img.url}" alt="">` : ''}
+  const items = row.images.map(img => `
+    <div class="ci">
+      ${renderMedia(img)}
     </div>
   `).join('');
-  return `<div class="grid-row ${row.type}">${imgs}</div>`;
+  return `<div class="grid-row ${row.type}">${items}</div>`;
 }
 
 async function load() {
