@@ -1,8 +1,0 @@
-meta:
-  environment: dockerfile
-  toolchain:
-    name: docker
-
-run:
-  containerPort: 80
-  persistentData: false
