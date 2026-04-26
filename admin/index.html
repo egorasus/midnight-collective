@@ -218,7 +218,7 @@ function doLogin() {
 // ---- LOAD ----
 async function loadProjects() {
   try {
-    const r = await fetch('../data/projects.json?t=' + Date.now());
+    const r = await fetch('https://raw.githubusercontent.com/egorasus/midnight-collective/main/data/projects.json?t=' + Date.now());
     projects = await r.json();
     renderList();
   } catch(e) { projects = []; renderList(); }
