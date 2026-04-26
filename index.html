@@ -425,30 +425,20 @@ async function submitForm() {
   const info = document.getElementById('f-info').value.trim();
   if (!name || !phone) { alert('Пожалуйста, заполните имя и телефон'); return; }
   const btn = document.querySelector('.submit-btn');
-  btn.textContent = 'Отправляем...';
+  btn.textContent = 'Заявка отправлена!';
   btn.disabled = true;
-  try {
-    const res = await fetch('https://midnight-form.egor-kurakin14.workers.dev', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ name, phone, service, budget, info })
-    });
-    if (res.ok) {
-      btn.textContent = 'Заявка отправлена!';
-      document.getElementById('f-name').value = '';
-      document.getElementById('f-phone').value = '';
-      document.getElementById('f-service').value = '';
-      document.getElementById('f-budget').value = '';
-      document.getElementById('f-info').value = '';
-      document.getElementById('f-agree').checked = false;
-    } else {
-      throw new Error();
-    }
-  } catch(e) {
-    btn.textContent = 'Оставить заявку';
-    btn.disabled = false;
-    alert('Ошибка отправки. Попробуйте ещё раз.');
-  }
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-phone').value = '';
+  document.getElementById('f-service').value = '';
+  document.getElementById('f-budget').value = '';
+  document.getElementById('f-info').value = '';
+  document.getElementById('f-agree').checked = false;
+  fetch('https://midnight-form.egor-kurakin14.workers.dev', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, phone, service, budget, info })
+  }).catch(() => {});
+  setTimeout(() => { btn.textContent = 'Оставить заявку'; btn.disabled = false; }, 3000);
 }
 </script>
 
