@@ -207,7 +207,7 @@ a { color: inherit; }
 </div>
 
 <div class="hero-video" id="hero">
-  <video autoplay muted loop playsinline style="transform:scale(1.06)"><source src="/hero.mp4" type="video/mp4"></video>
+  <video id="hero-video" autoplay muted loop playsinline style="transform:scale(1.06)"><source src="/hero.mp4" type="video/mp4"></video>
 </div>
 
 <div class="description">
@@ -351,6 +351,8 @@ async function loadProjects() {
   } catch(e) { console.error(e); }
 }
 loadProjects();
+const vid = document.getElementById('hero-video');
+if (vid) { vid.play().catch(() => {}); }
 
 function toggleBurger() {
   const menu = document.getElementById('burger-menu');
@@ -358,7 +360,9 @@ function toggleBurger() {
   const open = menu.classList.contains('open');
   document.body.style.overflow = open ? 'hidden' : '';
   const btn = document.getElementById('burger-btn');
-  btn.innerHTML = open ? '<span style="font-size:22px;line-height:1;font-weight:300">&#x2715;</span>' : '<span></span><span></span>';
+  btn.innerHTML = open 
+    ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="2" y1="2" x2="22" y2="22" stroke="black" stroke-width="2"/><line x1="22" y1="2" x2="2" y2="22" stroke="black" stroke-width="2"/></svg>'
+    : '<span></span><span></span>';
 }
 
 function updateClock() {
