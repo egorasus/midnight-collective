@@ -97,7 +97,7 @@ async function load() {
   if (!slug) { document.getElementById('content').innerHTML = '<div class="loading">Кейс не найден</div>'; return; }
 
   try {
-    const r = await fetch('../data/projects.json');
+    const r = await fetch('https://raw.githubusercontent.com/egorasus/midnight-collective/main/data/projects.json?t=' + Date.now());
     const projects = await r.json();
     const idx = projects.findIndex(p => p.slug === slug);
     if (idx === -1) { document.getElementById('content').innerHTML = '<div class="loading">Кейс не найден</div>'; return; }
