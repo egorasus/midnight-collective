@@ -250,7 +250,7 @@ async function loadProjects() {
         <div>
           <div class="case-title">${p.title}</div>
           <div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-          <div class="case-thumb${p.thumbnailDark ? ' dark' : ''}">
+          <div class="case-thumb${p.thumbnailDark ? ' dark' : ''}" href="./cases/?slug=${p.slug}" onclick="location.href=this.getAttribute('href');return false;" style="cursor:pointer;display:block;">
             ${p.thumbnail ? `<img src="${p.thumbnail}" alt="${p.title}">` : ''}
           </div>
         </div>
