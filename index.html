@@ -428,7 +428,7 @@ async function submitForm() {
   btn.textContent = 'Отправляем...';
   btn.disabled = true;
   try {
-    const res = await fetch('https://formspree.io/f/mojybgrz', {
+    const res = await fetch('https://midnight-form.egor-kurakin14.workers.dev', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({ name, phone, service, budget, info })
