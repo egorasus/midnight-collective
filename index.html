@@ -241,7 +241,7 @@ document.querySelectorAll('.proc-step').forEach(s => {
 // Load projects
 async function loadProjects() {
   try {
-    const r = await fetch('./data/projects.json');
+    const r = await fetch('https://raw.githubusercontent.com/egorasus/midnight-collective/main/data/projects.json?t=' + Date.now());
     const projects = await r.json();
     const list = document.getElementById('cases-list');
     list.innerHTML = projects.map(p => `
