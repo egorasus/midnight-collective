@@ -156,6 +156,22 @@ footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
   .footer-phone, .footer-email { font-size: 28px; }
   .footer-btm { gap: 16px; flex-wrap: wrap; padding: 32px 0 24px; }
 }
+
+/* Burger menu */
+.burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; background: none; border: none; padding: 4px; }
+.burger span { display: block; width: 24px; height: 2px; background: #000; transition: all 0.3s; }
+.burger-menu { display: none; position: fixed; inset: 0; background: #fff; z-index: 1000; flex-direction: column; justify-content: center; align-items: flex-start; padding: 0 48px; }
+.burger-menu.open { display: flex; }
+.burger-nav-fixed { position: fixed; top: 0; left: 0; right: 0; padding: 20px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1001; background: #fff; }
+.burger-menu a { font-size: 56px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; line-height: 1.1; display: block; }
+.burger-menu a:hover { text-decoration: underline; }
+.burger-menu .burger-order { margin-bottom: 32px; }
+.burger-menu .burger-links { display: flex; flex-direction: column; gap: 4px; }
+.burger-time { font-family: 'Roboto Mono', monospace; font-size: 10px; font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em; color: #666; margin-top: 40px; }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .burger { display: flex; }
+}
 </style>
 </head>
 <body>
@@ -166,7 +182,30 @@ footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
     <a href="#cases">Работы</a>
     <a href="#form">Заказать проект</a>
   </div>
+  <button class="burger" onclick="toggleBurger()" id="burger-btn" aria-label="Меню">
+    <span></span>
+    <span></span>
+  </button>
 </nav>
+
+<!-- Burger menu -->
+<div class="burger-menu" id="burger-menu">
+  <div class="burger-nav-fixed">
+    <a href="/" class="logo">Midnight Collective</a>
+    <button class="burger" onclick="toggleBurger()" style="position:static">
+      <span style="transform:rotate(45deg) translate(5px,5px)"></span>
+      <span style="transform:rotate(-45deg) translate(5px,-5px)"></span>
+    </button>
+  </div>
+  <a href="#form" class="burger-order" onclick="toggleBurger()">Заказать проект</a>
+  <div class="burger-links">
+    <a href="#cases" onclick="toggleBurger()">Кейсы</a>
+    <a href="#cases" onclick="toggleBurger()">Услуги</a>
+    <a href="#cases" onclick="toggleBurger()">Кто мы?</a>
+    <a href="#form" onclick="toggleBurger()">Процесс</a>
+  </div>
+  <div class="burger-time" id="burger-clock"></div>
+</div>
 
 <div class="hero-video" id="hero">
   <video autoplay muted loop playsinline style="transform:scale(1.06)"><source src="/hero.mp4" type="video/mp4"></video>
@@ -313,6 +352,25 @@ async function loadProjects() {
   } catch(e) { console.error(e); }
 }
 loadProjects();
+
+function toggleBurger() {
+  const menu = document.getElementById('burger-menu');
+  menu.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
+
+function updateClock() {
+  const now = new Date();
+  const msk = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Moscow' }));
+  const h = String(msk.getHours()).padStart(2, '0');
+  const m = String(msk.getMinutes()).padStart(2, '0');
+  const s = String(msk.getSeconds()).padStart(2, '0');
+  const el = document.getElementById('burger-clock');
+  if (el) el.textContent = h + ':' + m + ':' + s + ' МСК';
+}
+updateClock();
+setInterval(updateClock, 1000);
+
 
 async function loadSettings() {
   try {
