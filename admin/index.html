@@ -137,9 +137,27 @@ body { font-family: 'Inter', sans-serif; background: #f5f5f5; color: #000; min-h
         <div class="settings-field"><label>Описание студии</label><textarea id="s-description"></textarea></div>
         <div class="settings-field"><label>Телефон</label><input type="text" id="s-phone"></div>
         <div class="settings-field"><label>Email</label><input type="text" id="s-email"></div>
-        <div class="settings-field"><label>Биография команды</label><textarea id="s-bio"></textarea></div>
+        <hr style="border:none;border-top:1px solid #eee;margin:20px 0">
+        <div class="section-title" style="margin-bottom:12px">Услуги (каждая с новой строки)</div>
+        <div class="settings-field"><textarea id="s-services" style="min-height:120px"></textarea></div>
+        <hr style="border:none;border-top:1px solid #eee;margin:20px 0">
+        <div class="section-title" style="margin-bottom:12px">Кто мы</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+          <div>
+            <div class="settings-field"><label>Имя 1</label><input type="text" id="s-name1"></div>
+            <div class="settings-field"><label>Роль 1</label><input type="text" id="s-role1"></div>
+          </div>
+          <div>
+            <div class="settings-field"><label>Имя 2</label><input type="text" id="s-name2"></div>
+            <div class="settings-field"><label>Роль 2</label><input type="text" id="s-role2"></div>
+          </div>
+        </div>
+        <div class="settings-field"><label>Биография</label><textarea id="s-bio"></textarea></div>
         <div class="settings-field"><label>Клиенты (каждый с новой строки)</label><textarea id="s-clients"></textarea></div>
-        <button class="btn" onclick="saveSettings()">Сохранить настройки</button>
+        <hr style="border:none;border-top:1px solid #eee;margin:20px 0">
+        <div class="section-title" style="margin-bottom:12px">Процесс работы</div>
+        <div id="s-steps-list"></div>
+        <button class="btn" onclick="saveSettings()" style="margin-top:24px">Сохранить настройки</button>
       </div>
     </div>
   </div>
@@ -210,12 +228,13 @@ const ADMIN_PASSWORD = 'mc2024admin';
 let githubToken = localStorage.getItem('mc_token') || '';
 const SETTINGS_PATH = 'data/settings.json';
 
+let settingsLoaded = false;
 function switchTab(tab) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
   event.target.classList.add('active');
-  if (tab === 'settings') loadSettings();
+  if (tab === 'settings' && !settingsLoaded) { loadSettings(); settingsLoaded = true; }
 }
 
 async function loadSettings() {
@@ -227,16 +246,40 @@ async function loadSettings() {
     document.getElementById('s-email').value = s.email || '';
     document.getElementById('s-bio').value = s.bio || '';
     document.getElementById('s-clients').value = s.clients || '';
+    document.getElementById('s-services').value = (s.services || []).join('\n');
+    const team = s.team || [{name:'',role:''},{name:'',role:''}];
+    document.getElementById('s-name1').value = team[0]?.name || '';
+    document.getElementById('s-role1').value = team[0]?.role || '';
+    document.getElementById('s-name2').value = team[1]?.name || '';
+    document.getElementById('s-role2').value = team[1]?.role || '';
+    const steps = s.steps || [];
+    const stepsEl = document.getElementById('s-steps-list');
+    stepsEl.innerHTML = steps.map((st, i) => `
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:12px;margin-bottom:12px">
+        <div class="settings-field"><label>Этап ${i+1}</label><input type="text" id="s-step-name-${i}" value="${st.name || ''}"></div>
+        <div class="settings-field"><label>Описание</label><textarea id="s-step-desc-${i}" style="min-height:60px">${st.desc || ''}</textarea></div>
+      </div>`).join('');
   } catch(e) { console.error(e); }
 }
 
 async function saveSettings() {
+  const stepInputs = document.querySelectorAll('[id^="s-step-name-"]');
+  const steps = Array.from(stepInputs).map((el, i) => ({
+    name: el.value,
+    desc: document.getElementById('s-step-desc-' + i)?.value || ''
+  }));
   const settings = {
     description: document.getElementById('s-description').value,
     phone: document.getElementById('s-phone').value,
     email: document.getElementById('s-email').value,
     bio: document.getElementById('s-bio').value,
     clients: document.getElementById('s-clients').value,
+    services: document.getElementById('s-services').value.split('\n').map(s => s.trim()).filter(Boolean),
+    team: [
+      { name: document.getElementById('s-name1').value, role: document.getElementById('s-role1').value },
+      { name: document.getElementById('s-name2').value, role: document.getElementById('s-role2').value }
+    ],
+    steps
   };
   try {
     const metaR = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + SETTINGS_PATH, {
