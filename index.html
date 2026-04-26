@@ -96,6 +96,62 @@ footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
 .footer-btm { display: flex; gap: 32px; padding: 48px 0 32px; }
 .footer-btm a { font-size: 12px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; }
 .footer-btm a:hover { text-decoration: underline; }
+
+@media (max-width: 768px) {
+  nav { padding: 20px 20px; }
+  .logo { font-size: 18px; }
+  .nav-links { gap: 24px; }
+  .nav-links a { font-size: 18px; }
+
+  .hero-video { margin: 0 12px; height: 60vw; min-height: 240px; }
+
+  .description { padding: 32px 20px 48px; }
+  .description p { font-size: 24px; }
+
+  .sec-head { font-size: 56px; padding: 0 20px; }
+  .sec-head sup { font-size: 11px; top: -2.8em; margin-left: 6px; }
+  .divider { margin: 12px 20px 0; }
+
+  .cases { padding: 0 20px; }
+  .case-row { grid-template-columns: 1fr; gap: 12px; padding: 24px 0; }
+  .case-year { padding-top: 0; }
+  .case-title { font-size: 22px; margin-bottom: 8px; }
+  .case-link { position: static; display: inline-block; margin-top: 16px; }
+  .case-thumb { height: 220px; }
+
+  .see-all { grid-template-columns: 1fr; padding: 0 20px; }
+  .see-all a { font-size: 22px; padding: 24px 0; }
+
+  .services { padding: 60px 20px 100px; grid-template-columns: 1fr; gap: 16px; }
+  .svc-list p { font-size: 32px; }
+
+  .sec-head[style] { padding-left: 20px !important; margin-top: 80px !important; }
+
+  .team { padding: 0 20px 48px; }
+  .team-grid { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px; }
+  .team-photo { width: 100%; height: 48vw; }
+  .team-name { font-size: 16px; }
+  .team-right { width: 100%; grid-column: 1 / -1; margin: 24px 0 0; flex-direction: column; gap: 16px; }
+  .team-bio { max-width: 100%; font-size: 13px; }
+
+  .process { padding: 20px 20px 120px; }
+  .proc-grid { grid-template-columns: 1fr; gap: 16px; margin-top: 40px; }
+  .proc-label { display: none; }
+  .proc-name { font-size: 32px; }
+  .proc-num { font-size: 14px; }
+  .proc-desc { max-width: 100%; margin-top: 16px; font-size: 13px; }
+
+  .form-sec { padding: 20px 20px 60px; }
+  .mc-form { margin: 40px 0 0; }
+  .fld { font-size: 18px; padding: 18px 0; }
+  .sel-wrap select { font-size: 18px; padding: 18px 0; }
+  .chk-lbl { font-size: 12px; }
+  .submit-btn { font-size: 18px; padding: 16px 28px; width: 100%; text-align: center; }
+
+  footer { padding: 40px 20px 0; margin-top: 60px; }
+  .footer-phone, .footer-email { font-size: 28px; }
+  .footer-btm { gap: 16px; flex-wrap: wrap; padding: 32px 0 24px; }
+}
 </style>
 </head>
 <body>
