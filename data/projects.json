@@ -26,12 +26,47 @@
             "ratio": "portrait"
           }
         ]
+      },
+      {
+        "type": "c1",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777304759/n4ig9aa8pxjwxinv9gjo.png",
+            "ratio": "portrait"
+          }
+        ]
+      },
+      {
+        "type": "c1",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777304771/iifswgbhnhgrrffds92c.png",
+            "ratio": "portrait"
+          },
+          {
+            "url": "",
+            "ratio": "portrait"
+          }
+        ]
+      },
+      {
+        "type": "c2",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777304797/iy3sufhul8pfnvdqu9p0.png",
+            "ratio": "square"
+          },
+          {
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777304807/hhzjlcvsfrn81mzdajpd.png",
+            "ratio": "landscape"
+          }
+        ]
       }
     ]
   },
   {
     "slug": "wolrusnight",
-    "title": "Вечер хвалы",
+    "title": "Ночь хвалы",
     "year": "2025",
     "tags": [
       "Фирменный стиль",
@@ -52,10 +87,36 @@
         ]
       },
       {
-        "type": "c1",
+        "type": "c2",
         "images": [
           {
             "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777219327/aq34emn1fixtxcfjjhbd.jpg",
+            "ratio": "portrait"
+          },
+          {
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777304914/t2wfhmmqv1iqxfhipko7.jpg",
+            "ratio": "portrait"
+          }
+        ]
+      },
+      {
+        "type": "c2",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777304932/bqsytvjiyz0ewtswzxcy.jpg",
+            "ratio": "portrait"
+          },
+          {
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777304943/cmchc1nvpejobydbfqre.jpg",
+            "ratio": "portrait"
+          }
+        ]
+      },
+      {
+        "type": "c1",
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dckjt7i6f/video/upload/v1777304999/yge2imvjvazz5o0g3gm7.mp4",
             "ratio": "portrait"
           }
         ]

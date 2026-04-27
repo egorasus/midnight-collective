@@ -214,14 +214,14 @@ a { color: inherit; }
   <p id="site-description">Midnight Collective — студия двух упоротых, которые делают дизайн, фирменный стиль, 3D и моушен. Если срочно — уже поздно. Если не срочно — скорее всего тоже.</p>
 </div>
 
-<h2 class="sec-head" id="cases">Кейсы<sup>(1)</sup></h2>
+<h2 class="sec-head" id="cases">Кейсы<sup id="cases-count">(1)</sup></h2>
 <hr class="divider">
 
 <div class="cases" id="cases-list">
   <!-- Загружается из projects.json -->
 </div>
 
-<div class="see-all"><div></div><a href="#cases">Смотреть все кейсы</a></div>
+<div class="see-all"><div></div><a href="./portfolio/">Смотреть все проекты</a></div>
 
 <div class="services" id="services">
   <div class="svc-label">Услуги</div>
@@ -332,8 +332,16 @@ document.querySelectorAll('.proc-step').forEach(s => {
 // Load projects
 async function loadProjects() {
   try {
-    const r = await fetch('https://raw.githubusercontent.com/egorasus/midnight-collective/main/data/projects.json?t=' + Date.now());
-    const projects = await r.json();
+    const [projR, settR] = await Promise.all([
+      fetch('https://raw.githubusercontent.com/egorasus/midnight-collective/main/data/projects.json?t=' + Date.now()),
+      fetch('https://raw.githubusercontent.com/egorasus/midnight-collective/main/data/settings.json?t=' + Date.now())
+    ]);
+    const allProjects = await projR.json();
+    const settings = await settR.json().catch(() => ({}));
+    const limit = settings.homepageCount || 4;
+    const featured = allProjects.filter(p => p.featured);
+    const rest = allProjects.filter(p => !p.featured);
+    const projects = [...featured, ...rest].slice(0, limit);
     const list = document.getElementById('cases-list');
     list.innerHTML = projects.map(p => `
       <div class="case-row">

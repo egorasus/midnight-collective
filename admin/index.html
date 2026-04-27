@@ -134,6 +134,7 @@ body { font-family: 'Inter', sans-serif; background: #f5f5f5; color: #000; min-h
     <div id="tab-settings" class="tab-content">
       <div class="section-title">Тексты главной страницы</div>
       <div style="background:#fff;border-radius:6px;padding:24px;margin-top:12px">
+        <div class="settings-field"><label>Проектов на главной странице</label><input type="number" id="s-homepage-count" min="1" max="10" value="4" style="max-width:80px"></div>
         <div class="settings-field"><label>Описание студии</label><textarea id="s-description"></textarea></div>
         <div class="settings-field"><label>Телефон</label><input type="text" id="s-phone"></div>
         <div class="settings-field"><label>Email</label><input type="text" id="s-email"></div>
@@ -200,6 +201,19 @@ body { font-family: 'Inter', sans-serif; background: #f5f5f5; color: #000; min-h
       <label style="display:flex;align-items:center;gap:8px;margin-top:8px;font-size:13px">
         <input type="checkbox" id="e-thumb-dark"> Тёмная обложка
       </label>
+      <div style="margin-top:10px">
+        <label class="field-label" style="margin-bottom:4px;display:block">Соотношение обложки</label>
+        <select class="field-input" id="e-cover-ratio" style="max-width:160px">
+          <option value="1:1">1:1 (квадрат)</option>
+          <option value="4:3">4:3 (горизонталь)</option>
+          <option value="3:4">3:4 (вертикаль)</option>
+          <option value="16:9">16:9 (широкий)</option>
+          <option value="9:16">9:16 (мобильный)</option>
+        </select>
+      </div>
+      <label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px">
+        <input type="checkbox" id="e-featured"> Показывать на главной
+      </label>
     </div>
     <div class="field-group">
       <label class="field-label">Описание (абзацы)</label>
@@ -241,6 +255,7 @@ async function loadSettings() {
   try {
     const r = await fetch('https://raw.githubusercontent.com/egorasus/midnight-collective/main/data/settings.json?t=' + Date.now());
     const s = await r.json();
+    document.getElementById('s-homepage-count').value = s.homepageCount || 4;
     document.getElementById('s-description').value = s.description || '';
     document.getElementById('s-phone').value = s.phone || '';
     document.getElementById('s-email').value = s.email || '';
@@ -269,6 +284,7 @@ async function saveSettings() {
     desc: document.getElementById('s-step-desc-' + i)?.value || ''
   }));
   const settings = {
+    homepageCount: parseInt(document.getElementById('s-homepage-count').value) || 4,
     description: document.getElementById('s-description').value,
     phone: document.getElementById('s-phone').value,
     email: document.getElementById('s-email').value,
@@ -368,6 +384,8 @@ function newProject() {
   document.getElementById('e-desc1').value = '';
   document.getElementById('e-desc2').value = '';
   document.getElementById('e-thumb-dark').checked = false;
+  document.getElementById('e-cover-ratio').value = '1:1';
+  document.getElementById('e-featured').checked = false;
   document.getElementById('editor-title').textContent = 'Новый проект';
   document.getElementById('thumb-area').innerHTML = '<span>Нажмите для загрузки</span>';
   renderTags();
@@ -388,6 +406,8 @@ function editProject(i) {
   document.getElementById('e-desc1').value = p.desc[0] || '';
   document.getElementById('e-desc2').value = p.desc[1] || '';
   document.getElementById('e-thumb-dark').checked = !!p.thumbnailDark;
+  document.getElementById('e-cover-ratio').value = p.coverRatio || '1:1';
+  document.getElementById('e-featured').checked = !!p.featured;
   document.getElementById('editor-title').textContent = p.title;
   if (thumbUrl) {
     document.getElementById('thumb-area').innerHTML = `<img src="${thumbUrl}" alt="">`;
@@ -523,6 +543,8 @@ async function saveProject() {
     slug, title, year, tags: editTags,
     thumbnail: thumbUrl,
     thumbnailDark: document.getElementById('e-thumb-dark').checked,
+    coverRatio: document.getElementById('e-cover-ratio').value,
+    featured: document.getElementById('e-featured').checked,
     desc, rows: editRows
   };
 
