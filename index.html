@@ -199,9 +199,9 @@ a { color: inherit; }
   <a href="#form" class="burger-order" onclick="goTo('#form')">Заказать проект</a>
   <div class="burger-links">
     <a href="#cases" onclick="goTo('#cases')">Кейсы</a>
-    <a href="#cases" onclick="goTo('#cases')">Услуги</a>
-    <a href="#cases" onclick="goTo('#cases')">Кто мы?</a>
-    <a href="#form" onclick="goTo('#form')">Процесс</a>
+    <a href="#services" onclick="goTo('#services')">Услуги</a>
+    <a href="#team" onclick="goTo('#team')">Кто мы?</a>
+    <a href="#process" onclick="goTo('#process')">Процесс</a>
   </div>
   <div class="burger-time" id="burger-clock"></div>
 </div>
@@ -223,14 +223,14 @@ a { color: inherit; }
 
 <div class="see-all"><div></div><a href="#cases">Смотреть все кейсы</a></div>
 
-<div class="services">
+<div class="services" id="services">
   <div class="svc-label">Услуги</div>
   <div class="svc-list" id="site-services"><p>Сайт</p><p>Фирменный стиль</p><p>Motion</p><p>3D</p><p>Монтаж</p><p>Рилсы</p></div>
 </div>
 
 <h2 class="sec-head" style="padding-left: calc(48px + 30%); text-align: left;">Кто мы?<sup>(2)</sup></h2>
 
-<div class="team">
+<div class="team" id="team">
   <div class="team-grid">
     <div>
       <a href="https://t.me/elishalebedev" target="_blank" rel="noopener"><div class="team-photo" id="photo-elisey"><img src="/el.png" alt="Елисей Лебедев"></div></a>
@@ -255,7 +255,7 @@ a { color: inherit; }
 
 <h2 class="sec-head" style="padding-left: calc(48px + 30%); text-align: left; margin-top: 330px;">Процесс<br>работы<sup>(3)</sup></h2>
 
-<div class="process">
+<div class="process" id="process">
   <div class="proc-grid">
     <div class="proc-label">Процесс работы</div>
     <div id="steps">
