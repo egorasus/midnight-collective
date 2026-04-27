@@ -44,10 +44,10 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 
 /* MOBILE */
 @media (max-width: 768px) {
-  nav { padding: 16px 20px; }
+  nav { padding: 20px 20px; }
   .logo { font-size: 18px; }
   .nav-links { display: none; }
-  .filters { padding: 24px 20px 16px; gap: 10px; }
+  .filters { padding-top: 80px; padding-left: 20px; padding-right: 20px; padding-bottom: 24px; gap: 0; }
   .portfolio-grid { padding: 0 20px 100px; gap: 10px; grid-template-columns: repeat(2, 1fr); }
   .portfolio-grid.single { grid-template-columns: 1fr; gap: 16px; }
   .portfolio-grid.single .port-item { aspect-ratio: 4/3; }
@@ -63,7 +63,7 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .burger-menu a { font-size: 36px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; line-height: 1.1; display: block; }
 .burger-order { margin-bottom: 40px; }
 .burger-links { display: flex; flex-direction: column; gap: 4px; }
-@media (max-width: 768px) { .burger { display: flex; } .filters { padding: 24px 20px 32px; } }
+@media (max-width: 768px) { .burger { display: flex; } }
 
 footer { padding: 64px 48px 0; margin-top: 60vh; background: #fff; }
 .footer-phone, .footer-email { font-size: 44px; font-weight: 500; letter-spacing: -0.06em; line-height: 1.1; color: #000; }
@@ -73,7 +73,7 @@ footer { padding: 64px 48px 0; margin-top: 60vh; background: #fff; }
 .footer-btm a { font-size: 12px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; }
 .footer-btm a:hover { text-decoration: underline; }
 @media (max-width: 768px) {
-  footer { padding: 40px 20px 0; margin-top: 60vh; }
+  footer { padding: 40px 20px 0; margin-top: 20vh; }
   .footer-phone, .footer-email { font-size: 28px; }
   .footer-btm { gap: 16px; flex-wrap: wrap; padding: 32px 0 24px; }
 }
