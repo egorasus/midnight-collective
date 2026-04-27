@@ -14,22 +14,22 @@
 body { font-family: 'Inter', sans-serif; background: #fff; color: #000; }
 
 /* NAV */
-nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; position: sticky; top: 0; background: #fff; z-index: 100; }
-.logo { font-size: 24px; font-weight: 500; letter-spacing: -0.06em; text-decoration: none; color: #000; }
-.nav-links { display: flex; gap: 32px; }
-.nav-links a { font-size: 14px; font-weight: 400; color: #000; text-decoration: none; letter-spacing: -0.02em; }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; position: sticky; top: 0; background: #fff; z-index: 100; }
+.logo { font-size: 20px; font-weight: 500; letter-spacing: -0.06em; text-decoration: none; color: #000; }
+.nav-links { display: flex; gap: 24px; }
+.nav-links a { font-size: 32px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; }
 .nav-links a:hover { opacity: 0.6; }
 
 /* FILTERS */
-.filters { padding: 48px 48px 32px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
-.filter-btn { font-family: 'Inter', sans-serif; font-size: clamp(18px, 2.5vw, 32px); font-weight: 500; letter-spacing: -0.04em; background: none; border: none; cursor: pointer; color: #ccc; padding: 0; line-height: 1; transition: color 0.15s; }
+.filters { padding: 48px 48px 56px; display: flex; gap: 0; flex-wrap: wrap; align-items: baseline; }
+.filter-btn { font-family: 'Inter', sans-serif; font-size: clamp(32px, 5vw, 72px); font-weight: 500; letter-spacing: -0.04em; background: none; border: none; cursor: pointer; color: #ccc; padding: 0; line-height: 1; transition: color 0.15s; }
 .filter-btn:hover { color: #999; }
 .filter-btn.active { color: #000; }
-.filter-sep { font-size: clamp(18px, 2.5vw, 32px); color: #ddd; font-weight: 300; }
+.filter-sep { font-size: clamp(32px, 5vw, 72px); color: #ddd; font-weight: 500; letter-spacing: -0.04em; margin-right: 10px; line-height: 1; }
 
 /* GRID */
-.portfolio-grid { padding: 0 48px 80px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.port-item { aspect-ratio: 1/1; background: #f5f5f5; overflow: hidden; cursor: pointer; position: relative; }
+.portfolio-grid { padding: 0 48px 80px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.port-item { aspect-ratio: 1/1; background: #fff; overflow: hidden; cursor: pointer; position: relative; }
 .port-item img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform 0.3s ease; }
 .port-item:hover img { transform: scale(1.03); }
 .port-item.hidden { display: none; }
@@ -52,6 +52,17 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
   .portfolio-grid.single .port-item { aspect-ratio: 4/3; }
   .view-toggle { display: flex; }
 }
+
+.burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; background: none; border: none; padding: 4px; }
+.burger span { display: block; width: 24px; height: 2px; background: #000; }
+.burger-menu { display: none; position: fixed; inset: 0; background: #fff; z-index: 1000; flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: 180px 20px 40px; }
+.burger-menu.open { display: flex; }
+.burger-nav-fixed { position: fixed; top: 0; left: 0; right: 0; padding: 20px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1001; background: #fff; }
+.burger-nav-fixed .logo { font-size: 18px; }
+.burger-menu a { font-size: 36px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; line-height: 1.1; display: block; }
+.burger-order { margin-bottom: 40px; }
+.burger-links { display: flex; flex-direction: column; gap: 4px; }
+@media (max-width: 768px) { .burger { display: flex; } .filters { padding: 24px 20px 32px; } }
 </style>
 </head>
 <body>
@@ -126,6 +137,11 @@ function setView(v) {
 }
 
 load();
+
+function toggleBurger() {
+  const menu = document.getElementById('burger-menu');
+  menu.classList.toggle('open');
+}
 </script>
 </body>
 </html>
