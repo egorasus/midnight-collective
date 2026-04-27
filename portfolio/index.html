@@ -73,7 +73,7 @@ footer { padding: 64px 48px 0; margin-top: 60vh; background: #fff; }
 .footer-btm a { font-size: 12px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; }
 .footer-btm a:hover { text-decoration: underline; }
 @media (max-width: 768px) {
-  footer { padding: 40px 20px 0; margin-top: 20vh; }
+  footer { padding: 40px 20px 0; margin-top: calc(20vh + 200px); }
   .footer-phone, .footer-email { font-size: 28px; }
   .footer-btm { gap: 16px; flex-wrap: wrap; padding: 32px 0 24px; }
 }
@@ -87,7 +87,24 @@ footer { padding: 64px 48px 0; margin-top: 60vh; background: #fff; }
     <a href="../#cases">Работы</a>
     <a href="../#form">Заказать проект</a>
   </div>
+  <button class="burger" onclick="toggleBurger()" id="burger-btn" aria-label="Меню">
+    <span id="b1"></span>
+    <span id="b2"></span>
+  </button>
 </nav>
+<div class="burger-menu" id="burger-menu">
+  <div class="burger-nav-fixed">
+    <a href="../" class="logo">Midnight Collective</a>
+  </div>
+  <a href="../#form" class="burger-order" onclick="location.href='../#form'">Заказать проект</a>
+  <div class="burger-links">
+    <a href="../#cases">Кейсы</a>
+    <a href="../#services">Услуги</a>
+    <a href="../#team">Кто мы?</a>
+    <a href="../#process">Процесс</a>
+  </div>
+  <div class="burger-time" id="burger-clock"></div>
+</div>
 
 <div class="filters" id="filters">
   <button class="filter-btn active" data-tag="all" onclick="setFilter('all')">Все</button>
@@ -168,7 +185,24 @@ load();
 function toggleBurger() {
   const menu = document.getElementById('burger-menu');
   menu.classList.toggle('open');
+  const open = menu.classList.contains('open');
+  document.body.style.overflow = open ? 'hidden' : '';
+  const btn = document.getElementById('burger-btn');
+  btn.innerHTML = open
+    ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="2" y1="2" x2="22" y2="22" stroke="black" stroke-width="2"/><line x1="22" y1="2" x2="2" y2="22" stroke="black" stroke-width="2"/></svg>'
+    : '<span></span><span></span>';
 }
+function updateClock() {
+  const now = new Date();
+  const msk = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Moscow' }));
+  const h = String(msk.getHours()).padStart(2, '0');
+  const m = String(msk.getMinutes()).padStart(2, '0');
+  const s = String(msk.getSeconds()).padStart(2, '0');
+  const el = document.getElementById('burger-clock');
+  if (el) el.textContent = h + ':' + m + ':' + s + ' МСК';
+}
+updateClock();
+setInterval(updateClock, 1000);
 </script>
 
 <footer>
