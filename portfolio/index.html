@@ -22,13 +22,13 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 
 /* FILTERS */
 .filters { padding: 48px 48px 56px; display: flex; gap: 0; flex-wrap: wrap; align-items: baseline; }
-.filter-btn { font-family: 'Inter', sans-serif; font-size: clamp(32px, 5vw, 72px); font-weight: 500; letter-spacing: -0.04em; background: none; border: none; cursor: pointer; color: #ccc; padding: 0; line-height: 1; transition: color 0.15s; }
+.filter-btn { font-family: 'Inter', sans-serif; font-size: clamp(32px, 5vw, 72px); font-weight: 700; letter-spacing: -0.04em; background: none; border: none; cursor: pointer; color: #ccc; padding: 0; line-height: 1; transition: color 0.15s; }
 .filter-btn:hover { color: #999; }
-.filter-btn.active { color: #000; }
-.filter-sep { font-size: clamp(32px, 5vw, 72px); color: #ddd; font-weight: 500; letter-spacing: -0.04em; margin-right: 10px; line-height: 1; }
+.filter-btn.active { color: #000 !important; }
+.filter-sep { font-size: clamp(32px, 5vw, 72px); color: #ddd; font-weight: 700; letter-spacing: -0.04em; margin-right: 10px; line-height: 1; }
 
 /* GRID */
-.portfolio-grid { padding: 0 48px 80px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.portfolio-grid { padding: 0 48px 80px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 36px 12px; }
 .port-item { aspect-ratio: 1/1; background: #fff; overflow: hidden; cursor: pointer; position: relative; }
 .port-item img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform 0.3s ease; }
 .port-item:hover img { transform: scale(1.03); }
@@ -63,6 +63,19 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .burger-order { margin-bottom: 40px; }
 .burger-links { display: flex; flex-direction: column; gap: 4px; }
 @media (max-width: 768px) { .burger { display: flex; } .filters { padding: 24px 20px 32px; } }
+
+footer { padding: 64px 48px 0; margin-top: 120vh; background: #fff; }
+.footer-phone, .footer-email { font-size: 44px; font-weight: 500; letter-spacing: -0.06em; line-height: 1.1; color: #000; }
+.footer-contacts { padding: 0 0 48px; }
+.footer-wm-logo { display: block; width: 100%; padding: 0.1em 0; }
+.footer-btm { display: flex; gap: 32px; padding: 48px 0 32px; }
+.footer-btm a { font-size: 12px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; }
+.footer-btm a:hover { text-decoration: underline; }
+@media (max-width: 768px) {
+  footer { padding: 40px 20px 0; margin-top: 60vh; }
+  .footer-phone, .footer-email { font-size: 28px; }
+  .footer-btm { gap: 16px; flex-wrap: wrap; padding: 32px 0 24px; }
+}
 </style>
 </head>
 <body>
@@ -138,10 +151,29 @@ function setView(v) {
 
 load();
 
+  // Load contacts from settings
+  fetch('https://raw.githubusercontent.com/egorasus/midnight-collective/main/data/settings.json?t=' + Date.now())
+    .then(r => r.json()).then(s => {
+      if (s.phone && document.getElementById('p-phone')) document.getElementById('p-phone').textContent = s.phone;
+      if (s.email && document.getElementById('p-email')) document.getElementById('p-email').textContent = s.email;
+    }).catch(() => {});
+
 function toggleBurger() {
   const menu = document.getElementById('burger-menu');
   menu.classList.toggle('open');
 }
 </script>
+
+<footer>
+  <div class="footer-contacts">
+    <div class="footer-phone" id="p-phone">+7 (912) 000 0000</div>
+    <div class="footer-email" id="p-email">midnightcollective@gmail.com</div>
+  </div>
+  <img src="../logo.svg" alt="Midnight Collective" class="footer-wm-logo">
+  <div class="footer-btm">
+    <a href="#">Пользовательское соглашение</a>
+    <a href="#">Политика конфиденциальности</a>
+  </div>
+</footer>
 </body>
 </html>
