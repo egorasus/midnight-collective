@@ -1,14 +1,17 @@
 [
   {
     "slug": "tselovalnik",
-    "title": "Tselovalnik Vodka",
+    "title": "Tselovalnik Vodka 3",
     "year": "2024",
     "tags": [
       "Айдентика",
-      "Мерч"
+      "Мерч",
+      "3D"
     ],
     "thumbnail": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777186163/hmgmlblhdoymuzhis2u2.png",
     "thumbnailDark": true,
+    "coverRatio": "1:1",
+    "featured": false,
     "desc": [
       "Tselovalnik Vodka — премиальная русская водка от команды El Copitas Bar. Задача: создать айдентику, которая отсылала бы к историческому образу целовальника — хранителя традиций.",
       "Разработали логотип, упаковку бутылки, подарочный бокс и мёрч-линейку. Всё держится на синем и белом — строго, но с характером."
