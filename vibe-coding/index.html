@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вайб-кодинг сайты — разработка за 7 дней</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body { overflow-x: clip; }
+    #form, #contacts, #whom, #how, #agents, #price, #cases, #reviews, #faq { scroll-margin-top: 80px; }
+    body { font-family: Inter, -apple-system, sans-serif; background: #f4f2ef; color: #0d0d0d; max-width: 100vw; }
+
+    /* ─── AMBIENT GLOW BLOBS (нужны для backdrop-filter) ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%;
+      right: -15%;
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(circle, rgba(0,0,0,0.03) 0%, transparent 62%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -15%;
+      left: -15%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(0,0,0,0.02) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* ─── NAV (без логотипа MC) ─── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      position: sticky;
+      top: 0;
+      background: rgba(244,242,239,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .nav-links { display: flex; gap: 40px; align-items: center; }
+    .nav-links a {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      color: #888;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #0d0d0d; text-decoration: none; }
+    .nav-cta {
+      background: #0d0d0d;
+      color: #f0f0f0 !important;
+      padding: 10px 24px;
+      font-size: 16px !important;
+    }
+    .nav-cta:hover { color: #f0f0f0 !important; background: #333; }
+
+    /* ─── SHARED ─── */
+    .sec-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #aaa;
+    }
+
+    /* Точная копия sec-head с MC */
+    .sec-head {
+      font-family: Inter, sans-serif;
+      font-size: 120px;
+      font-weight: 300;
+      letter-spacing: -0.06em;
+      line-height: 0.92;
+      padding: 0 48px;
+    }
+    .sec-head sup {
+      font-size: 16px;
+      font-weight: 400;
+      vertical-align: baseline;
+      position: relative;
+      top: -3.8em;
+      letter-spacing: 0;
+      margin-left: 12px;
+    }
+    .divider { display: none; }
+
+    /* ─── HERO ─── */
+    .hero { padding: 58px 48px 150px; }
+    .nav-menu { display: flex; gap: 32px; align-items: center; }
+    .nav-menu a {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      color: #888;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-menu a:hover { color: #0d0d0d; }
+    .hero-title {
+      font-family: Inter, sans-serif;
+      font-size: 120px;
+      font-weight: 300;
+      letter-spacing: -0.06em;
+      line-height: 0.92;
+      margin-bottom: 48px;
+    }
+    .hero-sub {
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.45;
+      letter-spacing: -0.03em;
+      color: #888;
+      max-width: 600px;
+      margin-bottom: 0;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: #0d0d0d;
+      color: #f0f0f0;
+      padding: 20px 40px;
+      font-family: Inter, sans-serif;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      margin-top: 48px;
+    }
+    .btn-primary:hover { background: #333; }
+
+    /* ─── КОМУ ПОДОЙДЁТ ─── */
+    .whom-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      padding: 54px 48px 200px;
+    }
+    .whom-item {
+      padding: 32px;
+      border-right: none;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(100,100,100,0.72) 0%, rgba(80,80,80,0.65) 50%, rgba(60,60,60,0.7) 100%);
+      backdrop-filter: blur(20px) saturate(2);
+      -webkit-backdrop-filter: blur(20px) saturate(2);
+      border: 1px solid rgba(255,255,255,0.65);
+      box-shadow: 0 10px 40px rgba(60,60,60,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .whom-item:hover { transform: translateY(14px); }
+    .whom-item:first-child { padding-left: 32px; }
+    .whom-item:last-child { border-right: none; }
+    .whom-item:not(:first-child) { padding-left: 32px; }
+    .whom-name {
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      margin-bottom: 12px;
+      line-height: 1.1;
+      color: #ffffff;
+    }
+    .whom-desc { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.55; margin-top: auto; padding-top: 16px; }
+
+    /* ─── КАК РАБОТАЕМ ─── */
+    .how {
+      padding: 48px 48px 160px;
+      display: grid;
+      grid-template-columns: 30% 1fr;
+      gap: 24px;
+    }
+    .how-header {
+      display: grid;
+      grid-template-columns: 28% 36% 1fr;
+      align-items: flex-end;
+      padding: 0 48px;
+    }
+    .how-header .sec-head { padding: 0; grid-column: 1 / 3; }
+    .how-intro {
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      color: #888;
+      line-height: 1.5;
+      padding-bottom: 10px;
+      grid-column: 3;
+      max-width: 360px;
+    }
+    .steps { display: flex; flex-direction: column; }
+    .step {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      align-items: start;
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      color: #888;
+      text-transform: uppercase;
+      padding-top: 5px;
+    }
+    .step-name {
+      font-size: 32px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .step-desc { font-size: 14px; color: #888; line-height: 1.5; max-width: 460px; }
+    .faq-a { max-width: 720px; }
+
+    /* ─── ПОЧЕМУ МЫ — полная ширина ─── */
+    .strengths-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      padding: 48px 48px 160px;
+    }
+    .strength {
+      padding: 40px;
+      border-right: none;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(100,100,100,0.72) 0%, rgba(80,80,80,0.65) 50%, rgba(60,60,60,0.7) 100%);
+      backdrop-filter: blur(20px) saturate(2);
+      -webkit-backdrop-filter: blur(20px) saturate(2);
+      border: 1px solid rgba(255,255,255,0.65);
+      box-shadow: 0 10px 40px rgba(60,60,60,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
+      transition: background 0.25s;
+    }
+    .strength { transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .strength:hover { transform: translateY(14px); }
+    .strength:first-child { padding-left: 40px; }
+    .strength:last-child { border-right: none; }
+    .strength:not(:first-child) { padding-left: 40px; }
+    .strength-num {
+      font-family: Inter, sans-serif;
+      font-size: 96px;
+      font-weight: 300;
+      letter-spacing: -0.06em;
+      line-height: 1;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+    .strength-name {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+    .strength-desc { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.5; }
+
+    /* ─── СРАВНЕНИЕ ─── */
+    .comparison-header {
+      display: grid;
+      grid-template-columns: 28% 36% 1fr;
+      align-items: flex-end;
+      padding: 0 48px;
+    }
+    .comparison-header .sec-head { padding: 0; grid-column: 1 / 3; }
+    .comparison-intro {
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      color: #888;
+      line-height: 1.5;
+      padding-bottom: 10px;
+      grid-column: 3;
+      text-align: left;
+    }
+    .comparison-table-wrap { padding: 0 48px 160px; }
+    .comp-table { width: 100%; border-collapse: collapse; margin-top: 72px; }
+    .comp-table th {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 400;
+      color: #aaa;
+      padding: 14px 20px;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+    }
+    .comp-table th:first-child { padding-left: 32px; }
+    .comp-table td {
+      padding: 32px 20px;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      vertical-align: top;
+      line-height: 1.4;
+      color: #666;
+    }
+    .comp-table td:first-child { font-weight: 500; padding-left: 32px; color: #0d0d0d; width: 28%; }
+    .comp-table td.win { font-weight: 500; color: #333; }
+    .comp-table td.lose { color: #bbb; }
+    .win-badge {
+      display: inline-block;
+      background: #f0f0f0;
+      color: #000;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    /* ─── SEO: МЕДЛЕННЫЙ САЙТ СТОИТ ДЕНЕГ ─── */
+    .pagespeed {
+      padding: 48px 48px 160px;
+      display: grid;
+      grid-template-columns: 30% 1fr;
+      gap: 24px;
+    }
+    .ps-intro {
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      color: #888;
+      line-height: 1.5;
+      margin-bottom: 40px;
+    }
+    .ps-scores {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 40px;
+      margin-top: 64px;
+    }
+    .ps-label {
+      display: inline-block;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #aaa;
+      background: rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.1);
+      padding: 6px 14px;
+      margin-bottom: 24px;
+    }
+    .ps-label.good {
+      color: #fff;
+      background: rgba(80,80,80,0.55);
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+    .ps-score-wrap { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+    .ps-score { font-family: Inter, sans-serif; font-size: 100px; font-weight: 300; letter-spacing: -0.06em; line-height: 1; color: rgb(80,80,80); }
+    .ps-score.bad { color: #ccc; }
+    .ps-score-max { font-size: 22px; color: #bbb; letter-spacing: -0.04em; }
+    .ps-bar { height: 12px; background: rgba(0,0,0,0.08); margin-bottom: 20px; border-radius: 6px; }
+    .ps-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      background: linear-gradient(135deg, rgba(100,100,100,0.9) 0%, rgba(80,80,80,0.75) 100%);
+      border-top: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 2px 8px rgba(80,80,80,0.4), inset 0 1px 0 rgba(255,255,255,0.5);
+    }
+    .ps-bar-fill.bad { background: rgba(0,0,0,0.1); box-shadow: none; border-top: none; }
+    .ps-desc { font-size: 14px; color: #888; line-height: 1.5; }
+    .ps-note {
+      font-size: 15px;
+      color: #888;
+      line-height: 1.65;
+      border-left: 2px solid rgba(0,0,0,0.2);
+      padding-left: 20px;
+    }
+    .ps-list { list-style: none; margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .ps-list li { font-size: 15px; letter-spacing: -0.02em; display: flex; align-items: center; gap: 10px; }
+    .ps-list li::before { content: ''; display: inline-block; width: 18px; height: 1px; flex-shrink: 0; }
+    .ps-list.good li { color: rgb(80,80,80); }
+    .ps-list.good li::before { background: rgb(80,80,80); }
+    .ps-list.bad li { color: #ccc; }
+    .ps-list.bad li::before { background: #ccc; }
+
+    /* ─── АГЕНТЫ (тёмный surface) ─── */
+    .agents {
+      background: rgba(80,80,80,0.65);
+      backdrop-filter: blur(20px) saturate(1.8);
+      -webkit-backdrop-filter: blur(20px) saturate(1.8);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 10px 48px rgba(60,60,60,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
+      border-radius: 18px;
+      color: #0d0d0d;
+      margin: 80px 48px 160px;
+      overflow: hidden;
+    }
+    .agents-header {
+      position: relative;
+      padding: 56px 48px 64px;
+    }
+    .agents-label {
+      position: absolute;
+      top: 48px;
+      right: 48px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 8px 18px;
+      border: 1px solid rgba(255,255,255,0.45);
+      background: rgba(255,255,255,0.2);
+    }
+    .agents .sec-head { color: #ffffff; padding: 0; font-size: 96px; }
+    .agents-intro {
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.65);
+      margin-top: 48px;
+      max-width: 600px;
+    }
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(255,255,255,0.3);
+    }
+    .agent {
+      position: relative;
+      overflow: hidden;
+      padding: 40px 32px 48px;
+      background: transparent;
+      border-right: 1px solid rgba(255,255,255,0.25);
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+    .agent:last-child { border-right: none; }
+    .agent:hover { background: rgba(255,255,255,0.12); }
+    .agent-icon {
+      position: absolute;
+      bottom: -16px;
+      right: -8px;
+      font-size: 110px;
+      opacity: 0.045;
+      user-select: none;
+      pointer-events: none;
+      line-height: 1;
+    }
+    .agent-num {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+    }
+    .agent-name {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      margin-bottom: 12px;
+      line-height: 1.2;
+      color: #ffffff;
+    }
+    .agent-desc { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; position: relative; z-index: 1; }
+
+    /* ─── КЕЙСЫ — точная копия MC ─── */
+    .cases { padding: 48px 48px 96px; }
+    .case-row {
+      display: grid;
+      grid-template-columns: 30% 1fr;
+      gap: 24px;
+      padding: 36px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      align-items: start;
+      position: relative;
+    }
+    .case-row:first-of-type { border-top: 1px solid rgba(0,0,0,0.12); }
+    .case-row:last-child { border-bottom: none; }
+    .case-year {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+      padding-top: 6px;
+      color: #aaa;
+    }
+    .case-title {
+      font-size: 32px;
+      font-weight: 500;
+      letter-spacing: -0.06em;
+      margin-bottom: 12px;
+      color: #0d0d0d;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; margin-bottom: 18px; }
+    .tag {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      text-transform: uppercase;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: rgba(0,0,0,0.04);
+      border-radius: 20px;
+      padding: 6px 20px;
+      color: #999;
+    }
+    .case-thumb {
+      height: 360px;
+      background: #d8d8d8;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .case-thumb:hover { opacity: 0.85; }
+    .case-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .case-thumb-placeholder {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      color: #bbb;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .case-link {
+      position: absolute;
+      top: 36px;
+      right: 0;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      color: #0d0d0d;
+    }
+    .case-link:hover { text-decoration: underline; }
+    .cases-all-btn-row {
+      padding: 48px 48px 100px calc(30% + 24px);
+      border-top: 1px solid rgba(0,0,0,0.07);
+      margin-top: 0;
+    }
+    .cases-all-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      color: #0d0d0d;
+      text-decoration: none;
+      border: 1px solid rgba(0,0,0,0.15);
+      padding: 14px 28px;
+      border-radius: 2px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .cases-all-btn:hover { border-color: #0d0d0d; background: rgba(0,0,0,0.03); }
+    .see-all {
+      display: grid;
+      grid-template-columns: 30% 1fr;
+      gap: 24px;
+      padding: 0 48px;
+    }
+    .see-all a {
+      font-size: 32px;
+      font-weight: 400;
+      letter-spacing: -0.06em;
+      color: #0d0d0d;
+      text-decoration: none;
+      display: inline-block;
+      padding: 36px 0;
+    }
+    .see-all a:hover { text-decoration: underline; }
+
+    /* ─── ОТЗЫВЫ — карусель ─── */
+    .reviews-carousel-wrap { padding: 48px 48px 160px; }
+    .reviews-nav {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-bottom: 32px;
+    }
+    .reviews-btn {
+      width: 44px; height: 44px;
+      background: none;
+      border: 1px solid rgba(0,0,0,0.15);
+      color: #aaa;
+      font-size: 18px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .reviews-btn:hover { border-color: #0d0d0d; color: #0d0d0d; }
+    .reviews-track-outer { overflow: hidden; }
+    .reviews-track { display: flex; will-change: transform; gap: 16px; }
+    .review {
+      flex: 0 0 calc((100% - 32px) / 3);
+      box-sizing: border-box;
+      padding: 36px 40px;
+      border-right: none;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(100,100,100,0.72) 0%, rgba(80,80,80,0.65) 50%, rgba(60,60,60,0.7) 100%);
+      backdrop-filter: blur(20px) saturate(2);
+      -webkit-backdrop-filter: blur(20px) saturate(2);
+      border: 1px solid rgba(255,255,255,0.65);
+      box-shadow: 0 10px 40px rgba(60,60,60,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
+    }
+    .review-author { font-size: 15px; font-weight: 500; letter-spacing: -0.03em; color: #ffffff; }
+    .review-role {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.55);
+      margin-top: 4px;
+      margin-bottom: 24px;
+    }
+    .review-text {
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: -0.02em;
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* ─── САЙТ ЗА НЕДЕЛЮ: Calendar ─── */
+    .gantt-sec {
+      margin: 0 48px 80px;
+      border: 1px solid rgba(0,0,0,0.1);
+      box-shadow: 0 0 80px rgba(0,0,0,0.05);
+      overflow: hidden;
+      background: #f4f2ef;
+    }
+    .gantt-sec .sec-head { padding: 56px 48px 56px; }
+    .gantt-wrap { padding: 0 48px 64px; }
+    .gantt-mobile { display: none; }
+    .gantt-calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .gantt-cal-head {
+      padding: 18px 20px;
+      border-right: 1px solid rgba(0,0,0,0.08);
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      background: rgba(0,0,0,0.02);
+    }
+    .gantt-cal-head:last-child { border-right: none; }
+    .gantt-cal-day-num {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 24px;
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      color: #ccc;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .gantt-cal-day-name {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #bbb;
+    }
+    .gantt-cal-task {
+      padding: 24px 20px 28px;
+      border-right: 1px solid rgba(0,0,0,0.08);
+      background: rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+      min-height: 260px;
+      transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .gantt-cal-task:not(.active):hover { transform: translateY(14px); }
+    .gantt-cal-task.active:hover { transform: translateX(-10px) translateY(14px); }
+    .gantt-cal-task:last-child { border-right: none; }
+    .gantt-cal-task.active {
+      background: linear-gradient(135deg, rgba(100,100,100,0.72) 0%, rgba(80,80,80,0.65) 100%);
+      border: 1px solid rgba(255,255,255,0.65);
+      border-radius: 14px;
+      margin: -15px -10px;
+      position: relative;
+      z-index: 2;
+      transform: translateX(-10px);
+      box-shadow: 0 16px 48px rgba(60,60,60,0.55), 0 4px 14px rgba(0,0,0,0.2), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
+    }
+    .gantt-cal-task-name {
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      color: #bbb;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .gantt-cal-task.active .gantt-cal-task-name { color: #ffffff; }
+    .gantt-cal-items { list-style: none; margin-top: auto; }
+    .gantt-cal-items li {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 13px;
+      color: #bbb;
+      line-height: 1.8;
+    }
+    .gantt-cal-task.active .gantt-cal-items li { color: rgba(255,255,255,0.8); }
+
+    /* ─── ФОРМА — точная копия MC ─── */
+    .form-sec { padding: 0 0 80px; margin-top: 0; }
+    .mc-form {
+      margin-top: 48px;
+      margin-left: calc(30% + 48px);
+      margin-right: 96px;
+      padding: 48px;
+      border-radius: 18px;
+      background: rgba(14,14,14,0.9);
+      backdrop-filter: blur(28px) saturate(1.3);
+      -webkit-backdrop-filter: blur(28px) saturate(1.3);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 16px 56px rgba(0,0,0,0.3), inset 0 2px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(255,255,255,0.06);
+    }
+    .fld {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      padding: 28px 0;
+      font-family: Inter, sans-serif;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      background: none;
+      color: #f0f0f0;
+      display: block;
+      outline: none;
+      transition: border-bottom-color 0.2s;
+    }
+    .fld::placeholder { color: #555; font-weight: 400; }
+    .fld:focus::placeholder { color: transparent; }
+    .fld:focus { border-bottom-color: rgba(255,255,255,0.45); }
+    .sel-w { position: relative; }
+    .sel-w select {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      padding: 28px 0;
+      font-family: Inter, sans-serif;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      background: none;
+      color: #555;
+      outline: none;
+      appearance: none;
+      cursor: pointer;
+      transition: border-bottom-color 0.2s;
+    }
+    .sel-w select option { background: #1c1c1c; color: #f0f0f0; }
+    .sel-w select:focus { border-bottom-color: rgba(255,255,255,0.45); color: #f0f0f0; outline: none; }
+    .sel-arrow {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      pointer-events: none;
+      color: #444;
+    }
+    .chk-row { display: flex; align-items: center; gap: 12px; padding: 60px 0 28px; }
+    .chk-box {
+      width: 20px; height: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      flex-shrink: 0;
+      appearance: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .chk-box:checked {
+      background: #686868;
+      background-clip: content-box;
+      padding: 3px;
+      border-color: #686868;
+    }
+    .privacy-error {
+      display: none;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #c0392b;
+      margin-top: 10px;
+    }
+    .privacy-error.visible { display: block; }
+    .chk-lbl {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 16px;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: #888;
+    }
+    .chk-lbl a { color: #aaa; }
+    .submit-btn {
+      background: #0d0d0d;
+      color: #f0f0f0;
+      border: none;
+      padding: 20px 40px;
+      font-family: Inter, sans-serif;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      cursor: pointer;
+      display: block;
+      margin-top: 56px;
+    }
+    .submit-btn:hover { background: #333; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 80px 48px 0;
+      background: transparent;
+      margin-top: 120px;
+    }
+    .footer-contacts {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .footer-contact-link {
+      font-family: Inter, sans-serif;
+      font-size: 120px;
+      font-weight: 300;
+      letter-spacing: -0.06em;
+      line-height: 0.92;
+      color: #0d0d0d;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-contact-link:hover { color: #555; }
+    .footer-divider {
+      border-top: 1px solid rgba(0,0,0,0.1);
+      margin: 48px 0 0;
+    }
+    .footer-btm {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 48px 0 32px;
+      align-items: flex-start;
+    }
+    .footer-btm a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -0.06em;
+      color: #444;
+      text-decoration: none;
+    }
+    .footer-btm a:hover { color: #888; text-decoration: none; }
+    .footer-btm-mc {
+      margin-left: 0;
+      background: none;
+      color: #444 !important;
+      font-size: 12px !important;
+      font-weight: 500 !important;
+      padding: 0;
+      letter-spacing: -0.06em;
+    }
+    .footer-btm-mc:hover { color: #888 !important; }
+
+    /* ─── MID CTA ─── */
+    .mid-cta {
+      padding: 100px 48px 200px;
+    }
+    .mid-cta-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 52px 56px;
+      border-radius: 18px;
+      background: rgba(14,14,14,0.9);
+      backdrop-filter: blur(28px) saturate(1.3);
+      -webkit-backdrop-filter: blur(28px) saturate(1.3);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 16px 56px rgba(0,0,0,0.3), inset 0 2px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(255,255,255,0.06);
+    }
+    .mid-cta-text {
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      color: rgba(255,255,255,0.7);
+      max-width: 520px;
+      line-height: 1.35;
+    }
+    .mid-cta-text strong { color: #fff; font-weight: 600; }
+    .btn-mid {
+      display: inline-block;
+      background: #686868;
+      color: #fff;
+      padding: 16px 36px;
+      font-family: Inter, sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .btn-mid:hover { background: #484848; }
+
+    /* ─── PRICE BLOCK ─── */
+    .price-label-row { padding: 0 48px; margin-top: 8px; }
+    .price-block {
+      padding: 40px 48px 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .price-card {
+      background: linear-gradient(135deg, rgba(100,100,100,0.72) 0%, rgba(80,80,80,0.65) 100%);
+      backdrop-filter: blur(20px) saturate(2);
+      -webkit-backdrop-filter: blur(20px) saturate(2);
+      border: 1px solid rgba(255,255,255,0.65);
+      box-shadow: 0 10px 40px rgba(60,60,60,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+    }
+    .price-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 64px rgba(60,60,60,0.45), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
+    }
+    .price-select-btn {
+      margin-top: auto;
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.95);
+      border: 1px solid rgba(255,255,255,0.45);
+      padding: 10px 20px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.1);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .price-select-btn:hover { background: rgba(255,255,255,0.2); }
+    .price-from {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.95);
+    }
+    .price-num {
+      font-family: Inter, sans-serif;
+      font-size: 72px;
+      font-weight: 300;
+      letter-spacing: -0.06em;
+      line-height: 0.9;
+      color: #fff;
+    }
+    .price-currency { font-size: 32px; font-weight: 300; }
+    .price-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.55;
+    }
+    .price-includes {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-top: 20px;
+      margin-top: auto;
+    }
+    .price-includes li {
+      font-size: 14px;
+      color: #fff;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      line-height: 1.4;
+    }
+    .price-includes li::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 1px;
+      background: rgba(255,255,255,0.5);
+      flex-shrink: 0;
+      margin-top: 9px;
+    }
+    .price-footer-note {
+      font-size: 14px;
+      color: #888;
+      line-height: 1.55;
+      padding: 28px 48px 160px;
+    }
+
+    /* ─── AGENTS EXPANDABLE ─── */
+    .agent::after {
+      content: '+';
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 22px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.3);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), color 0.25s;
+      line-height: 1;
+    }
+    .agent:hover::after { color: rgba(255,255,255,0.6); }
+    .agent.agent-open::after { transform: rotate(45deg); color: rgba(255,255,255,0.85); }
+    .agent-more {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
+    }
+    .agent-more.open { max-height: 200px; opacity: 1; }
+    .agent-more-text {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.65;
+      padding-top: 16px;
+    }
+
+    /* ─── FAQ ─── */
+    .faq {
+      padding: 48px 48px 100px;
+      display: grid;
+      grid-template-columns: 30% 1fr;
+      gap: 24px;
+    }
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      align-items: start;
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-num {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      color: #888;
+      text-transform: uppercase;
+      padding-top: 5px;
+    }
+    .faq-q {
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      color: #0d0d0d;
+    }
+    .faq-a { font-size: 15px; color: #888; line-height: 1.6; }
+    .faq-item > div { min-width: 0; }
+    .faq-a a { color: #0d0d0d; }
+
+    /* ─── RESPONSIVE LINE BREAKS ─── */
+    .desk-br { display: inline; }
+    .mob-br  { display: none; }
+
+    /* ─── MOBILE NAV ELEMENTS (desktop: hidden) ─── */
+    .nav-cta-mobile { display: none; }
+    .burger-btn { display: none; background: none; border: none; cursor: pointer; padding: 0; line-height: 0; }
+    .mobile-close { background: none; border: none; cursor: pointer; padding: 4px; line-height: 0; }
+    .mobile-menu { display: none; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .desk-br { display: none; }
+      .mob-br  { display: inline; }
+
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .nav-menu { display: none; }
+      .nav-cta-mobile {
+        display: inline-block;
+        background: #0d0d0d;
+        color: #f0f0f0 !important;
+        padding: 10px 18px;
+        font-size: 14px !important;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        text-decoration: none;
+      }
+      .burger-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        margin-right: -10px;
+      }
+      .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(244,242,239,0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 200;
+        transform: translateX(100%);
+        visibility: hidden;
+        transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0.4s;
+        overflow-y: auto;
+      }
+      .mobile-menu.open {
+        transform: translateX(0);
+        visibility: visible;
+        transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), visibility 0s;
+      }
+      .mobile-menu-top {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 16px 20px;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        position: sticky;
+        top: 0;
+        background: rgba(244,242,239,0.98);
+        backdrop-filter: blur(12px);
+      }
+      .mobile-menu-links {
+        padding: 32px 20px 24px;
+        display: flex;
+        flex-direction: column;
+      }
+      .mobile-menu-links a {
+        font-size: 48px;
+        font-weight: 300;
+        letter-spacing: -0.05em;
+        color: #0d0d0d;
+        text-decoration: none;
+        line-height: 1.05;
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 6px;
+        padding: 11.5px 0;
+        border-bottom: none;
+        transition: color 0.2s;
+        text-align: center;
+      }
+      .mobile-menu-links a::after {
+        content: attr(data-num);
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0;
+        color: #aaa;
+        position: relative;
+        top: -1.8em;
+      }
+      .mobile-menu-links a:active { color: #888; }
+      .mobile-menu-cta { padding: 12px 36px 32px; }
+      .mobile-menu-cta a {
+        display: block;
+        background: rgba(13,13,13,0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
+        color: #f0f0f0;
+        padding: 20px 24px;
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        text-decoration: none;
+        text-align: center;
+      }
+
+      .hero { padding: 58px 20px 60px; display: flex; flex-direction: column; }
+      .hero-title { font-size: 56px; margin-bottom: 24px; }
+      .hero-bottom { grid-template-columns: 1fr; }
+      .hero-sub { font-size: 20px; }
+      .hero-sub,
+      .whom-desc,
+      .how-intro,
+      .step-desc,
+      .strength-desc,
+      .comparison-intro,
+      .agents-intro,
+      .agent-desc,
+      .agent-more-text,
+      .ps-desc,
+      .ps-note,
+      .mid-cta-text,
+      .price-desc,
+      .review-text,
+      .faq-a { line-height: 1.2; }
+      .btn-primary { font-size: 20px; padding: 18px 20px; display: block; width: 100%; text-align: center; box-sizing: border-box; margin-top: 64px; }
+
+      .sec-head { font-size: 52px; padding: 0 20px; }
+      .sec-head sup { font-size: 11px; top: -2.8em; margin-left: 6px; }
+      .divider { margin: 12px 20px 0; border-top-color: rgba(0,0,0,0.1); }
+
+      .whom-grid { grid-template-columns: 1fr; padding: 32px 20px 56px; gap: 12px; }
+      .whom-item,
+      .whom-item:first-child,
+      .whom-item:not(:first-child) { padding: 20px 14px; min-height: 180px; }
+      .whom-item:hover, .strength:hover, .gantt-cal-task:not(.active):hover, .gantt-cal-task.active:hover { transform: none; }
+      .gantt-cal-task.active { transform: translateX(-10px); }
+
+      .how-header { grid-template-columns: 1fr; padding: 0 20px; }
+      .how-header .sec-head { grid-column: 1; }
+      .how-intro { grid-column: 1; padding-bottom: 0; max-width: 100%; margin-top: 20px; }
+      .how { padding: 20px 20px 60px; grid-template-columns: 1fr; }
+      .step-name { font-size: 24px; }
+
+      .strengths-grid { grid-template-columns: 1fr; padding: 32px 20px 60px; }
+      .strength,
+      .strength:first-child,
+      .strength:not(:first-child) { border-right: none; padding: 20px 14px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+      .strength:last-child { border-bottom: none; }
+      .strength-num { font-size: 64px; }
+
+      .comparison { padding: 32px 20px 60px; grid-template-columns: 1fr; }
+      .comparison-header { grid-template-columns: 1fr; padding: 0 20px; }
+      .comparison-header .sec-head { grid-column: 1; }
+      .comparison-intro { grid-column: 1; padding: 20px 0 0; }
+      .comparison-table-wrap { padding: 0 20px 60px; overflow-x: visible; }
+      .comp-table { min-width: unset; display: block; margin-top: 24px; position: relative; }
+      .comp-table::before {
+        content: '';
+        position: absolute;
+        top: -16px; bottom: 0;
+        left: calc(50% - 5px);
+        right: 0;
+        background: linear-gradient(135deg, rgba(100,100,100,0.72) 0%, rgba(80,80,80,0.65) 100%);
+        border: 1px solid rgba(255,255,255,0.65);
+        border-radius: 14px;
+        backdrop-filter: blur(20px) saturate(2);
+        -webkit-backdrop-filter: blur(20px) saturate(2);
+        box-shadow: 0 10px 40px rgba(60,60,60,0.3), inset 0 2px 0 rgba(255,255,255,0.85);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .comp-table thead { display: block; }
+      .comp-table thead tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 0 0 12px;
+      }
+      .comp-table thead th:first-child { display: none; }
+      .comp-table thead th { padding: 0; font-size: 11px; position: relative; z-index: 1; border-bottom: none; }
+      .comp-table thead th:last-child { color: rgba(255,255,255,0.7) !important; padding-left: 16px; padding-right: 16px; padding-top: 2px; }
+      .comp-table tbody { display: block; }
+      .comp-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 12px;
+        padding: 24px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+      }
+      .comp-table tr:last-child { border-bottom: none; }
+      .comp-table td { padding: 0; border: none; font-size: 13px; line-height: 1.35; color: #666; position: relative; z-index: 1; }
+      .comp-table td:first-child {
+        grid-column: 1 / -1;
+        font-size: 13px;
+        font-weight: 600;
+        color: #0d0d0d;
+        width: auto;
+        padding-left: 0;
+      }
+      .comp-table td:nth-child(3) { color: rgba(255,255,255,0.85); padding-left: 16px; padding-right: 16px; }
+      .comp-table td.win { color: #333; }
+      .comp-table td:nth-child(3).win { color: rgba(255,255,255,0.95); }
+      .win-badge { display: none; }
+
+      .pagespeed { padding: 32px 20px 60px; grid-template-columns: 1fr; }
+      .ps-score { font-size: 64px; }
+      .ps-scores { grid-template-columns: 1fr 1fr; margin-top: 24px; }
+
+      .agents { margin: 40px 20px 80px; }
+      .agents .sec-head { padding: 0; font-size: 52px; }
+      .agents-header { padding: 32px 20px 48px; }
+      .agents-label { position: static; display: inline-block; margin-bottom: 20px; }
+      .agents-intro { margin-top: 20px; font-size: 16px; }
+      .agents-grid { grid-template-columns: 1fr; }
+      .agent { padding: 24px 20px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.25); }
+      .agent:last-child { border-bottom: none; }
+
+      .mid-cta { padding: 60px 20px 100px; }
+      .mid-cta-card { flex-direction: column; align-items: flex-start; padding: 32px 28px; gap: 40px; }
+      .mid-cta-text { font-size: 20px; }
+      .btn-mid { font-size: 16px; padding: 16px 28px; display: block; width: 100%; text-align: center; box-sizing: border-box; }
+
+      .price-label-row { padding: 0 20px; }
+      .price-block {
+        display: flex;
+        flex-direction: row;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        scroll-padding-left: 20px;
+        padding: 24px 20px 0;
+        gap: 12px;
+        align-items: stretch;
+      }
+      .price-block::-webkit-scrollbar { display: none; }
+      .price-card {
+        flex: 0 0 calc(100vw - 60px);
+        scroll-snap-align: start;
+        padding: 28px 24px;
+      }
+      .price-num { font-size: 56px; }
+      .price-footer-note { padding: 20px 20px 60px; }
+
+      .cases { padding: 0 20px; }
+      .case-row { grid-template-columns: 1fr; gap: 4px; }
+      .case-year { padding-top: 0; }
+      .case-title { font-size: 22px; margin-bottom: 8px; }
+      .case-desc { display: none; }
+      .case-link { display: none; }
+      .case-thumb { height: 220px; margin-top: 12px; }
+      .see-all { padding: 0 20px; grid-template-columns: 1fr; }
+      .see-all a { font-size: 22px; }
+
+      .reviews-nav { display: none; }
+      .reviews-carousel-wrap { padding: 24px 0 60px; }
+      #reviews { margin-top: 48px; }
+      .reviews-track-outer {
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: 30px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .reviews-track-outer::-webkit-scrollbar { display: none; }
+      .reviews-track { gap: 12px; transform: none !important; padding-inline: 30px; }
+      .review { flex: 0 0 calc(100vw - 60px); scroll-snap-align: center; padding: 32px 24px; min-height: 260px; }
+
+      .gantt-sec { margin: 0 20px 40px; }
+      .gantt-wrap { padding: 0 0 40px; overflow-x: unset; }
+      .gantt-calendar { display: none; }
+      .gantt-mobile {
+        display: grid;
+        grid-template-columns: 56px 1fr;
+        border: 1px solid rgba(0,0,0,0.08);
+        margin: 0 20px;
+        border-radius: 2px;
+        overflow: visible;
+      }
+      .gm-day {
+        padding: 16px 12px;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        border-right: 1px solid rgba(0,0,0,0.08);
+        background: rgba(0,0,0,0.02);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-height: 130px;
+      }
+      .gm-day:last-of-type { border-bottom: none; }
+      .gm-num {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: -0.04em;
+        color: #ccc;
+        line-height: 1;
+      }
+      .gm-dayname {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #bbb;
+      }
+      .gm-task {
+        padding: 20px 16px;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .gm-task:last-of-type { border-bottom: none; }
+      .gm-task.active {
+        grid-column: 2;
+        grid-row: 3 / span 3;
+        background: linear-gradient(135deg, rgba(100,100,100,0.72) 0%, rgba(80,80,80,0.65) 100%);
+        border: 1px solid rgba(255,255,255,0.65);
+        border-radius: 14px;
+        box-shadow: 0 10px 32px rgba(60,60,60,0.35), inset 0 2px 0 rgba(255,255,255,0.85);
+        margin: -1px -1px -1px 0;
+        z-index: 2;
+        position: relative;
+        padding: 24px 20px;
+      }
+      .gm-title {
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: -0.03em;
+        color: #0d0d0d;
+        margin-bottom: 12px;
+        line-height: 1.2;
+      }
+      .gm-task.active .gm-title { color: #ffffff; }
+      .gm-items { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-top: auto; }
+      .gm-items li {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 12px;
+        color: #999;
+        line-height: 1.6;
+      }
+      .gm-task.active .gm-items li { color: rgba(255,255,255,0.75); }
+
+      .faq { grid-template-columns: 1fr; padding: 32px 20px 60px; }
+      .faq-item { min-width: 0; }
+      .faq-q { font-size: 22px; word-break: break-word; }
+      .faq-a { word-break: break-word; }
+
+      .form-sec { padding: 20px 0 60px; margin-top: 40px; }
+      .mc-form { margin-left: 20px; margin-right: 20px; margin-top: 32px; padding: 36px 24px; border-radius: 14px; }
+      .fld { font-size: 18px; padding: 28px 0; }
+      .sel-w select { font-size: 18px; padding: 28px 0; }
+      .chk-row { padding: 32px 0 12px; }
+      .chk-lbl { font-size: 11px; }
+      .submit-btn { font-size: 16px; padding: 20px 24px; width: 100%; box-sizing: border-box; margin-top: 28px; }
+
+      footer { padding: 40px 20px 0; }
+      .footer-contacts { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .footer-contact-link { font-size: 52px; font-weight: 300; letter-spacing: -0.06em; line-height: 0.92; }
+      .footer-divider { margin: 20px 0 0; }
+      .footer-btm { flex-wrap: wrap; gap: 16px; padding: 32px 0 24px; }
+      .footer-btm-mc { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-menu">
+    <a href="#whom">Кому</a>
+    <a href="#how">Процесс</a>
+    <a href="#agents">Агенты</a>
+    <a href="#price">Стоимость</a>
+    <a href="#cases">Кейсы</a>
+    <a href="#reviews">Отзывы</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <div class="nav-links">
+    <a href="#contacts">Контакты</a>
+    <a href="#form" class="nav-cta">Заказать сайт</a>
+  </div>
+  <a href="#form" class="nav-cta nav-cta-mobile">Заказать сайт</a>
+  <button class="burger-btn" id="burger-btn" aria-label="Открыть меню">
+    <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line y1="1" x2="22" y2="1" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+      <line y1="7" x2="22" y2="7" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+      <line y1="13" x2="22" y2="13" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- ─── MOBILE MENU ─── -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-top">
+    <button class="mobile-close" id="mobile-close" aria-label="Закрыть меню">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="1" y1="1" x2="19" y2="19" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="19" y1="1" x2="1" y2="19" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="#whom" onclick="closeMobileMenu()" data-num="(1)">Кому</a>
+    <a href="#how" onclick="closeMobileMenu()" data-num="(2)">Процесс</a>
+    <a href="#agents" onclick="closeMobileMenu()" data-num="(3)">Агенты</a>
+    <a href="#price" onclick="closeMobileMenu()" data-num="(4)">Стоимость</a>
+    <a href="#cases" onclick="closeMobileMenu()" data-num="(5)">Кейсы</a>
+    <a href="#reviews" onclick="closeMobileMenu()" data-num="(6)">Отзывы</a>
+    <a href="#faq" onclick="closeMobileMenu()" data-num="(7)">FAQ</a>
+  </nav>
+  <div class="mobile-menu-cta">
+    <a href="#form" onclick="closeMobileMenu()">Обсудить проект</a>
+  </div>
+</div>
+
+<!-- ─── HERO ─── -->
+<section>
+  <div class="hero">
+    <h1 class="hero-title">За 7 дней —<br>сайт, который<br>продаёт.</h1>
+    <p class="hero-sub">Пока обычная студия согласовывает ТЗ — ваш сайт уже в поиске. Никаких шаблонов, подписок и лишнего кода. Только чистая разработка, кастомный дизайн и результат за 7 дней.</p>
+    <a href="#form" class="btn-primary">Обсудить проект</a>
+  </div>
+</section>
+
+<!-- ─── КОМУ ПОДОЙДЁТ ─── -->
+<section id="whom">
+  <div class="divider"></div>
+  <h2 class="sec-head" style="margin-top:18px;">Это подойдёт тебе<sup>(1)</sup></h2>
+  <div class="whom-grid">
+    <div class="whom-item">
+      <div class="whom-name">Малый бизнес</div>
+      <div class="whom-desc">Рестораны, барбершопы, клиники, студии — всем, у кого есть клиенты, но нет нормального сайта или он не работает.</div>
+    </div>
+    <div class="whom-item">
+      <div class="whom-name">Эксперты и коучи</div>
+      <div class="whom-desc">Консультанты, фрилансеры, авторы курсов — нужен сайт, который продаёт тебя, пока ты работаешь с другими клиентами.</div>
+    </div>
+    <div class="whom-item">
+      <div class="whom-name">Стартапы</div>
+      <div class="whom-desc">Нужен MVP-лендинг быстро и без лишних затрат — чтобы проверить гипотезу до того, как кончились деньги.</div>
+    </div>
+    <div class="whom-item">
+      <div class="whom-name">Те, кто устал от Тильды</div>
+      <div class="whom-desc">У тебя уже есть сайт, но он тормозит, плохо ранжируется в поиске и выглядит одинаково с соседями.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── КАК РАБОТАЕМ ─── -->
+<section id="how">
+  <div class="divider"></div>
+  <div class="how-header" style="margin-top:18px;">
+    <h2 class="sec-head">Как мы<br>работаем<sup>(2)</sup></h2>
+    <p class="how-intro">Не "разработка". Система. За 7 дней проходим путь от разговора до готового сайта — с AI-агентами на каждом этапе.</p>
+  </div>
+  <div class="how">
+    <div><span class="sec-label">Процесс</span></div>
+    <div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">01</span>
+          <div>
+            <div class="step-name">Созвон и бриф</div>
+            <div class="step-desc">30 минут — и мы знаем всё о твоём бизнесе, клиентах и целях. Никаких бесконечных анкет.</div>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">02</span>
+          <div>
+            <div class="step-name">Структура и прототип</div>
+            <div class="step-desc">Проектируем блоки, пишем тексты под твою нишу, согласовываем до начала кодинга.</div>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">03</span>
+          <div>
+            <div class="step-name">Вайб-кодинг</div>
+            <div class="step-desc">Кастомный сайт на чистом HTML/CSS/JS или нужном стеке.<br>Никаких конструкторов и шаблонов.</div>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">04</span>
+          <div>
+            <div class="step-name">Проверка агентами</div>
+            <div class="step-desc">Четыре AI-агента — код, SEO, безопасность и логика продаж.<br>Все слабые места исправлены до сдачи.</div>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">05</span>
+          <div>
+            <div class="step-name">Сдача и деплой</div>
+            <div class="step-desc">Принимаешь работу, деплоим на твой домен. Получаешь исходники, удобную админку и 3 месяца поддержки.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ПОЧЕМУ МЫ ─── -->
+<section>
+  <div class="divider"></div>
+  <h2 class="sec-head" style="margin-top:18px;">Почему мы<sup>(3)</sup></h2>
+  <div class="strengths-grid">
+    <div class="strength">
+      <div class="strength-num">7</div>
+      <div class="strength-name">Дней — и сайт готов</div>
+      <div class="strength-desc">AI-разработка сокращает цикл в 3–5 раз. То, что обычная студия делает месяц — мы за неделю.</div>
+    </div>
+    <div class="strength">
+      <div class="strength-num">94</div>
+      <div class="strength-name">Балла PageSpeed</div>
+      <div class="strength-desc">Чистый код без лишнего — сайты грузятся быстро. Тильда в среднем набирает 35–50 баллов.</div>
+    </div>
+    <div class="strength">
+      <div class="strength-num">100%</div>
+      <div class="strength-name">Твой код навсегда</div>
+      <div class="strength-desc">Исходники принадлежат тебе. Никаких ежемесячных подписок. Хости где хочешь.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ТИЛЬДА VS ВАЙБ-КОДИНГ ─── -->
+<section>
+  <div class="divider"></div>
+  <div class="comparison-header" style="margin-top:18px;">
+    <h2 class="sec-head">Тильда vs<br>вайб-кодинг<sup>(4)</sup></h2>
+    <p class="comparison-intro">У тебя уже есть сайт на Тильде? Хорошо. Теперь давай честно — что он умеет и чего не умеет никогда.</p>
+  </div>
+  <div class="comparison-table-wrap">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th style="font-size:13px;color:#888;letter-spacing:0.06em;">Тильда</th>
+            <th style="font-size:13px;color:#0d0d0d;letter-spacing:0.06em;">Вайб-кодинг</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Скорость загрузки</td>
+            <td class="lose">35–50 баллов PageSpeed. Много лишнего JS.</td>
+            <td class="win">90–98 баллов. Нет ничего лишнего.</td>
+          </tr>
+          <tr>
+            <td>SEO</td>
+            <td class="lose">Ограниченный контроль, страдает индексация.</td>
+            <td class="win">Полный контроль: заголовки, мета, schema.org.</td>
+          </tr>
+          <tr>
+            <td>Дизайн</td>
+            <td class="lose">Шаблоны. Узнаваемый вид «как у всех».</td>
+            <td class="win">Пиксель-перфект под твой бренд.</td>
+          </tr>
+          <tr>
+            <td>Функциональность</td>
+            <td class="lose">Только то, что Тильда разрешает.</td>
+            <td class="win">Любая логика, любые интеграции.</td>
+          </tr>
+          <tr>
+            <td>Владение кодом</td>
+            <td class="lose">Код принадлежит платформе. Закроют — потеряешь всё.</td>
+            <td class="win">Исходники твои. Навсегда.</td>
+          </tr>
+          <tr>
+            <td>Стоимость</td>
+            <td class="lose">От 1 000 ₽/мес. вечно. За 3 года — 36 000 ₽ только подписка.</td>
+            <td class="win">Разовый платёж. Без подписок.</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div class="mid-cta">
+    <div class="mid-cta-card">
+      <p class="mid-cta-text"><strong>Уже всё понятно?</strong> Расскажи о проекте — обсудим детали и назовём точную стоимость на созвоне.</p>
+      <a href="#form" class="btn-mid">Обсудить проект →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── МЕДЛЕННЫЙ САЙТ СТОИТ ДЕНЕГ ─── -->
+<section>
+  <div class="divider"></div>
+  <h2 class="sec-head seo-head" style="margin-top:18px;">Медленный сайт<span class="desk-br"><br></span> стоит<span class="mob-br"><br></span> вам денег<sup>(5)</sup></h2>
+  <div class="pagespeed">
+    <div><span class="sec-label">SEO и скорость</span></div>
+    <div>
+      <div class="ps-scores">
+        <div>
+          <div class="ps-label">Тильда</div>
+          <div class="ps-score-wrap">
+            <div class="ps-score bad">38</div>
+            <div class="ps-score-max">/ 100</div>
+          </div>
+          <div class="ps-bar"><div class="ps-bar-fill bad" style="width:38%"></div></div>
+          <ul class="ps-list bad">
+            <li>Долгая загрузка</li>
+            <li>Низко в поиске</li>
+            <li>Клиенты уходят</li>
+          </ul>
+        </div>
+        <div>
+          <div class="ps-label good">Вайб-кодинг</div>
+          <div class="ps-score-wrap">
+            <div class="ps-score">94</div>
+            <div class="ps-score-max">/ 100</div>
+          </div>
+          <div class="ps-bar"><div class="ps-bar-fill" style="width:94%"></div></div>
+          <ul class="ps-list good">
+            <li>Мгновенная загрузка</li>
+            <li>Топ в Google</li>
+            <li>Больше заявок</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── AI-АГЕНТЫ ─── -->
+<div class="divider"></div>
+<section class="agents" id="agents">
+  <div class="agents-header">
+    <span class="agents-label">Наша фишка</span>
+    <h2 class="sec-head">Четыре агента<br>в каждом проекте<sup>(6)</sup></h2>
+    <p class="agents-intro">К каждому сайту прилагается команда AI-агентов, которые проверяют его до сдачи. Это не маркетинг — реально работающие скрипты, которые находят то, что не увидит человек.</p>
+  </div>
+  <div class="agents-grid">
+    <div class="agent" onclick="toggleAgent(this)">
+      <div class="agent-num">Агент 01</div>
+      <div class="agent-name">Оптимизация кода</div>
+      <div class="agent-desc">Анализирует лишние зависимости, медленные операции и плохие практики. Итог — сайт грузится быстрее.</div>
+      <div class="agent-more">
+        <p class="agent-more-text">Проверяет размер бандла, порядок загрузки ресурсов, неиспользуемый CSS и JS. Выдаёт конкретный список правок с объяснением — не просто «плохой код», а «вот что убрать и почему».</p>
+      </div>
+    </div>
+    <div class="agent" onclick="toggleAgent(this)">
+      <div class="agent-num">Агент 02</div>
+      <div class="agent-name">Безопасность</div>
+      <div class="agent-desc">Проверяет уязвимости: XSS, открытые данные, небезопасные зависимости. Твой сайт не взломают завтра.</div>
+      <div class="agent-more">
+        <p class="agent-more-text">Сканирует формы на XSS, проверяет HTTP-заголовки, ищет открытые API-ключи и уязвимые версии библиотек. Базовая защита входит в стоимость проекта.</p>
+      </div>
+    </div>
+    <div class="agent" onclick="toggleAgent(this)">
+      <div class="agent-num">Агент 03</div>
+      <div class="agent-name">SEO-аудит</div>
+      <div class="agent-desc">Заголовки, meta-теги, структура, alt-атрибуты, schema.org. Всё настроено для индексации с первого дня.</div>
+      <div class="agent-more">
+        <p class="agent-more-text">Проверяет корректность h1–h6, уникальность title и description, og-теги, скорость ответа и мобильный вид в GoogleBot. На выходе — чеклист из 40+ пунктов с оценкой.</p>
+      </div>
+    </div>
+    <div class="agent" onclick="toggleAgent(this)">
+      <div class="agent-num">Агент 04</div>
+      <div class="agent-name">Анализ продаж</div>
+      <div class="agent-desc">Читает лендинг как твой клиент. Находит слабые места в логике продаж и потерянные точки конверсии.</div>
+      <div class="agent-more">
+        <p class="agent-more-text">Оценивает структуру оффера, качество CTA, логику скроллинга и точки потери внимания. Сравнивает с практиками ниши и даёт конкретные рекомендации по формулировкам.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ЦЕНА ─── -->
+<section id="price">
+  <div class="divider"></div>
+  <h2 class="sec-head" style="margin-top:18px;">Стоимость<sup>(7)</sup></h2>
+  <div class="price-block">
+    <div class="price-card" onclick="selectPlan('Лендинг')">
+      <div class="price-from">Лендинг — от</div>
+      <div class="price-num">50 000 <span class="price-currency">₽</span></div>
+      <p class="price-desc">Продающая страница для одного продукта или услуги. Конвертирует посетителей в заявки с первого визита.</p>
+      <ul class="price-includes">
+        <li>Кастомный дизайн под твой бренд</li>
+        <li>Чистый HTML/CSS/JS, без конструкторов</li>
+        <li>Проверка 4 AI-агентами перед сдачей</li>
+        <li>SEO-настройка с первого дня</li>
+        <li>Удобная админка для самостоятельных правок</li>
+        <li>Деплой на твой домен + исходники навсегда</li>
+        <li>3 месяца технической поддержки</li>
+      </ul>
+      <button class="price-select-btn">Выбрать →</button>
+    </div>
+    <div class="price-card" onclick="selectPlan('Интернет-магазин')">
+      <div class="price-from">Интернет-магазин — от</div>
+      <div class="price-num">100 000 <span class="price-currency">₽</span></div>
+      <p class="price-desc">Каталог, корзина, оплата — всё своё, без платформ с подписками. Владеешь кодом, не зависишь ни от кого.</p>
+      <ul class="price-includes">
+        <li>Каталог товаров с фильтрами</li>
+        <li>Корзина и оформление заказа</li>
+        <li>Интеграция оплаты (ЮКасса, Тинькофф)</li>
+        <li>Личный кабинет покупателя</li>
+        <li>Админка для управления товарами</li>
+        <li>Деплой на твой домен + исходники навсегда</li>
+        <li>3 месяца технической поддержки</li>
+      </ul>
+      <button class="price-select-btn">Выбрать →</button>
+    </div>
+    <div class="price-card" onclick="selectPlan('Многостраничный сайт')">
+      <div class="price-from">Многостраничник — от</div>
+      <div class="price-num">150 000 <span class="price-currency">₽</span></div>
+      <p class="price-desc">Корпоративный сайт, портфолио или сервис с несколькими разделами. Единая дизайн-система, SEO для каждой страницы.</p>
+      <ul class="price-includes">
+        <li>До 10 уникальных страниц</li>
+        <li>Единая дизайн-система</li>
+        <li>Блог или новостной раздел</li>
+        <li>SEO-оптимизация каждой страницы</li>
+        <li>CMS для самостоятельного управления</li>
+        <li>Деплой на твой домен + исходники навсегда</li>
+        <li>3 месяца технической поддержки</li>
+      </ul>
+      <button class="price-select-btn">Выбрать →</button>
+    </div>
+  </div>
+  <p class="price-footer-note">Разовый платёж, никаких подписок. Нестандартные проекты — обсуждаем индивидуально на созвоне.</p>
+</section>
+
+<!-- ─── КЕЙСЫ — точная верстка MC ─── -->
+<section id="cases">
+  <div class="divider"></div>
+  <h2 class="sec-head" style="margin-top:18px;">Кейсы<sup>(8)</sup></h2>
+  <div class="cases">
+
+    <div class="case-row">
+      <div>
+        <div class="case-year">2025</div>
+      </div>
+      <div>
+        <div class="case-title">Название кейса 1</div>
+        <div class="tags">
+          <span class="tag">Лендинг</span>
+          <span class="tag">Вайб-кодинг</span>
+        </div>
+        <p class="case-desc" style="font-size:15px;color:#777;line-height:1.5;">Краткое описание: какая была задача, что сделали, результат в цифрах — заявки, скорость, конверсия.</p>
+        <a href="vibe-coding/project.html" class="case-thumb dark"><span class="case-thumb-placeholder">скриншот сайта</span></a>
+      </div>
+      <a href="vibe-coding/project.html" class="case-link">Смотреть проект →</a>
+    </div>
+
+    <div class="case-row">
+      <div>
+        <div class="case-year">2025</div>
+      </div>
+      <div>
+        <div class="case-title">Название кейса 2</div>
+        <div class="tags">
+          <span class="tag">Лендинг</span>
+          <span class="tag">AI-интеграция</span>
+        </div>
+        <p class="case-desc" style="font-size:15px;color:#777;line-height:1.5;">Краткое описание: какая была задача, что сделали, результат в цифрах — заявки, скорость, конверсия.</p>
+        <a href="vibe-coding/project.html" class="case-thumb"><span class="case-thumb-placeholder">скриншот сайта</span></a>
+      </div>
+      <a href="vibe-coding/project.html" class="case-link">Смотреть проект →</a>
+    </div>
+
+    <div class="case-row">
+      <div>
+        <div class="case-year">2026</div>
+      </div>
+      <div>
+        <div class="case-title">Название кейса 3</div>
+        <div class="tags">
+          <span class="tag">Лендинг</span>
+          <span class="tag">SEO</span>
+        </div>
+        <p class="case-desc" style="font-size:15px;color:#777;line-height:1.5;">Краткое описание: какая было задача, что сделали, результат в цифрах — заявки, скорость, конверсия.</p>
+        <a href="vibe-coding/project.html" class="case-thumb dark"><span class="case-thumb-placeholder">скриншот сайта</span></a>
+      </div>
+      <a href="vibe-coding/project.html" class="case-link">Смотреть проект →</a>
+    </div>
+
+    <div class="cases-all-btn-row">
+      <a href="vibe-coding/cases.html" class="cases-all-btn">Смотреть все проекты →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── ОТЗЫВЫ — карусель ─── -->
+<section id="reviews">
+  <div class="divider"></div>
+  <h2 class="sec-head" style="margin-top:18px;">Отзывы<sup>(9)</sup></h2>
+  <div class="reviews-carousel-wrap">
+    <div class="reviews-nav">
+      <button class="reviews-btn prev">←</button>
+      <button class="reviews-btn next">→</button>
+    </div>
+    <div class="reviews-track-outer">
+      <div class="reviews-track">
+        <div class="review">
+          <div class="review-author">Имя клиента</div>
+          <div class="review-role">Владелец, [название бизнеса]</div>
+          <p class="review-text">«Делали сайт за 6 дней — думал, будет на отвали. Получил реально крутой результат. PageSpeed 91, дизайн под бренд, и первая неделя дала 3 заявки с поиска.»</p>
+        </div>
+        <div class="review">
+          <div class="review-author">Имя клиента</div>
+          <div class="review-role">Эксперт, [ниша]</div>
+          <p class="review-text">«До этого был сайт на Тильде за 1 200 ₽/мес., который не приносил ничего. Теперь исходники мои, сайт летает, и я перестал платить за подписку.»</p>
+        </div>
+        <div class="review">
+          <div class="review-author">Имя клиента</div>
+          <div class="review-role">Основатель, [стартап]</div>
+          <p class="review-text">«Агент по анализу продаж нашёл 4 места, где я терял клиентов. Переписали формулировки — конверсия формы выросла. Не ожидал, что это входит в стоимость.»</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── САЙТ ЗА ОДНУ НЕДЕЛЮ: Calendar ─── -->
+<div style="padding: 80px 0 80px;">
+<section class="gantt-sec">
+  <h2 class="sec-head">Сайт за одну неделю<sup>(10)</sup></h2>
+  <div class="gantt-wrap">
+    <div class="gantt-calendar">
+
+      <!-- Заголовки дней -->
+      <div class="gantt-cal-head">
+        <span class="gantt-cal-day-num">01</span>
+        <span class="gantt-cal-day-name">Пн</span>
+      </div>
+      <div class="gantt-cal-head">
+        <span class="gantt-cal-day-num">02</span>
+        <span class="gantt-cal-day-name">Вт</span>
+      </div>
+      <div class="gantt-cal-head">
+        <span class="gantt-cal-day-num">03</span>
+        <span class="gantt-cal-day-name">Ср</span>
+      </div>
+      <div class="gantt-cal-head">
+        <span class="gantt-cal-day-num">04</span>
+        <span class="gantt-cal-day-name">Чт</span>
+      </div>
+      <div class="gantt-cal-head">
+        <span class="gantt-cal-day-num">05</span>
+        <span class="gantt-cal-day-name">Пт</span>
+      </div>
+      <div class="gantt-cal-head">
+        <span class="gantt-cal-day-num">06</span>
+        <span class="gantt-cal-day-name">Сб</span>
+      </div>
+      <div class="gantt-cal-head">
+        <span class="gantt-cal-day-num">07</span>
+        <span class="gantt-cal-day-name">Вс</span>
+      </div>
+
+      <!-- Задачи -->
+      <div class="gantt-cal-task">
+        <div class="gantt-cal-task-name">Созвон и договор</div>
+        <ul class="gantt-cal-items">
+          <li>Бриф</li>
+          <li>Договор</li>
+          <li>Предоплата 50%</li>
+        </ul>
+      </div>
+      <div class="gantt-cal-task">
+        <div class="gantt-cal-task-name">Структура и прототип</div>
+        <ul class="gantt-cal-items">
+          <li>Блоки страницы</li>
+          <li>Тексты и оффер</li>
+          <li>Согласование</li>
+        </ul>
+      </div>
+      <div class="gantt-cal-task active" style="grid-column: span 3;">
+        <div class="gantt-cal-task-name">AI-разработка</div>
+        <ul class="gantt-cal-items">
+          <li>Вёрстка и код</li>
+          <li>Дизайн под бренд</li>
+          <li>Анимации и интерактив</li>
+          <li>Адаптив и кроссбраузерность</li>
+        </ul>
+      </div>
+      <div class="gantt-cal-task">
+        <div class="gantt-cal-task-name">Проверка агентами</div>
+        <ul class="gantt-cal-items">
+          <li>Код и скорость</li>
+          <li>SEO-аудит</li>
+          <li>Безопасность</li>
+          <li>Анализ продаж</li>
+        </ul>
+      </div>
+      <div class="gantt-cal-task">
+        <div class="gantt-cal-task-name">Сдача и деплой</div>
+        <ul class="gantt-cal-items">
+          <li>Приёмка</li>
+          <li>Доплата 50%</li>
+          <li>Деплой на домен</li>
+          <li>Исходники тебе</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Мобильный таймлайн (2-col grid, active spans rows 3-5) -->
+    <div class="gantt-mobile">
+      <div class="gm-day"><span class="gm-num">01</span><span class="gm-dayname">Пн</span></div>
+      <div class="gm-task">
+        <div class="gm-title">Созвон и договор</div>
+        <ul class="gm-items"><li>Бриф</li><li>Договор</li><li>Предоплата 50%</li></ul>
+      </div>
+
+      <div class="gm-day"><span class="gm-num">02</span><span class="gm-dayname">Вт</span></div>
+      <div class="gm-task">
+        <div class="gm-title">Структура и прототип</div>
+        <ul class="gm-items"><li>Блоки страницы</li><li>Тексты и оффер</li><li>Согласование</li></ul>
+      </div>
+
+      <div class="gm-day"><span class="gm-num">03</span><span class="gm-dayname">Ср</span></div>
+      <div class="gm-task active">
+        <div class="gm-title">AI-разработка</div>
+        <ul class="gm-items"><li>Вёрстка и код</li><li>Дизайн под бренд</li><li>Анимации и интерактив</li><li>Адаптив и кроссбраузерность</li></ul>
+      </div>
+
+      <div class="gm-day"><span class="gm-num">04</span><span class="gm-dayname">Чт</span></div>
+      <div class="gm-day"><span class="gm-num">05</span><span class="gm-dayname">Пт</span></div>
+
+      <div class="gm-day"><span class="gm-num">06</span><span class="gm-dayname">Сб</span></div>
+      <div class="gm-task">
+        <div class="gm-title">Проверка агентами</div>
+        <ul class="gm-items"><li>Код и скорость</li><li>SEO-аудит</li><li>Безопасность</li><li>Анализ продаж</li></ul>
+      </div>
+
+      <div class="gm-day"><span class="gm-num">07</span><span class="gm-dayname">Вс</span></div>
+      <div class="gm-task">
+        <div class="gm-title">Сдача и деплой</div>
+        <ul class="gm-items"><li>Приёмка</li><li>Доплата 50%</li><li>Деплой на домен</li><li>Исходники тебе</li></ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<!-- ─── FAQ ─── -->
+<section id="faq">
+  <div class="divider"></div>
+  <h2 class="sec-head" style="margin-top:18px;">Частые<br>вопросы<sup>(11)</sup></h2>
+  <div class="faq">
+    <div><span class="sec-label">FAQ</span></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <span class="faq-num">01</span>
+        <div>
+          <div class="faq-q">А если мне не понравится результат?</div>
+          <div class="faq-a">Структуру и дизайн согласовываем до начала кодинга. Если что-то не так — правим. В договоре прописаны 2 раунда бесплатных правок после сдачи.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <span class="faq-num">02</span>
+        <div>
+          <div class="faq-q">Как я смогу сам менять контент?</div>
+          <div class="faq-a">Сдаём сайт с простой админкой — меняй тексты, фото и блоки без разработчика. Работает удобнее, чем Тильда: заходишь, правишь, сохраняешь.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <span class="faq-num">03</span>
+        <div>
+          <div class="faq-q">Что будет после сдачи?</div>
+          <div class="faq-a">3 месяца технической поддержки входят в стоимость. Потом — по запросу. Получаете исходники и можете работать с любым разработчиком.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <span class="faq-num">04</span>
+        <div>
+          <div class="faq-q">Работаете с ИП и ООО? Нужен договор?</div>
+          <div class="faq-a">Да, работаем официально. Договор, акт, закрывающие документы — всё включено. Можем выставить счёт на юрлицо.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <span class="faq-num">05</span>
+        <div>
+          <div class="faq-q">Можно ли заказать многостраничный сайт?</div>
+          <div class="faq-a">Да. Лендинг — базовый формат, но делаем и многостраничники, и интернет-магазины. Стоимость и сроки обсуждаем на созвоне под конкретную задачу.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ФОРМА — точная копия MC ─── -->
+<section class="form-sec" id="form">
+  <div class="divider"></div>
+  <h2 class="sec-head" style="margin-top:18px;">Обсудим<br>проект<sup>(12)</sup></h2>
+  <div class="mc-form">
+    <input class="fld" type="text" placeholder="Твоё имя">
+    <input class="fld" type="text" placeholder="Чем занимаешься / ниша">
+    <div class="sel-w">
+      <select id="site-type-select">
+        <option value="" disabled selected>Формат сайта</option>
+        <option>Лендинг</option>
+        <option>Многостраничный сайт</option>
+        <option>Портфолио</option>
+        <option>Интернет-магазин</option>
+        <option>Пока не знаю — обсудим</option>
+      </select>
+      <span class="sel-arrow">↓</span>
+    </div>
+    <input class="fld" type="tel" placeholder="Telegram или телефон">
+    <div class="chk-row">
+      <input type="checkbox" class="chk-box" id="privacy">
+      <label class="chk-lbl" for="privacy">
+        Я согласен с <a href="/privacy/"><u>политикой конфиденциальности</u></a>
+      </label>
+    </div>
+    <span class="privacy-error" id="privacy-error">Необходимо согласие для отправки</span>
+    <button class="submit-btn" id="submit-btn">Оставить заявку</button>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer id="contacts">
+  <div class="footer-contacts">
+    <a href="https://t.me/egorkurakin" class="footer-contact-link">Телеграм</a>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-btm">
+    <a href="/privacy/">Политика конфиденциальности</a>
+    <a href="https://midnightcollective.ru" class="footer-btm-mc">Midnight Collective</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var outer = document.querySelector('.reviews-track-outer');
+  var track = document.querySelector('.reviews-track');
+  if (!outer || !track) return;
+
+  // На мобилке — нативный scroll-snap, JS-карусель не нужна
+  if (window.innerWidth <= 900) return;
+
+  var origCards = Array.from(track.querySelectorAll('.review'));
+  var n = origCards.length;
+
+  // Prepend clones (reverse order so they appear correctly)
+  origCards.slice().reverse().forEach(function (r) {
+    track.insertBefore(r.cloneNode(true), track.firstChild);
+  });
+  // Append clones
+  origCards.forEach(function (r) {
+    track.appendChild(r.cloneNode(true));
+  });
+
+  var current = n;
+  var animating = false;
+
+  function cardW() { return (outer.offsetWidth + 16) / 3; }
+
+  function moveTo(idx, animate) {
+    track.style.transition = animate ? 'transform 0.45s cubic-bezier(0.4,0,0.2,1)' : 'none';
+    track.style.transform = 'translateX(' + (-idx * cardW()) + 'px)';
+    current = idx;
+  }
+
+  moveTo(current, false);
+
+  track.addEventListener('transitionend', function () {
+    var total = track.querySelectorAll('.review').length;
+    if (current >= total - n) moveTo(n, false);
+    if (current <= 0) moveTo(total - n * 2, false);
+    animating = false;
+  });
+
+  document.querySelector('.reviews-btn.prev').addEventListener('click', function () {
+    if (animating) return; animating = true;
+    moveTo(current - 1, true);
+  });
+
+  document.querySelector('.reviews-btn.next').addEventListener('click', function () {
+    if (animating) return; animating = true;
+    moveTo(current + 1, true);
+  });
+
+  window.addEventListener('resize', function () { moveTo(current, false); });
+})();
+
+// Мобильная бесконечная карусель отзывов
+(function () {
+  if (window.innerWidth > 900) return;
+  var outer = document.querySelector('.reviews-track-outer');
+  var track = document.querySelector('.reviews-track');
+  if (!outer || !track) return;
+
+  var origCards = Array.from(track.querySelectorAll('.review'));
+  var n = origCards.length;
+
+  origCards.slice().reverse().forEach(function (r) {
+    track.insertBefore(r.cloneNode(true), track.firstChild);
+  });
+  origCards.forEach(function (r) {
+    track.appendChild(r.cloneNode(true));
+  });
+
+  var allCards = Array.from(track.querySelectorAll('.review'));
+
+  function centerCard(idx, instant) {
+    var card = allCards[idx];
+    var target = card.offsetLeft - (outer.offsetWidth - card.offsetWidth) / 2;
+    if (instant) {
+      outer.style.scrollBehavior = 'auto';
+      outer.scrollLeft = target;
+      outer.getBoundingClientRect(); // force reflow
+      outer.style.scrollBehavior = '';
+    } else {
+      outer.scrollLeft = target;
+    }
+  }
+
+  requestAnimationFrame(function () { centerCard(n, true); });
+
+  function getCenteredIdx() {
+    var viewCenter = outer.scrollLeft + outer.offsetWidth / 2;
+    var closest = 0, minDist = Infinity;
+    allCards.forEach(function (card, i) {
+      var dist = Math.abs(card.offsetLeft + card.offsetWidth / 2 - viewCenter);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    });
+    return closest;
+  }
+
+  function onScrollEnd() {
+    var idx = getCenteredIdx();
+    if (idx < n) centerCard(idx + n, true);
+    else if (idx >= 2 * n) centerCard(idx - n, true);
+  }
+
+  if ('onscrollend' in outer) {
+    outer.addEventListener('scrollend', onScrollEnd);
+  } else {
+    var tid;
+    outer.addEventListener('scroll', function () {
+      clearTimeout(tid);
+      tid = setTimeout(onScrollEnd, 100);
+    });
+  }
+})();
+
+// Мобильное меню
+var burgerBtn = document.getElementById('burger-btn');
+var mobileMenu = document.getElementById('mobile-menu');
+var mobileCloseBtn = document.getElementById('mobile-close');
+
+function closeMobileMenu() {
+  if (mobileMenu) {
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+if (burgerBtn && mobileMenu) {
+  burgerBtn.addEventListener('click', function () {
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+  if (mobileCloseBtn) {
+    mobileCloseBtn.addEventListener('click', closeMobileMenu);
+  }
+}
+
+// Агенты — раскрыть подробности
+function toggleAgent(card) {
+  var more = card.querySelector('.agent-more');
+  var isOpen = more.classList.contains('open');
+  card.classList.toggle('agent-open', !isOpen);
+  more.classList.toggle('open', !isOpen);
+}
+
+// Валидация формы
+document.getElementById('submit-btn').addEventListener('click', function (e) {
+  var cb = document.getElementById('privacy');
+  var err = document.getElementById('privacy-error');
+  if (!cb.checked) {
+    e.preventDefault();
+    err.classList.add('visible');
+    cb.style.borderColor = '#c0392b';
+  } else {
+    err.classList.remove('visible');
+    cb.style.borderColor = '';
+  }
+});
+document.getElementById('privacy').addEventListener('change', function () {
+  if (this.checked) {
+    document.getElementById('privacy-error').classList.remove('visible');
+    this.style.borderColor = '';
+  }
+});
+
+function selectPlan(type) {
+  var sel = document.getElementById('site-type-select');
+  if (sel) {
+    for (var i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].text === type) {
+        sel.selectedIndex = i;
+        sel.dispatchEvent(new Event('change'));
+        break;
+      }
+    }
+  }
+  var form = document.getElementById('form');
+  if (form) {
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+</script>
+
+</body>
+</html>
