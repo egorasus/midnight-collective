@@ -8,8 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; overflow-x: hidden; }
-    body { overflow-x: hidden; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body { overflow-x: clip; }
     #form, #contacts, #whom, #how, #agents, #price, #cases, #reviews, #faq { scroll-margin-top: 80px; }
     body { font-family: Inter, -apple-system, sans-serif; background: #f4f2ef; color: #0d0d0d; max-width: 100vw; }
 
@@ -153,11 +153,11 @@
       padding: 32px;
       border-right: none;
       border-radius: 18px;
-      background: linear-gradient(135deg, rgba(58,190,100,0.72) 0%, rgba(42,175,88,0.65) 50%, rgba(36,162,82,0.7) 100%);
+      background: linear-gradient(135deg, rgba(100,100,100,0.72) 0%, rgba(80,80,80,0.65) 50%, rgba(60,60,60,0.7) 100%);
       backdrop-filter: blur(20px) saturate(2);
       -webkit-backdrop-filter: blur(20px) saturate(2);
       border: 1px solid rgba(255,255,255,0.65);
-      box-shadow: 0 10px 40px rgba(30,140,65,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
+      box-shadow: 0 10px 40px rgba(60,60,60,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
       min-height: 280px;
       display: flex;
       flex-direction: column;
@@ -239,11 +239,11 @@
       padding: 40px;
       border-right: none;
       border-radius: 18px;
-      background: linear-gradient(135deg, rgba(58,190,100,0.72) 0%, rgba(42,175,88,0.65) 50%, rgba(36,162,82,0.7) 100%);
+      background: linear-gradient(135deg, rgba(100,100,100,0.72) 0%, rgba(80,80,80,0.65) 50%, rgba(60,60,60,0.7) 100%);
       backdrop-filter: blur(20px) saturate(2);
       -webkit-backdrop-filter: blur(20px) saturate(2);
       border: 1px solid rgba(255,255,255,0.65);
-      box-shadow: 0 10px 40px rgba(30,140,65,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
+      box-shadow: 0 10px 40px rgba(60,60,60,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
       transition: background 0.25s;
     }
     .strength { transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); }
@@ -363,21 +363,21 @@
     }
     .ps-label.good {
       color: #fff;
-      background: rgba(42,175,88,0.55);
+      background: rgba(80,80,80,0.55);
       border: 1px solid rgba(255,255,255,0.5);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
     }
     .ps-score-wrap { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
-    .ps-score { font-family: Inter, sans-serif; font-size: 100px; font-weight: 300; letter-spacing: -0.06em; line-height: 1; color: rgb(42,175,88); }
+    .ps-score { font-family: Inter, sans-serif; font-size: 100px; font-weight: 300; letter-spacing: -0.06em; line-height: 1; color: rgb(80,80,80); }
     .ps-score.bad { color: #ccc; }
     .ps-score-max { font-size: 22px; color: #bbb; letter-spacing: -0.04em; }
     .ps-bar { height: 12px; background: rgba(0,0,0,0.08); margin-bottom: 20px; border-radius: 6px; }
     .ps-bar-fill {
       height: 100%;
       border-radius: 6px;
-      background: linear-gradient(135deg, rgba(58,190,100,0.9) 0%, rgba(42,175,88,0.75) 100%);
+      background: linear-gradient(135deg, rgba(100,100,100,0.9) 0%, rgba(80,80,80,0.75) 100%);
       border-top: 1px solid rgba(255,255,255,0.55);
-      box-shadow: 0 2px 8px rgba(42,175,88,0.4), inset 0 1px 0 rgba(255,255,255,0.5);
+      box-shadow: 0 2px 8px rgba(80,80,80,0.4), inset 0 1px 0 rgba(255,255,255,0.5);
     }
     .ps-bar-fill.bad { background: rgba(0,0,0,0.1); box-shadow: none; border-top: none; }
     .ps-desc { font-size: 14px; color: #888; line-height: 1.5; }
@@ -391,18 +391,18 @@
     .ps-list { list-style: none; margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
     .ps-list li { font-size: 15px; letter-spacing: -0.02em; display: flex; align-items: center; gap: 10px; }
     .ps-list li::before { content: ''; display: inline-block; width: 18px; height: 1px; flex-shrink: 0; }
-    .ps-list.good li { color: rgb(42,175,88); }
-    .ps-list.good li::before { background: rgb(42,175,88); }
+    .ps-list.good li { color: rgb(80,80,80); }
+    .ps-list.good li::before { background: rgb(80,80,80); }
     .ps-list.bad li { color: #ccc; }
     .ps-list.bad li::before { background: #ccc; }
 
     /* ─── АГЕНТЫ (тёмный surface) ─── */
     .agents {
-      background: rgba(42,175,88,0.65);
+      background: rgba(80,80,80,0.65);
       backdrop-filter: blur(20px) saturate(1.8);
       -webkit-backdrop-filter: blur(20px) saturate(1.8);
       border: 1px solid rgba(255,255,255,0.45);
-      box-shadow: 0 10px 48px rgba(30,140,65,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
+      box-shadow: 0 10px 48px rgba(60,60,60,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
       border-radius: 18px;
       color: #0d0d0d;
       margin: 80px 48px 160px;
@@ -509,7 +509,7 @@
       margin-bottom: 12px;
       color: #0d0d0d;
     }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; margin-bottom: 18px; }
     .tag {
       font-family: 'Roboto Mono', monospace;
       font-size: 12px;
@@ -518,7 +518,7 @@
       border: 1px solid rgba(0,0,0,0.1);
       background: rgba(0,0,0,0.04);
       border-radius: 20px;
-      padding: 4px 14px;
+      padding: 6px 20px;
       color: #999;
     }
     .case-thumb {
@@ -530,7 +530,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s;
     }
+    .case-thumb:hover { opacity: 0.85; }
     .case-thumb img { width: 100%; height: 100%; object-fit: cover; }
     .case-thumb-placeholder {
       font-family: 'Roboto Mono', monospace;
@@ -550,6 +554,26 @@
       color: #0d0d0d;
     }
     .case-link:hover { text-decoration: underline; }
+    .cases-all-btn-row {
+      padding: 48px 48px 100px calc(30% + 24px);
+      border-top: 1px solid rgba(0,0,0,0.07);
+      margin-top: 0;
+    }
+    .cases-all-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      color: #0d0d0d;
+      text-decoration: none;
+      border: 1px solid rgba(0,0,0,0.15);
+      padding: 14px 28px;
+      border-radius: 2px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .cases-all-btn:hover { border-color: #0d0d0d; background: rgba(0,0,0,0.03); }
     .see-all {
       display: grid;
       grid-template-columns: 30% 1fr;
@@ -594,11 +618,11 @@
       padding: 36px 40px;
       border-right: none;
       border-radius: 18px;
-      background: linear-gradient(135deg, rgba(58,190,100,0.72) 0%, rgba(42,175,88,0.65) 50%, rgba(36,162,82,0.7) 100%);
+      background: linear-gradient(135deg, rgba(100,100,100,0.72) 0%, rgba(80,80,80,0.65) 50%, rgba(60,60,60,0.7) 100%);
       backdrop-filter: blur(20px) saturate(2);
       -webkit-backdrop-filter: blur(20px) saturate(2);
       border: 1px solid rgba(255,255,255,0.65);
-      box-shadow: 0 10px 40px rgba(30,140,65,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
+      box-shadow: 0 10px 40px rgba(60,60,60,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
     }
     .review-author { font-size: 15px; font-weight: 500; letter-spacing: -0.03em; color: #ffffff; }
     .review-role {
@@ -628,6 +652,7 @@
     }
     .gantt-sec .sec-head { padding: 56px 48px 56px; }
     .gantt-wrap { padding: 0 48px 64px; }
+    .gantt-mobile { display: none; }
     .gantt-calendar {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -669,14 +694,14 @@
     .gantt-cal-task.active:hover { transform: translateX(-10px) translateY(14px); }
     .gantt-cal-task:last-child { border-right: none; }
     .gantt-cal-task.active {
-      background: linear-gradient(135deg, rgba(58,190,100,0.72) 0%, rgba(42,175,88,0.65) 100%);
+      background: linear-gradient(135deg, rgba(100,100,100,0.72) 0%, rgba(80,80,80,0.65) 100%);
       border: 1px solid rgba(255,255,255,0.65);
       border-radius: 14px;
       margin: -15px -10px;
       position: relative;
       z-index: 2;
       transform: translateX(-10px);
-      box-shadow: 0 16px 48px rgba(30,140,65,0.55), 0 4px 14px rgba(0,0,0,0.2), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
+      box-shadow: 0 16px 48px rgba(60,60,60,0.55), 0 4px 14px rgba(0,0,0,0.2), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
     }
     .gantt-cal-task-name {
       font-size: 19px;
@@ -766,10 +791,10 @@
       transition: border-color 0.2s, background 0.2s;
     }
     .chk-box:checked {
-      background: #3fd070;
+      background: #686868;
       background-clip: content-box;
       padding: 3px;
-      border-color: #3fd070;
+      border-color: #686868;
     }
     .privacy-error {
       display: none;
@@ -816,10 +841,11 @@
       align-items: flex-end;
     }
     .footer-contact-link {
-      font-size: 66px;
-      font-weight: 600;
+      font-family: Inter, sans-serif;
+      font-size: 120px;
+      font-weight: 300;
       letter-spacing: -0.06em;
-      line-height: 1.1;
+      line-height: 0.92;
       color: #0d0d0d;
       text-decoration: none;
       transition: color 0.2s;
@@ -831,9 +857,10 @@
     }
     .footer-btm {
       display: flex;
-      gap: 32px;
+      flex-direction: column;
+      gap: 10px;
       padding: 48px 0 32px;
-      align-items: center;
+      align-items: flex-start;
     }
     .footer-btm a {
       font-size: 12px;
@@ -844,15 +871,15 @@
     }
     .footer-btm a:hover { color: #888; text-decoration: none; }
     .footer-btm-mc {
-      margin-left: auto;
+      margin-left: 0;
       background: none;
-      color: #aaa !important;
-      font-size: 14px !important;
-      font-weight: 600 !important;
+      color: #444 !important;
+      font-size: 12px !important;
+      font-weight: 500 !important;
       padding: 0;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.06em;
     }
-    .footer-btm-mc:hover { color: #666 !important; }
+    .footer-btm-mc:hover { color: #888 !important; }
 
     /* ─── MID CTA ─── */
     .mid-cta {
@@ -882,8 +909,8 @@
     .mid-cta-text strong { color: #fff; font-weight: 600; }
     .btn-mid {
       display: inline-block;
-      background: #3fd070;
-      color: #000;
+      background: #686868;
+      color: #fff;
       padding: 16px 36px;
       font-family: Inter, sans-serif;
       font-size: 20px;
@@ -896,7 +923,7 @@
       border-radius: 6px;
       transition: background 0.2s;
     }
-    .btn-mid:hover { background: #2dbe60; }
+    .btn-mid:hover { background: #484848; }
 
     /* ─── PRICE BLOCK ─── */
     .price-label-row { padding: 0 48px; margin-top: 8px; }
@@ -907,11 +934,11 @@
       gap: 16px;
     }
     .price-card {
-      background: linear-gradient(135deg, rgba(58,190,100,0.72) 0%, rgba(42,175,88,0.65) 100%);
+      background: linear-gradient(135deg, rgba(100,100,100,0.72) 0%, rgba(80,80,80,0.65) 100%);
       backdrop-filter: blur(20px) saturate(2);
       -webkit-backdrop-filter: blur(20px) saturate(2);
       border: 1px solid rgba(255,255,255,0.65);
-      box-shadow: 0 10px 40px rgba(30,140,65,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
+      box-shadow: 0 10px 40px rgba(60,60,60,0.3), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
       border-radius: 18px;
       padding: 40px;
       display: flex;
@@ -922,7 +949,7 @@
     }
     .price-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 24px 64px rgba(30,140,65,0.45), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
+      box-shadow: 0 24px 64px rgba(60,60,60,0.45), inset 0 2px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(255,255,255,0.1);
     }
     .price-select-btn {
       margin-top: auto;
@@ -1118,7 +1145,7 @@
       }
       .mobile-menu-top {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
         padding: 16px 20px;
         border-bottom: 1px solid rgba(0,0,0,0.08);
@@ -1139,17 +1166,34 @@
         color: #0d0d0d;
         text-decoration: none;
         line-height: 1.05;
-        display: block;
-        padding: 10px 0;
-        border-bottom: 1px solid rgba(0,0,0,0.06);
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 6px;
+        padding: 11.5px 0;
+        border-bottom: none;
         transition: color 0.2s;
+        text-align: center;
       }
-      .mobile-menu-links a:last-child { border-bottom: none; }
+      .mobile-menu-links a::after {
+        content: attr(data-num);
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0;
+        color: #aaa;
+        position: relative;
+        top: -1.8em;
+      }
       .mobile-menu-links a:active { color: #888; }
-      .mobile-menu-cta { padding: 20px 20px 48px; margin-top: auto; }
+      .mobile-menu-cta { padding: 12px 36px 32px; }
       .mobile-menu-cta a {
         display: block;
-        background: #0d0d0d;
+        background: rgba(13,13,13,0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
         color: #f0f0f0;
         padding: 20px 24px;
         font-size: 20px;
@@ -1159,7 +1203,7 @@
         text-align: center;
       }
 
-      .hero { padding: 58px 20px 60px; min-height: calc(100vh - 60px); min-height: calc(100svh - 60px); display: flex; flex-direction: column; }
+      .hero { padding: 58px 20px 60px; display: flex; flex-direction: column; }
       .hero-title { font-size: 56px; margin-bottom: 24px; }
       .hero-bottom { grid-template-columns: 1fr; }
       .hero-sub { font-size: 20px; }
@@ -1209,8 +1253,31 @@
       .comparison-header .sec-head { grid-column: 1; }
       .comparison-intro { grid-column: 1; padding: 20px 0 0; }
       .comparison-table-wrap { padding: 0 20px 60px; overflow-x: visible; }
-      .comp-table { min-width: unset; display: block; margin-top: 32px; }
-      .comp-table thead { display: none; }
+      .comp-table { min-width: unset; display: block; margin-top: 24px; position: relative; }
+      .comp-table::before {
+        content: '';
+        position: absolute;
+        top: -16px; bottom: 0;
+        left: calc(50% - 5px);
+        right: 0;
+        background: linear-gradient(135deg, rgba(100,100,100,0.72) 0%, rgba(80,80,80,0.65) 100%);
+        border: 1px solid rgba(255,255,255,0.65);
+        border-radius: 14px;
+        backdrop-filter: blur(20px) saturate(2);
+        -webkit-backdrop-filter: blur(20px) saturate(2);
+        box-shadow: 0 10px 40px rgba(60,60,60,0.3), inset 0 2px 0 rgba(255,255,255,0.85);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .comp-table thead { display: block; }
+      .comp-table thead tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 0 0 12px;
+      }
+      .comp-table thead th:first-child { display: none; }
+      .comp-table thead th { padding: 0; font-size: 11px; position: relative; z-index: 1; border-bottom: none; }
+      .comp-table thead th:last-child { color: rgba(255,255,255,0.7) !important; padding-left: 16px; padding-right: 16px; padding-top: 2px; }
       .comp-table tbody { display: block; }
       .comp-table tr {
         display: grid;
@@ -1220,7 +1287,7 @@
         border-bottom: 1px solid rgba(0,0,0,0.08);
       }
       .comp-table tr:last-child { border-bottom: none; }
-      .comp-table td { padding: 0; border: none; font-size: 13px; line-height: 1.35; color: #666; }
+      .comp-table td { padding: 0; border: none; font-size: 13px; line-height: 1.35; color: #666; position: relative; z-index: 1; }
       .comp-table td:first-child {
         grid-column: 1 / -1;
         font-size: 13px;
@@ -1229,28 +1296,10 @@
         width: auto;
         padding-left: 0;
       }
+      .comp-table td:nth-child(3) { color: rgba(255,255,255,0.85); padding-left: 16px; padding-right: 16px; }
       .comp-table td.win { color: #333; }
+      .comp-table td:nth-child(3).win { color: rgba(255,255,255,0.95); }
       .win-badge { display: none; }
-      .comp-table td:nth-child(2)::before {
-        content: 'Тильда';
-        display: block;
-        font-family: 'Roboto Mono', monospace;
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        color: #bbb;
-        margin-bottom: 5px;
-      }
-      .comp-table td:nth-child(3)::before {
-        content: 'Вайб-кодинг';
-        display: block;
-        font-family: 'Roboto Mono', monospace;
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        color: #0d0d0d;
-        margin-bottom: 5px;
-      }
 
       .pagespeed { padding: 32px 20px 60px; grid-template-columns: 1fr; }
       .ps-score { font-size: 64px; }
@@ -1303,20 +1352,93 @@
       .see-all a { font-size: 22px; }
 
       .reviews-nav { display: none; }
-      .reviews-carousel-wrap { padding: 32px 0 60px; }
+      .reviews-carousel-wrap { padding: 24px 0 60px; }
+      #reviews { margin-top: 48px; }
       .reviews-track-outer {
         overflow-x: scroll;
         scroll-snap-type: x mandatory;
+        scroll-padding-inline: 30px;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
       }
       .reviews-track-outer::-webkit-scrollbar { display: none; }
-      .reviews-track { gap: 12px; transform: none !important; }
+      .reviews-track { gap: 12px; transform: none !important; padding-inline: 30px; }
       .review { flex: 0 0 calc(100vw - 60px); scroll-snap-align: center; padding: 32px 24px; min-height: 260px; }
 
       .gantt-sec { margin: 0 20px 40px; }
-      .gantt-wrap { padding: 0 16px 40px; overflow-x: auto; }
-      .gantt-calendar { min-width: 560px; }
+      .gantt-wrap { padding: 0 0 40px; overflow-x: unset; }
+      .gantt-calendar { display: none; }
+      .gantt-mobile {
+        display: grid;
+        grid-template-columns: 56px 1fr;
+        border: 1px solid rgba(0,0,0,0.08);
+        margin: 0 20px;
+        border-radius: 2px;
+        overflow: visible;
+      }
+      .gm-day {
+        padding: 16px 12px;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        border-right: 1px solid rgba(0,0,0,0.08);
+        background: rgba(0,0,0,0.02);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-height: 130px;
+      }
+      .gm-day:last-of-type { border-bottom: none; }
+      .gm-num {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: -0.04em;
+        color: #ccc;
+        line-height: 1;
+      }
+      .gm-dayname {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #bbb;
+      }
+      .gm-task {
+        padding: 20px 16px;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .gm-task:last-of-type { border-bottom: none; }
+      .gm-task.active {
+        grid-column: 2;
+        grid-row: 3 / span 3;
+        background: linear-gradient(135deg, rgba(100,100,100,0.72) 0%, rgba(80,80,80,0.65) 100%);
+        border: 1px solid rgba(255,255,255,0.65);
+        border-radius: 14px;
+        box-shadow: 0 10px 32px rgba(60,60,60,0.35), inset 0 2px 0 rgba(255,255,255,0.85);
+        margin: -1px -1px -1px 0;
+        z-index: 2;
+        position: relative;
+        padding: 24px 20px;
+      }
+      .gm-title {
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: -0.03em;
+        color: #0d0d0d;
+        margin-bottom: 12px;
+        line-height: 1.2;
+      }
+      .gm-task.active .gm-title { color: #ffffff; }
+      .gm-items { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-top: auto; }
+      .gm-items li {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 12px;
+        color: #999;
+        line-height: 1.6;
+      }
+      .gm-task.active .gm-items li { color: rgba(255,255,255,0.75); }
 
       .faq { grid-template-columns: 1fr; padding: 32px 20px 60px; }
       .faq-item { min-width: 0; }
@@ -1324,16 +1446,16 @@
       .faq-a { word-break: break-word; }
 
       .form-sec { padding: 20px 0 60px; margin-top: 40px; }
-      .mc-form { margin-left: 20px; margin-right: 20px; margin-top: 32px; padding: 28px 24px; border-radius: 14px; }
-      .fld { font-size: 18px; padding: 20px 0; }
-      .sel-w select { font-size: 18px; padding: 20px 0; }
-      .chk-row { padding: 24px 0 12px; }
+      .mc-form { margin-left: 20px; margin-right: 20px; margin-top: 32px; padding: 36px 24px; border-radius: 14px; }
+      .fld { font-size: 18px; padding: 28px 0; }
+      .sel-w select { font-size: 18px; padding: 28px 0; }
+      .chk-row { padding: 32px 0 12px; }
       .chk-lbl { font-size: 11px; }
-      .submit-btn { font-size: 16px; padding: 16px 24px; width: 100%; box-sizing: border-box; margin-top: 20px; }
+      .submit-btn { font-size: 16px; padding: 20px 24px; width: 100%; box-sizing: border-box; margin-top: 28px; }
 
       footer { padding: 40px 20px 0; }
       .footer-contacts { flex-direction: column; align-items: flex-start; gap: 8px; }
-      .footer-contact-link { font-size: 26px; }
+      .footer-contact-link { font-size: 52px; font-weight: 300; letter-spacing: -0.06em; line-height: 0.92; }
       .footer-divider { margin: 20px 0 0; }
       .footer-btm { flex-wrap: wrap; gap: 16px; padding: 32px 0 24px; }
       .footer-btm-mc { margin-left: 0; }
@@ -1370,7 +1492,6 @@
 <!-- ─── MOBILE MENU ─── -->
 <div class="mobile-menu" id="mobile-menu">
   <div class="mobile-menu-top">
-    <a href="#form" class="nav-cta" style="font-size:14px;padding:10px 18px;" onclick="closeMobileMenu()">Заказать сайт</a>
     <button class="mobile-close" id="mobile-close" aria-label="Закрыть меню">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <line x1="1" y1="1" x2="19" y2="19" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
@@ -1379,13 +1500,13 @@
     </button>
   </div>
   <nav class="mobile-menu-links">
-    <a href="#whom" onclick="closeMobileMenu()">Кому</a>
-    <a href="#how" onclick="closeMobileMenu()">Процесс</a>
-    <a href="#agents" onclick="closeMobileMenu()">Агенты</a>
-    <a href="#price" onclick="closeMobileMenu()">Стоимость</a>
-    <a href="#cases" onclick="closeMobileMenu()">Кейсы</a>
-    <a href="#reviews" onclick="closeMobileMenu()">Отзывы</a>
-    <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+    <a href="#whom" onclick="closeMobileMenu()" data-num="(1)">Кому</a>
+    <a href="#how" onclick="closeMobileMenu()" data-num="(2)">Процесс</a>
+    <a href="#agents" onclick="closeMobileMenu()" data-num="(3)">Агенты</a>
+    <a href="#price" onclick="closeMobileMenu()" data-num="(4)">Стоимость</a>
+    <a href="#cases" onclick="closeMobileMenu()" data-num="(5)">Кейсы</a>
+    <a href="#reviews" onclick="closeMobileMenu()" data-num="(6)">Отзывы</a>
+    <a href="#faq" onclick="closeMobileMenu()" data-num="(7)">FAQ</a>
   </nav>
   <div class="mobile-menu-cta">
     <a href="#form" onclick="closeMobileMenu()">Обсудить проект</a>
@@ -1512,7 +1633,7 @@
           <tr>
             <th></th>
             <th style="font-size:13px;color:#888;letter-spacing:0.06em;">Тильда</th>
-            <th style="font-size:13px;color:#f0f0f0;letter-spacing:0.06em;">Вайб-кодинг</th>
+            <th style="font-size:13px;color:#0d0d0d;letter-spacing:0.06em;">Вайб-кодинг</th>
           </tr>
         </thead>
         <tbody>
@@ -1560,7 +1681,7 @@
 <!-- ─── МЕДЛЕННЫЙ САЙТ СТОИТ ДЕНЕГ ─── -->
 <section>
   <div class="divider"></div>
-  <h2 class="sec-head" style="margin-top:18px;">Медленный сайт<span class="desk-br"><br></span> стоит<span class="mob-br"><br></span> вам денег<sup>(5)</sup></h2>
+  <h2 class="sec-head seo-head" style="margin-top:18px;">Медленный сайт<span class="desk-br"><br></span> стоит<span class="mob-br"><br></span> вам денег<sup>(5)</sup></h2>
   <div class="pagespeed">
     <div><span class="sec-label">SEO и скорость</span></div>
     <div>
@@ -1644,7 +1765,6 @@
 <section id="price">
   <div class="divider"></div>
   <h2 class="sec-head" style="margin-top:18px;">Стоимость<sup>(7)</sup></h2>
-  <div class="price-label-row"><span class="sec-label">Прайс</span></div>
   <div class="price-block">
     <div class="price-card" onclick="selectPlan('Лендинг')">
       <div class="price-from">Лендинг — от</div>
@@ -1712,9 +1832,9 @@
           <span class="tag">Вайб-кодинг</span>
         </div>
         <p class="case-desc" style="font-size:15px;color:#777;line-height:1.5;">Краткое описание: какая была задача, что сделали, результат в цифрах — заявки, скорость, конверсия.</p>
-        <div class="case-thumb dark"><span class="case-thumb-placeholder">скриншот сайта</span></div>
+        <a href="vibe-coding/project.html" class="case-thumb dark"><span class="case-thumb-placeholder">скриншот сайта</span></a>
       </div>
-      <a href="#" class="case-link">Смотреть проект →</a>
+      <a href="vibe-coding/project.html" class="case-link">Смотреть проект →</a>
     </div>
 
     <div class="case-row">
@@ -1728,9 +1848,9 @@
           <span class="tag">AI-интеграция</span>
         </div>
         <p class="case-desc" style="font-size:15px;color:#777;line-height:1.5;">Краткое описание: какая была задача, что сделали, результат в цифрах — заявки, скорость, конверсия.</p>
-        <div class="case-thumb"><span class="case-thumb-placeholder">скриншот сайта</span></div>
+        <a href="vibe-coding/project.html" class="case-thumb"><span class="case-thumb-placeholder">скриншот сайта</span></a>
       </div>
-      <a href="#" class="case-link">Смотреть проект →</a>
+      <a href="vibe-coding/project.html" class="case-link">Смотреть проект →</a>
     </div>
 
     <div class="case-row">
@@ -1743,10 +1863,14 @@
           <span class="tag">Лендинг</span>
           <span class="tag">SEO</span>
         </div>
-        <p class="case-desc" style="font-size:15px;color:#777;line-height:1.5;">Краткое описание: какая была задача, что сделали, результат в цифрах — заявки, скорость, конверсия.</p>
-        <div class="case-thumb dark"><span class="case-thumb-placeholder">скриншот сайта</span></div>
+        <p class="case-desc" style="font-size:15px;color:#777;line-height:1.5;">Краткое описание: какая было задача, что сделали, результат в цифрах — заявки, скорость, конверсия.</p>
+        <a href="vibe-coding/project.html" class="case-thumb dark"><span class="case-thumb-placeholder">скриншот сайта</span></a>
       </div>
-      <a href="#" class="case-link">Смотреть проект →</a>
+      <a href="vibe-coding/project.html" class="case-link">Смотреть проект →</a>
+    </div>
+
+    <div class="cases-all-btn-row">
+      <a href="vibe-coding/cases.html" class="cases-all-btn">Смотреть все проекты →</a>
     </div>
 
   </div>
@@ -1866,6 +1990,43 @@
       </div>
 
     </div>
+
+    <!-- Мобильный таймлайн (2-col grid, active spans rows 3-5) -->
+    <div class="gantt-mobile">
+      <div class="gm-day"><span class="gm-num">01</span><span class="gm-dayname">Пн</span></div>
+      <div class="gm-task">
+        <div class="gm-title">Созвон и договор</div>
+        <ul class="gm-items"><li>Бриф</li><li>Договор</li><li>Предоплата 50%</li></ul>
+      </div>
+
+      <div class="gm-day"><span class="gm-num">02</span><span class="gm-dayname">Вт</span></div>
+      <div class="gm-task">
+        <div class="gm-title">Структура и прототип</div>
+        <ul class="gm-items"><li>Блоки страницы</li><li>Тексты и оффер</li><li>Согласование</li></ul>
+      </div>
+
+      <div class="gm-day"><span class="gm-num">03</span><span class="gm-dayname">Ср</span></div>
+      <div class="gm-task active">
+        <div class="gm-title">AI-разработка</div>
+        <ul class="gm-items"><li>Вёрстка и код</li><li>Дизайн под бренд</li><li>Анимации и интерактив</li><li>Адаптив и кроссбраузерность</li></ul>
+      </div>
+
+      <div class="gm-day"><span class="gm-num">04</span><span class="gm-dayname">Чт</span></div>
+      <div class="gm-day"><span class="gm-num">05</span><span class="gm-dayname">Пт</span></div>
+
+      <div class="gm-day"><span class="gm-num">06</span><span class="gm-dayname">Сб</span></div>
+      <div class="gm-task">
+        <div class="gm-title">Проверка агентами</div>
+        <ul class="gm-items"><li>Код и скорость</li><li>SEO-аудит</li><li>Безопасность</li><li>Анализ продаж</li></ul>
+      </div>
+
+      <div class="gm-day"><span class="gm-num">07</span><span class="gm-dayname">Вс</span></div>
+      <div class="gm-task">
+        <div class="gm-title">Сдача и деплой</div>
+        <ul class="gm-items"><li>Приёмка</li><li>Доплата 50%</li><li>Деплой на домен</li><li>Исходники тебе</li></ul>
+      </div>
+    </div>
+
   </div>
 </section>
 </div>
@@ -1949,13 +2110,12 @@
 <!-- ─── FOOTER ─── -->
 <footer id="contacts">
   <div class="footer-contacts">
-    <a href="https://t.me/egorkurakin" class="footer-contact-link">Написать в Telegram</a>
-    <a href="mailto:egorkurakinwork@gmail.com" class="footer-contact-link">egorkurakinwork@gmail.com</a>
+    <a href="https://t.me/egorkurakin" class="footer-contact-link">Телеграм</a>
   </div>
   <div class="footer-divider"></div>
   <div class="footer-btm">
     <a href="/privacy/">Политика конфиденциальности</a>
-    <a href="https://midnightcollective.ru" class="footer-btm-mc">совместно с Midnight Collective</a>
+    <a href="https://midnightcollective.ru" class="footer-btm-mc">Midnight Collective</a>
   </div>
 </footer>
 
@@ -2045,7 +2205,7 @@
     }
   }
 
-  centerCard(n, true);
+  requestAnimationFrame(function () { centerCard(n, true); });
 
   function getCenteredIdx() {
     var viewCenter = outer.scrollLeft + outer.offsetWidth / 2;

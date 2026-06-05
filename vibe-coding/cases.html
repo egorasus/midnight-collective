@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Все проекты — Вайб-кодинг</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body { overflow-x: clip; font-family: Inter, -apple-system, sans-serif; background: #f4f2ef; color: #0d0d0d; max-width: 100vw; }
+
+    /* ─── NAV ─── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      position: sticky;
+      top: 0;
+      background: rgba(244,242,239,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .nav-menu { display: flex; gap: 32px; align-items: center; }
+    .nav-menu a {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      color: #888;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-menu a:hover { color: #0d0d0d; }
+    .nav-links { display: flex; gap: 40px; align-items: center; }
+    .nav-links a {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      color: #888;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #0d0d0d; }
+    .nav-cta {
+      background: #0d0d0d;
+      color: #f0f0f0 !important;
+      padding: 10px 24px;
+    }
+    .nav-cta:hover { background: #333; }
+
+    /* ─── BURGER ─── */
+    .burger-btn { display: none; background: none; border: none; cursor: pointer; padding: 0; }
+
+    /* ─── MOBILE MENU ─── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #f4f2ef;
+      z-index: 200;
+      flex-direction: column;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu-top { display: flex; justify-content: flex-end; padding: 20px; }
+    .mobile-close { background: none; border: none; cursor: pointer; padding: 4px; }
+    .mobile-menu-links {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0; flex: 1; justify-content: center; list-style: none;
+    }
+    .mobile-menu-links a {
+      display: flex; align-items: baseline; justify-content: center; gap: 6px;
+      padding: 11.5px 0; font-size: 28px; font-weight: 400; letter-spacing: -0.05em;
+      color: #0d0d0d; text-decoration: none; width: 100%; text-align: center;
+    }
+    .mobile-menu-links a::after { content: attr(data-num); font-size: 12px; color: #aaa; position: relative; top: -1.8em; }
+    .mobile-menu-cta { padding: 12px 36px 32px; }
+    .mobile-menu-cta a {
+      display: block; text-align: center; padding: 18px 24px; font-size: 16px;
+      font-weight: 500; text-decoration: none; color: #f0f0f0;
+      background: rgba(13,13,13,0.75); backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 16px;
+    }
+
+    /* ─── SHARED ─── */
+    .sec-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #aaa;
+    }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      padding: 72px 0 0;
+    }
+    .page-title {
+      font-family: Inter, sans-serif;
+      font-size: 120px;
+      font-weight: 300;
+      letter-spacing: -0.06em;
+      line-height: 0.92;
+      color: #0d0d0d;
+      padding: 0 48px;
+    }
+    .page-header .filter-row {
+      padding: 28px 48px 0;
+    }
+
+    /* ─── FILTER ─── */
+    .filter-row {
+      padding: 28px 48px 0;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-btn {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #999;
+      background: rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.1);
+      padding: 6px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover { border-color: rgba(0,0,0,0.25); color: #555; background: rgba(0,0,0,0.07); }
+    .filter-btn.active {
+      background: #0d0d0d;
+      color: #f4f2ef;
+      border-color: #0d0d0d;
+    }
+
+    /* ─── CASES LIST ─── */
+    .cases-wrap {
+      padding: 0 48px;
+      margin-top: 48px;
+    }
+    .case-row {
+      display: grid;
+      grid-template-columns: 30% 1fr;
+      gap: 24px;
+      padding: 36px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      position: relative;
+    }
+    .case-row:first-child { border-top: 1px solid rgba(0,0,0,0.1); }
+    .case-year {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      color: #bbb;
+      letter-spacing: 0.02em;
+      padding-top: 4px;
+    }
+    .case-title {
+      font-size: 24px;
+      font-weight: 400;
+      letter-spacing: -0.05em;
+      color: #0d0d0d;
+      line-height: 1.1;
+    }
+    .tags { margin-top: 12px; margin-bottom: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      text-transform: uppercase;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: rgba(0,0,0,0.04);
+      border-radius: 20px;
+      padding: 6px 20px;
+      color: #999;
+    }
+    .case-desc { font-size: 14px; color: #888; line-height: 1.55; margin-bottom: 0; }
+    .case-thumb {
+      height: 340px;
+      background: #d8d8d8;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .case-thumb.dark { background: #c8c6c3; }
+    .case-thumb:hover { opacity: 0.85; }
+    .case-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .case-thumb-placeholder {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      color: #bbb;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .case-link {
+      position: absolute;
+      top: 36px;
+      right: 0;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      color: #0d0d0d;
+    }
+    .case-link:hover { text-decoration: underline; }
+
+    /* hidden by filter */
+    .case-row[hidden] { display: none; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 80px 48px 0;
+      background: transparent;
+      margin-top: 120px;
+    }
+    .footer-contacts { display: flex; justify-content: space-between; align-items: flex-end; }
+    .footer-contact-link {
+      font-family: Inter, sans-serif;
+      font-size: 120px;
+      font-weight: 300;
+      letter-spacing: -0.06em;
+      line-height: 0.92;
+      color: #0d0d0d;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-contact-link:hover { color: #555; }
+    .footer-divider { border-top: 1px solid rgba(0,0,0,0.1); margin: 48px 0 0; }
+    .footer-btm { display: flex; flex-direction: column; gap: 10px; padding: 48px 0 32px; align-items: flex-start; }
+    .footer-btm a { font-size: 12px; font-weight: 500; letter-spacing: -0.06em; color: #444; text-decoration: none; }
+    .footer-btm a:hover { color: #888; }
+    .footer-btm-mc { color: #444 !important; font-size: 12px !important; font-weight: 500 !important; }
+    .footer-btm-mc:hover { color: #888 !important; }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .burger-btn { display: block; }
+
+      .page-header { padding: 40px 20px 0; }
+      .page-title { font-size: 64px; }
+
+      .filter-row { padding: 28px 20px 0; gap: 6px; }
+
+      .cases-wrap { padding: 0 20px; margin-top: 32px; }
+      .case-row { grid-template-columns: 56px 1fr; gap: 16px; padding: 28px 0; }
+      .case-title { font-size: 18px; }
+      .case-thumb { height: 220px; }
+      .case-link { top: 28px; font-size: 11px; }
+
+      footer { padding: 48px 20px 0; margin-top: 80px; }
+      .footer-contact-link { font-size: 52px; }
+      .footer-btm { padding: 32px 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-menu">
+    <a href="../vibe-coding.html#whom">Кому</a>
+    <a href="../vibe-coding.html#how">Процесс</a>
+    <a href="../vibe-coding.html#agents">Агенты</a>
+    <a href="../vibe-coding.html#price">Стоимость</a>
+    <a href="cases.html">Кейсы</a>
+    <a href="../vibe-coding.html#reviews">Отзывы</a>
+    <a href="../vibe-coding.html#faq">FAQ</a>
+  </div>
+  <div class="nav-links">
+    <a href="../vibe-coding.html">← На главную</a>
+    <a href="../vibe-coding.html#contacts">Контакты</a>
+    <a href="../vibe-coding.html#form" class="nav-cta">Заказать сайт</a>
+  </div>
+  <button class="burger-btn" id="burger-btn" aria-label="Открыть меню">
+    <svg width="22" height="14" viewBox="0 0 22 14" fill="none">
+      <line y1="1" x2="22" y2="1" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+      <line y1="7" x2="22" y2="7" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+      <line y1="13" x2="22" y2="13" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- ─── MOBILE MENU ─── -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-top">
+    <button class="mobile-close" id="mobile-close" aria-label="Закрыть меню">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <line x1="1" y1="1" x2="19" y2="19" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="19" y1="1" x2="1" y2="19" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="../vibe-coding.html#whom" onclick="closeMobileMenu()" data-num="(1)">Кому</a>
+    <a href="../vibe-coding.html#how" onclick="closeMobileMenu()" data-num="(2)">Процесс</a>
+    <a href="../vibe-coding.html#agents" onclick="closeMobileMenu()" data-num="(3)">Агенты</a>
+    <a href="../vibe-coding.html#price" onclick="closeMobileMenu()" data-num="(4)">Стоимость</a>
+    <a href="../vibe-coding.html#cases" onclick="closeMobileMenu()" data-num="(5)">Кейсы</a>
+    <a href="../vibe-coding.html#reviews" onclick="closeMobileMenu()" data-num="(6)">Отзывы</a>
+    <a href="../vibe-coding.html#faq" onclick="closeMobileMenu()" data-num="(7)">FAQ</a>
+  </nav>
+  <div class="mobile-menu-cta">
+    <a href="../vibe-coding.html#form" onclick="closeMobileMenu()">Обсудить проект</a>
+  </div>
+</div>
+
+<!-- ─── PAGE HEADER ─── -->
+<section class="page-header">
+  <h1 class="page-title">Кейсы</h1>
+  <div class="filter-row">
+    <button class="filter-btn active" data-filter="all">Все</button>
+    <button class="filter-btn" data-filter="landing">Лендинг</button>
+    <button class="filter-btn" data-filter="ai">AI-интеграция</button>
+    <button class="filter-btn" data-filter="seo">SEO</button>
+    <button class="filter-btn" data-filter="vibe">Вайб-кодинг</button>
+  </div>
+</section>
+
+<!-- ─── CASES LIST ─── -->
+<div class="cases-wrap">
+
+  <div class="case-row" data-tags="landing vibe">
+    <div>
+      <div class="case-year">2025</div>
+    </div>
+    <div>
+      <div class="case-title">Лендинг для психолога</div>
+      <div class="tags">
+        <span class="tag">Лендинг</span>
+        <span class="tag">Вайб-кодинг</span>
+      </div>
+      <p class="case-desc">Убрали Tilda, сделали кастомный сайт за 7 дней. PageSpeed 94, конверсия +40%.</p>
+      <a href="project.html" class="case-thumb dark"><span class="case-thumb-placeholder">скриншот сайта</span></a>
+    </div>
+    <a href="project.html" class="case-link">Смотреть проект →</a>
+  </div>
+
+  <div class="case-row" data-tags="landing ai">
+    <div>
+      <div class="case-year">2025</div>
+    </div>
+    <div>
+      <div class="case-title">Сайт для фитнес-тренера</div>
+      <div class="tags">
+        <span class="tag">Лендинг</span>
+        <span class="tag">AI-интеграция</span>
+      </div>
+      <p class="case-desc">Автоматический подбор программы тренировок через AI-форму. Заявок +65% за первый месяц.</p>
+      <a href="project.html" class="case-thumb"><span class="case-thumb-placeholder">скриншот сайта</span></a>
+    </div>
+    <a href="project.html" class="case-link">Смотреть проект →</a>
+  </div>
+
+  <div class="case-row" data-tags="landing seo">
+    <div>
+      <div class="case-year">2025</div>
+    </div>
+    <div>
+      <div class="case-title">Лендинг для юридической компании</div>
+      <div class="tags">
+        <span class="tag">Лендинг</span>
+        <span class="tag">SEO</span>
+      </div>
+      <p class="case-desc">Структура страницы выстроена под семантику. Позиции в топ-10 по 12 ключам за 3 месяца.</p>
+      <a href="project.html" class="case-thumb dark"><span class="case-thumb-placeholder">скриншот сайта</span></a>
+    </div>
+    <a href="project.html" class="case-link">Смотреть проект →</a>
+  </div>
+
+  <div class="case-row" data-tags="vibe ai">
+    <div>
+      <div class="case-year">2025</div>
+    </div>
+    <div>
+      <div class="case-title">Стартап EdTech — платформа курсов</div>
+      <div class="tags">
+        <span class="tag">Вайб-кодинг</span>
+        <span class="tag">AI-интеграция</span>
+      </div>
+      <p class="case-desc">MVP платформы с AI-куратором за 7 дней. Привлечли первых 200 пользователей до запуска.</p>
+      <a href="project.html" class="case-thumb"><span class="case-thumb-placeholder">скриншот сайта</span></a>
+    </div>
+    <a href="project.html" class="case-link">Смотреть проект →</a>
+  </div>
+
+  <div class="case-row" data-tags="landing vibe">
+    <div>
+      <div class="case-year">2025</div>
+    </div>
+    <div>
+      <div class="case-title">Ресторан авторской кухни</div>
+      <div class="tags">
+        <span class="tag">Лендинг</span>
+        <span class="tag">Вайб-кодинг</span>
+      </div>
+      <p class="case-desc">Визуальная история бренда через типографику и видео. Бронирования онлайн выросли втрое.</p>
+      <a href="project.html" class="case-thumb dark"><span class="case-thumb-placeholder">скриншот сайта</span></a>
+    </div>
+    <a href="project.html" class="case-link">Смотреть проект →</a>
+  </div>
+
+  <div class="case-row" data-tags="landing seo">
+    <div>
+      <div class="case-year">2026</div>
+    </div>
+    <div>
+      <div class="case-title">Стоматология — сайт клиники</div>
+      <div class="tags">
+        <span class="tag">Лендинг</span>
+        <span class="tag">SEO</span>
+      </div>
+      <p class="case-desc">Многостраничный сайт под локальный SEO. Органический трафик вырос с нуля до 800 в месяц.</p>
+      <a href="project.html" class="case-thumb"><span class="case-thumb-placeholder">скриншот сайта</span></a>
+    </div>
+    <a href="project.html" class="case-link">Смотреть проект →</a>
+  </div>
+
+  <div class="case-row" data-tags="vibe">
+    <div>
+      <div class="case-year">2026</div>
+    </div>
+    <div>
+      <div class="case-title">Бренд одежды — онлайн-каталог</div>
+      <div class="tags">
+        <span class="tag">Вайб-кодинг</span>
+      </div>
+      <p class="case-desc">Кастомный каталог без CMS и конструкторов. Скорость загрузки в 3× быстрее чем на предыдущем Shopify.</p>
+      <a href="project.html" class="case-thumb dark"><span class="case-thumb-placeholder">скриншот сайта</span></a>
+    </div>
+    <a href="project.html" class="case-link">Смотреть проект →</a>
+  </div>
+
+  <div class="case-row" data-tags="landing ai seo">
+    <div>
+      <div class="case-year">2026</div>
+    </div>
+    <div>
+      <div class="case-title">Консалтинговое агентство</div>
+      <div class="tags">
+        <span class="tag">Лендинг</span>
+        <span class="tag">AI-интеграция</span>
+        <span class="tag">SEO</span>
+      </div>
+      <p class="case-desc">AI-квиз для квалификации лидов + SEO-структура. Стоимость заявки снизилась на 38%.</p>
+      <a href="project.html" class="case-thumb"><span class="case-thumb-placeholder">скриншот сайта</span></a>
+    </div>
+    <a href="project.html" class="case-link">Смотреть проект →</a>
+  </div>
+
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer id="contacts">
+  <div class="footer-contacts">
+    <a href="https://t.me/egorkurakin" class="footer-contact-link">Телеграм</a>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-btm">
+    <a href="/privacy/">Политика конфиденциальности</a>
+    <a href="https://midnightcollective.ru" class="footer-btm-mc">Midnight Collective</a>
+  </div>
+</footer>
+
+<script>
+// Burger menu
+var burgerBtn = document.getElementById('burger-btn');
+var mobileMenu = document.getElementById('mobile-menu');
+var mobileClose = document.getElementById('mobile-close');
+if (burgerBtn) burgerBtn.addEventListener('click', function () {
+  mobileMenu.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+}
+if (mobileClose) mobileClose.addEventListener('click', closeMobileMenu);
+
+// Filter
+var filterBtns = document.querySelectorAll('.filter-btn');
+var caseRows = document.querySelectorAll('.case-row');
+var caseCount = document.getElementById('case-count');
+
+filterBtns.forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var filter = btn.dataset.filter;
+
+    filterBtns.forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+
+    var visible = 0;
+    caseRows.forEach(function (row) {
+      var tags = (row.dataset.tags || '').split(' ');
+      var show = filter === 'all' || tags.indexOf(filter) !== -1;
+      row.hidden = !show;
+      if (show) visible++;
+    });
+
+    if (caseCount) caseCount.textContent = '(' + visible + ')';
+  });
+});
+</script>
+</body>
+</html>

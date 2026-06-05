@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лендинг для психолога — Midnight Collective</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body { overflow-x: clip; font-family: Inter, -apple-system, sans-serif; background: #f4f2ef; color: #0d0d0d; max-width: 100vw; }
+
+    /* ─── NAV ─── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      position: sticky;
+      top: 0;
+      background: rgba(244,242,239,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .nav-menu { display: flex; gap: 32px; align-items: center; }
+    .nav-menu a {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      color: #888;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-menu a:hover { color: #0d0d0d; }
+    .nav-links { display: flex; gap: 40px; align-items: center; }
+    .nav-links a {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      color: #888;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #0d0d0d; }
+    .nav-cta {
+      background: #0d0d0d;
+      color: #f0f0f0 !important;
+      padding: 10px 24px;
+    }
+    .nav-cta:hover { background: #333; }
+
+    /* ─── BURGER ─── */
+    .burger-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    .nav-cta-mobile { display: none; }
+
+    /* ─── MOBILE MENU ─── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #f4f2ef;
+      z-index: 200;
+      flex-direction: column;
+      padding: 0;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu-top {
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px 20px;
+    }
+    .mobile-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .mobile-menu-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      flex: 1;
+      justify-content: center;
+      list-style: none;
+    }
+    .mobile-menu-links a {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 6px;
+      padding: 11.5px 0;
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: -0.05em;
+      color: #0d0d0d;
+      text-decoration: none;
+      width: 100%;
+      text-align: center;
+    }
+    .mobile-menu-links a::after {
+      content: attr(data-num);
+      font-size: 12px;
+      color: #aaa;
+      position: relative;
+      top: -1.8em;
+    }
+    .mobile-menu-cta {
+      padding: 12px 36px 32px;
+    }
+    .mobile-menu-cta a {
+      display: block;
+      text-align: center;
+      padding: 18px 24px;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      color: #f0f0f0;
+      background: rgba(13,13,13,0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    /* ─── SHARED ─── */
+    .sec-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #aaa;
+    }
+    .divider {
+      border-top: 1px solid rgba(0,0,0,0.1);
+      margin: 0 48px;
+    }
+
+    /* ─── PROJECT HEADER ─── */
+    .project-header {
+      padding: 48px 48px 0;
+    }
+    .project-header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .project-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .project-back:hover { color: #0d0d0d; }
+    .project-back svg { transition: transform 0.2s; }
+    .project-back:hover svg { transform: translateX(-3px); }
+    .project-back { margin-bottom: 8px; }
+    .project-title { margin-top: 36px; }
+    .project-title sup {
+      font-size: 16px;
+      font-weight: 400;
+      vertical-align: top;
+      position: relative;
+      top: 0.1em;
+      margin-left: 8px;
+      letter-spacing: 0;
+      color: #0d0d0d;
+    }
+    .project-title {
+      font-family: Inter, sans-serif;
+      font-size: 96px;
+      font-weight: 300;
+      letter-spacing: -0.06em;
+      line-height: 0.92;
+      color: #0d0d0d;
+    }
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .project-tag {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #999;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: rgba(0,0,0,0.04);
+      padding: 6px 20px;
+      border-radius: 20px;
+    }
+    .project-client-row {
+      display: flex;
+      gap: 24px;
+      align-items: baseline;
+      margin-top: 16px;
+    }
+    .project-client {
+      font-size: 14px;
+      font-weight: 400;
+      color: #888;
+      letter-spacing: -0.02em;
+    }
+    .project-year {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      color: #bbb;
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── SITE LINK ─── */
+    .project-site-btn-row {
+      padding: 56px 48px 0;
+    }
+    .project-site-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      color: #0d0d0d;
+      text-decoration: none;
+      border: 1px solid rgba(0,0,0,0.15);
+      padding: 14px 28px;
+      border-radius: 2px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .project-site-btn:hover { border-color: #0d0d0d; background: rgba(0,0,0,0.03); }
+
+    /* ─── HERO IMAGE ─── */
+    .project-hero-img {
+      margin: 48px 48px 0;
+      height: 60vh;
+      min-height: 400px;
+      background: #e8e6e3;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    .project-hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e0ddd9;
+    }
+    .img-placeholder span {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #bbb;
+    }
+
+    /* ─── ABOUT SECTION ─── */
+    .project-about {
+      padding: 80px 48px 0;
+      display: grid;
+      grid-template-columns: 30% 1fr;
+      gap: 24px;
+    }
+    .project-about-left {}
+    .project-brief {
+      font-size: 26px;
+      font-weight: 300;
+      letter-spacing: -0.04em;
+      line-height: 1.35;
+      color: #0d0d0d;
+      max-width: 680px;
+    }
+    .project-body {
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.7;
+      color: #555;
+      max-width: 600px;
+      margin-top: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    /* ─── METRICS ─── */
+    .project-metrics {
+      padding: 72px 48px 0;
+      padding-left: calc(30% + 48px + 24px);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      margin-top: 64px;
+    }
+    .metric {
+      padding: 40px 0;
+      border-right: 1px solid rgba(0,0,0,0.08);
+      padding-right: 40px;
+    }
+    .metric:last-child { border-right: none; padding-right: 0; }
+    .metric:not(:first-child) { padding-left: 40px; }
+    .metric-num {
+      font-family: Inter, sans-serif;
+      font-size: 64px;
+      font-weight: 300;
+      letter-spacing: -0.06em;
+      line-height: 1;
+      color: #0d0d0d;
+      margin-bottom: 8px;
+    }
+    .metric-label {
+      font-size: 13px;
+      font-weight: 400;
+      color: #888;
+      letter-spacing: -0.02em;
+    }
+
+    /* ─── GALLERY ─── */
+    .project-gallery {
+      padding: 72px 48px 0;
+    }
+    .gallery-divider {
+      border-top: 1px solid rgba(0,0,0,0.1);
+      margin-bottom: 48px;
+    }
+    .gallery-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #aaa;
+      margin-bottom: 32px;
+    }
+    .gallery-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .gallery-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .gallery-img {
+      background: #e0ddd9;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-img.tall { aspect-ratio: 4/5; }
+    .gallery-img.wide { aspect-ratio: 16/9; }
+    .gallery-img.square { aspect-ratio: 1/1; }
+    .gallery-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-img .img-placeholder { aspect-ratio: inherit; }
+
+    /* ─── EDITORIAL SECTION (text + image) ─── */
+    .project-editorial {
+      padding: 80px 48px 0;
+      display: grid;
+      grid-template-columns: 30% 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .editorial-text-block {}
+    .editorial-heading {
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: -0.05em;
+      line-height: 1.15;
+      color: #0d0d0d;
+      margin-bottom: 20px;
+    }
+    .editorial-body {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #666;
+      letter-spacing: -0.01em;
+    }
+    .editorial-body p + p { margin-top: 16px; }
+    .editorial-img {
+      background: #e0ddd9;
+      border-radius: 4px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .editorial-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .editorial-img .img-placeholder { height: 100%; }
+
+    /* ─── CTA ─── */
+    .proj-cta {
+      padding: 100px 48px 100px;
+    }
+    .mid-cta-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 52px 56px;
+      border-radius: 18px;
+      background: rgba(14,14,14,0.9);
+      backdrop-filter: blur(28px) saturate(1.3);
+      -webkit-backdrop-filter: blur(28px) saturate(1.3);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 16px 56px rgba(0,0,0,0.3), inset 0 2px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(255,255,255,0.06);
+    }
+    .mid-cta-text {
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      color: rgba(255,255,255,0.7);
+      max-width: 520px;
+      line-height: 1.35;
+    }
+    .mid-cta-text strong { color: #fff; font-weight: 600; }
+    .btn-mid {
+      display: inline-block;
+      background: #686868;
+      color: #fff;
+      padding: 16px 36px;
+      font-family: Inter, sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .btn-mid:hover { background: #484848; }
+
+    /* ─── NEXT CASES ─── */
+    .next-cases {
+      padding: 48px 48px 0;
+      margin-top: 0;
+      border-top: none;
+    }
+    .next-cases-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #aaa;
+      margin-bottom: 48px;
+    }
+    .next-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .next-case-item {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    .next-case-thumb {
+      height: 280px;
+      background: #e0ddd9;
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    .next-case-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .next-case-item:hover .next-case-thumb img { transform: scale(1.04); }
+    .next-case-info {
+      padding: 20px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .next-case-title {
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      color: #0d0d0d;
+    }
+    .next-case-link {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #888;
+      transition: color 0.2s;
+    }
+    .next-case-item:hover .next-case-link { color: #0d0d0d; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 80px 48px 0;
+      background: transparent;
+      margin-top: 120px;
+    }
+    .footer-contacts {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .footer-contact-link {
+      font-family: Inter, sans-serif;
+      font-size: 120px;
+      font-weight: 300;
+      letter-spacing: -0.06em;
+      line-height: 0.92;
+      color: #0d0d0d;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-contact-link:hover { color: #555; }
+    .footer-divider {
+      border-top: 1px solid rgba(0,0,0,0.1);
+      margin: 48px 0 0;
+    }
+    .footer-btm {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 48px 0 32px;
+      align-items: flex-start;
+    }
+    .footer-btm a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -0.06em;
+      color: #444;
+      text-decoration: none;
+    }
+    .footer-btm a:hover { color: #888; }
+    .footer-btm-mc {
+      color: #444 !important;
+      font-size: 12px !important;
+      font-weight: 500 !important;
+    }
+    .footer-btm-mc:hover { color: #888 !important; }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .nav-logo { font-size: 14px; }
+      .burger-btn { display: block; }
+
+      .mobile-menu-links a { font-size: 24px; }
+
+      .project-header { padding: 40px 20px 0; }
+      .project-title { font-size: 52px; }
+
+      .project-hero-img {
+        margin: 32px 20px 0;
+        height: 40vh;
+        min-height: 240px;
+      }
+
+      .project-about {
+        padding: 48px 20px 0;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .project-brief { font-size: 20px; }
+
+      .project-metrics {
+        padding: 48px 20px 0;
+        grid-template-columns: 1fr;
+        margin-top: 40px;
+        border-top: 1px solid rgba(0,0,0,0.08);
+      }
+      .metric {
+        border-right: none;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        padding: 28px 0;
+        padding-right: 0;
+      }
+      .metric:not(:first-child) { padding-left: 0; }
+      .metric:last-child { border-bottom: none; }
+      .metric-num { font-size: 48px; }
+
+      .project-gallery {
+        padding: 48px 20px 0;
+      }
+      .gallery-grid-2 { grid-template-columns: 1fr; }
+      .gallery-grid-3 { grid-template-columns: 1fr 1fr; }
+
+      .project-editorial {
+        padding: 48px 20px 0;
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .next-cases {
+        padding: 60px 20px 0;
+        margin-top: 48px;
+      }
+      .next-cases-grid { grid-template-columns: 1fr; }
+      .next-case-thumb { height: 220px; }
+
+      footer {
+        padding: 48px 20px 0;
+        margin-top: 80px;
+      }
+      .footer-contact-link { font-size: 52px; }
+      .footer-btm { padding: 32px 0 24px; }
+      .divider { margin: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-menu">
+    <a href="../vibe-coding.html#whom">Кому</a>
+    <a href="../vibe-coding.html#how">Процесс</a>
+    <a href="../vibe-coding.html#agents">Агенты</a>
+    <a href="../vibe-coding.html#price">Стоимость</a>
+    <a href="../vibe-coding.html#cases">Кейсы</a>
+    <a href="../vibe-coding.html#reviews">Отзывы</a>
+    <a href="../vibe-coding.html#faq">FAQ</a>
+  </div>
+  <div class="nav-links">
+    <a href="#" id="nav-back-link">← Все кейсы</a>
+    <a href="../vibe-coding.html#contacts">Контакты</a>
+    <a href="../vibe-coding.html#form" class="nav-cta">Заказать сайт</a>
+  </div>
+  <button class="burger-btn" id="burger-btn" aria-label="Открыть меню">
+    <svg width="22" height="14" viewBox="0 0 22 14" fill="none">
+      <line y1="1" x2="22" y2="1" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+      <line y1="7" x2="22" y2="7" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+      <line y1="13" x2="22" y2="13" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- ─── MOBILE MENU ─── -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-top">
+    <button class="mobile-close" id="mobile-close" aria-label="Закрыть меню">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <line x1="1" y1="1" x2="19" y2="19" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="19" y1="1" x2="1" y2="19" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+  <nav class="mobile-menu-links">
+    <a href="../vibe-coding.html#whom" onclick="closeMobileMenu()" data-num="(1)">Кому</a>
+    <a href="../vibe-coding.html#how" onclick="closeMobileMenu()" data-num="(2)">Процесс</a>
+    <a href="../vibe-coding.html#agents" onclick="closeMobileMenu()" data-num="(3)">Агенты</a>
+    <a href="../vibe-coding.html#price" onclick="closeMobileMenu()" data-num="(4)">Стоимость</a>
+    <a href="../vibe-coding.html#cases" onclick="closeMobileMenu()" data-num="(5)">Кейсы</a>
+    <a href="../vibe-coding.html#reviews" onclick="closeMobileMenu()" data-num="(6)">Отзывы</a>
+    <a href="../vibe-coding.html#faq" onclick="closeMobileMenu()" data-num="(7)">FAQ</a>
+  </nav>
+  <div class="mobile-menu-cta">
+    <a href="../vibe-coding.html#form" onclick="closeMobileMenu()">Обсудить проект</a>
+  </div>
+</div>
+
+<!-- ─── PROJECT HEADER ─── -->
+<section class="project-header">
+  <div class="project-header-left">
+    <a href="#" class="project-back" onclick="history.back(); return false;">
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+        <path d="M13 5H1M1 5L5 1M1 5L5 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Назад
+    </a>
+    <div class="project-tags">
+      <span class="project-tag">Лендинг</span>
+      <span class="project-tag">Вайб-кодинг</span>
+      <span class="project-tag">HTML/CSS/JS</span>
+      <span class="project-tag">7 дней</span>
+    </div>
+    <h1 class="project-title">Лендинг<br>для психолога<sup>2025</sup></h1>
+  </div>
+</section>
+
+<!-- ─── SITE LINK ─── -->
+<div class="project-site-btn-row">
+  <a href="https://example.com" target="_blank" rel="noopener" class="project-site-btn">Посмотреть сайт →</a>
+</div>
+
+<!-- ─── HERO IMAGE ─── -->
+<div class="project-hero-img">
+  <div class="img-placeholder"><span>Главный скриншот сайта</span></div>
+</div>
+
+<!-- ─── ABOUT ─── -->
+<section class="project-about">
+  <div class="project-about-left">
+    <span class="sec-label">О проекте</span>
+  </div>
+  <div>
+    <p class="project-brief">Частный психолог хотела убрать Tilda и получить сайт, который отражает её стиль — тихий, доверительный, живой.</p>
+    <p class="project-body">Задача стояла не просто сделать красиво — нужно было выстроить доверие с первого экрана. Клиент работает с тревожными людьми, поэтому пространство, типографика и тон текста — всё настроено под ощущение безопасности.<br><br>За 7 дней собрали полностью кастомный лендинг без шаблонов: от дизайна до деплоя. Скорость загрузки — 94 балла в PageSpeed. Конверсия в запись выросла на 40% по сравнению с предыдущим сайтом на Tilda.</p>
+  </div>
+</section>
+
+
+<!-- ─── GALLERY ─── -->
+<section class="project-gallery">
+  <div class="gallery-divider"></div>
+  <div class="gallery-label">Экраны сайта</div>
+  <div class="gallery-grid-2">
+    <div class="gallery-img tall">
+      <div class="img-placeholder"><span>Десктоп — главный экран</span></div>
+    </div>
+    <div class="gallery-img tall">
+      <div class="img-placeholder"><span>Десктоп — обо мне</span></div>
+    </div>
+  </div>
+  <div class="gallery-grid-3">
+    <div class="gallery-img square">
+      <div class="img-placeholder"><span>Мобиль — hero</span></div>
+    </div>
+    <div class="gallery-img square">
+      <div class="img-placeholder"><span>Мобиль — услуги</span></div>
+    </div>
+    <div class="gallery-img square">
+      <div class="img-placeholder"><span>Мобиль — форма</span></div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ─── CTA ─── -->
+<div class="proj-cta">
+  <div class="mid-cta-card">
+    <p class="mid-cta-text"><strong>Хочешь такой же сайт?</strong><br>Расскажи о проекте — обсудим детали и назовём точную стоимость на созвоне.</p>
+    <a href="../vibe-coding.html#form" class="btn-mid">Обсудить проект →</a>
+  </div>
+</div>
+
+<!-- ─── NEXT CASES ─── -->
+<section class="next-cases">
+  <div class="next-cases-label">Другие проекты</div>
+  <div class="next-cases-grid">
+    <a href="project.html" class="next-case-item">
+      <div class="next-case-thumb">
+        <div class="img-placeholder"><span>Следующий кейс</span></div>
+      </div>
+      <div class="next-case-info">
+        <span class="next-case-title">Сайт для фитнес-тренера</span>
+        <span class="next-case-link">Смотреть →</span>
+      </div>
+    </a>
+    <a href="project.html" class="next-case-item">
+      <div class="next-case-thumb">
+        <div class="img-placeholder"><span>Следующий кейс</span></div>
+      </div>
+      <div class="next-case-info">
+        <span class="next-case-title">Лендинг для стартапа</span>
+        <span class="next-case-link">Смотреть →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer id="contacts">
+  <div class="footer-contacts">
+    <a href="https://t.me/egorkurakin" class="footer-contact-link">Телеграм</a>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-btm">
+    <a href="/privacy/">Политика конфиденциальности</a>
+    <a href="https://midnightcollective.ru" class="footer-btm-mc">Midnight Collective</a>
+  </div>
+</footer>
+
+<script>
+// Динамическая кнопка назад: cases.html → «Все кейсы», иначе → «На главную»
+(function () {
+  var backLink = document.getElementById('nav-back-link');
+  if (!backLink) return;
+  var ref = document.referrer;
+  if (ref && ref.indexOf('cases.html') !== -1) {
+    backLink.href = 'cases.html';
+    backLink.textContent = '← Все кейсы';
+  } else {
+    backLink.href = '../vibe-coding.html';
+    backLink.textContent = '← На главную';
+  }
+})();
+
+var burgerBtn = document.getElementById('burger-btn');
+var mobileMenu = document.getElementById('mobile-menu');
+var mobileClose = document.getElementById('mobile-close');
+
+if (burgerBtn) burgerBtn.addEventListener('click', function () {
+  mobileMenu.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+if (mobileClose) mobileClose.addEventListener('click', closeMobileMenu);
+</script>
+</body>
+</html>
