@@ -1,0 +1,6 @@
+.git
+.gitignore
+.htpasswd
+Dockerfile
+deploy.sh
+nginx.conf
