@@ -4,14 +4,17 @@
   "phone": "+7 (912) 021 4307",
   "email": "midnight2collective@gmail.com",
   "bio": "Два опытных дизайнера, которые уже более 7 лет помогают брендам и бизнесам создавать выразительный визуальный язык.",
-  "clients": "El Copitas Bar\nSergey Nasonov\nVladimir Nikandrov\nEYES Platform\nSPBCW\nИ т.д.",
+  "clients": "EL COPITAS BAR\nКЛУБ ОТКЛИК\nSAINTS PETERSBURG COCKTAIL WEEK\nSLIP\nPURE\nВЕЧЕР ХВАЛЫ\nMEMRA\nYOUTUBE-КАНАЛ ПУШКА\nXOCREW\nHOSPITALITYFAQTORY\nПАПА ДЖОНС\nCARELY GROUP\nБОЛЬШЕ ЧЕМ СЕРВИС\nVLADIMIR NIKANDROV\nEYES PLATFORM\nYEGREC\nONTAP\nFORMA\nPORTRETCA\nTSELOVALNIK\nГОЛЬФ-КЛУБ SKOLKOVO\nМОСФОРУМ\nИ ДРУГИЕ",
   "services": [
-    "Сайт",
-    "Фирменный стиль",
-    "Motion",
-    "3D",
-    "Монтаж",
-    "Рилсы"
+    { "name": "Сайт", "href": "/commercial/web/" },
+    { "name": "Фирменный стиль", "href": "/commercial/branding/" },
+    { "name": "Дизайн", "href": "/commercial/design/" },
+    { "name": "Reels", "href": "/commercial/reels/" },
+    { "name": "Социальные сети", "href": "/commercial/social/" },
+    { "name": "Телеграм-бот", "href": "/commercial/bots/" },
+    { "name": "Motion", "href": "/commercial/motion/" },
+    { "name": "YouTube", "href": "/commercial/youtube/" },
+    { "name": "3D & AI", "href": "/commercial/3d/" }
   ],
   "team": [
     {

@@ -17,16 +17,16 @@ html { scroll-behavior: smooth; }
 body { font-family: 'Inter', -apple-system, sans-serif; background: #fff; color: #000; }
 
 nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; position: sticky; top: 0; z-index: 100; background: #fff; }
-.logo { font-size: 24px; font-weight: 500; letter-spacing: -0.06em; text-decoration: none; color: #000; }
+.logo { font-size: 24px; font-weight: 400; letter-spacing: -0.078em; text-decoration: none; color: #000; }
 .nav-links { display: flex; gap: 56px; }
-.nav-links a { font-size: 24px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; }
+.nav-links a { font-size: 24px; font-weight: 400; letter-spacing: -0.06em; color: #000; text-decoration: none; }
 .nav-links a:hover { text-decoration: underline; }
 
 .hero-video { margin: 0 48px; height: calc(100vh - 130px); background: #000; border-radius: 6px; overflow: hidden; position: relative; }
 .hero-video video { width: 100%; height: 100%; object-fit: cover; }
 
 .description { padding: 48px 48px 72px; }
-.description p { font-size: 48px; font-weight: 500; line-height: 1.15; letter-spacing: -0.06em; }
+.description p { font-size: 48px; font-weight: 400; line-height: 1.15; letter-spacing: -0.078em; }
 
 .sec-head { font-size: 120px; font-weight: 300; letter-spacing: -0.06em; line-height: 0.92; padding: 0 48px; }
 .sec-head sup { font-size: 16px; font-weight: 400; vertical-align: baseline; position: relative; top: -3.8em; letter-spacing: 0; margin-left: 12px; }
@@ -35,7 +35,7 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .cases { padding: 0 48px; }
 .case-row { display: grid; grid-template-columns: 30% 1fr; gap: 24px; padding: 36px 0; border-bottom: 1px solid #ddd; align-items: start; position: relative; }
 .case-year { font-family: 'Roboto Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: -0.06em; text-transform: uppercase; padding-top: 6px; }
-.case-title { font-size: 32px; font-weight: 500; letter-spacing: -0.06em; margin-bottom: 12px; }
+.case-title { font-size: 32px; font-weight: 400; letter-spacing: -0.06em; margin-bottom: 12px; }
 .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
 .tag { font-family: 'Roboto Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; text-transform: uppercase; border: 1px solid #000; border-radius: 20px; padding: 4px 14px; }
 .case-thumb { height: 360px; background: #e4e4e4; border-radius: 4px; overflow: hidden; }
@@ -50,7 +50,9 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 
 .services { padding: 120px 48px 240px; display: grid; grid-template-columns: 30% 1fr; gap: 24px; }
 .svc-label { font-family: 'Roboto Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: -0.06em; text-transform: uppercase; padding-top: 6px; color: #000; }
-.svc-list p { font-size: 50px; font-weight: 500; line-height: 1.0; letter-spacing: -0.06em; }
+.svc-list p, .svc-list a { font-size: 50px; font-weight: 400; line-height: 1.0; letter-spacing: -0.06em; }
+.svc-list a { display: block; width: fit-content; color: #000; text-decoration: none; opacity: 1; transition: opacity 0.25s ease; }
+.svc-list a:hover { opacity: 0.72; }
 
 .team { padding: 0 48px 72px; }
 .team-grid { display: grid; grid-template-columns: 328px 40px 328px 1fr; margin-top: 220px; align-items: stretch; }
@@ -59,10 +61,10 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .team-photo.p2 { background: #a8a8a8; }
 .team-name { font-size: 22px; font-weight: 400; letter-spacing: -0.06em; margin-top: 10px; }
 .team-role { font-family: 'Roboto Mono', monospace; font-size: 12px; font-weight: 400; text-transform: uppercase; letter-spacing: -0.02em; color: #666; margin-top: 3px; }
-.team-right { display: flex; flex-direction: column; justify-content: space-between; align-self: stretch; margin: 0 auto; width: 280px; }
+.team-right { display: flex; flex-direction: column; justify-content: space-between; align-self: stretch; margin: 0 auto; width: 560px; }
 .team-bio { font-size: 14px; font-weight: 400; line-height: 1.4; color: #333; max-width: 280px; }
 .clients-lbl { font-size: 18px; font-weight: 400; letter-spacing: -0.06em; color: #000; margin-bottom: 6px; }
-.clients-list { font-family: 'Roboto Mono', monospace; font-size: 12px; font-weight: 400; line-height: 1.7; letter-spacing: -0.02em; color: #666; text-transform: uppercase; }
+.clients-list { font-family: 'Roboto Mono', monospace; font-size: 12px; font-weight: 400; line-height: 1.7; letter-spacing: -0.02em; color: #666; text-transform: uppercase; column-count: 2; column-gap: 40px; }
 .team-clients { margin-top: auto; }
   .team-clients { margin-top: 32px; }
 
@@ -74,31 +76,31 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .proc-step:not(.on) { color: #ccc; }
 .proc-step:not(.on):hover { color: #888; }
 .proc-num { font-size: 20px; font-weight: 400; letter-spacing: -0.06em; position: relative; top: -0.55em; }
-.proc-name { font-size: 50px; font-weight: 500; letter-spacing: -0.06em; line-height: 1.1; }
+.proc-name { font-size: 50px; font-weight: 400; letter-spacing: -0.078em; line-height: 1.1; }
 .proc-desc { font-size: 14px; font-weight: 400; line-height: 1.4; color: #333; max-width: 280px; }
 
 .form-sec { padding: 20px 48px 80px; }
 .mc-form { margin-top: 120px; margin-left: calc(30% + 48px); margin-right: 96px; }
-.fld { width: 100%; border: none; border-bottom: 1px solid #000; padding: 28px 0; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 500; letter-spacing: -0.02em; background: none; color: #000; display: block; outline: none; }
-.fld::placeholder { color: #000; font-weight: 500; }
+.fld { width: 100%; border: none; border-bottom: 1px solid #000; padding: 28px 0; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 400; letter-spacing: -0.02em; background: none; color: #000; display: block; outline: none; }
+.fld::placeholder { color: #000; font-weight: 400; }
 .fld:focus::placeholder { color: transparent; }
 .sel-wrap { position: relative; border-bottom: 1px solid #000; display: flex; align-items: center; }
-.sel-wrap select { flex: 1; padding: 28px 0; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 500; letter-spacing: -0.02em; background: none; border: none; outline: none; color: #000; appearance: none; cursor: pointer; }
+.sel-wrap select { flex: 1; padding: 28px 0; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 400; letter-spacing: -0.02em; background: none; border: none; outline: none; color: #000; appearance: none; cursor: pointer; }
 .sel-wrap::after { content: '⌄'; font-size: 20px; pointer-events: none; }
 .chk-row { display: flex; align-items: center; gap: 12px; padding: 60px 0 28px; }
 .chk-box { width: 18px; height: 18px; border: 1px solid #000; cursor: pointer; flex-shrink: 0; appearance: none; }
 .chk-box:checked { background: #000; }
 .chk-lbl { font-family: 'Roboto Mono', monospace; font-size: 16px; font-weight: 500; text-transform: uppercase; }
 .chk-lbl u { cursor: pointer; }
-.submit-btn { background: #000; color: #fff; border: none; padding: 20px 40px; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 500; letter-spacing: -0.02em; cursor: pointer; display: block; margin-top: 56px; }
+.submit-btn { background: #000; color: #fff; border: none; padding: 20px 40px; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 400; letter-spacing: -0.02em; cursor: pointer; display: block; margin-top: 56px; }
 .submit-btn:hover { background: #222; }
 
 footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
-.footer-phone, .footer-email { font-size: 44px; font-weight: 500; letter-spacing: -0.06em; line-height: 1.1; color: #000; }
+.footer-phone, .footer-email { font-size: 44px; font-weight: 400; letter-spacing: -0.06em; line-height: 1.1; color: #000; }
 .footer-contacts { padding: 0 0 48px; }
 .footer-wm-logo { display: block; width: 100%; padding: 0.1em 0; }
 .footer-btm { display: flex; gap: 32px; padding: 48px 0 32px; }
-.footer-btm a { font-size: 12px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; }
+.footer-btm a { font-size: 12px; font-weight: 400; letter-spacing: -0.06em; color: #000; text-decoration: none; }
 a { color: #000; }
 .footer-btm a:hover { text-decoration: underline; }
 
@@ -128,7 +130,7 @@ a { color: #000; }
   .see-all a { font-size: 22px; padding: 24px 0; }
 
   .services { padding: 60px 20px 100px; grid-template-columns: 1fr; gap: 16px; }
-  .svc-list p { font-size: 32px; }
+  .svc-list p, .svc-list a { font-size: 32px; }
 
   .sec-head[style] { padding-left: 20px !important; margin-top: 80px !important; }
 
@@ -166,7 +168,7 @@ a { color: #000; }
 .burger-menu.open { display: flex; }
 .burger-nav-fixed { position: fixed; top: 0; left: 0; right: 0; padding: 20px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1001; background: #fff; }
 .burger-nav-fixed .logo { font-size: 18px; }
-.burger-menu a { font-size: 36px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; line-height: 1.1; display: block; }
+.burger-menu a { font-size: 36px; font-weight: 400; letter-spacing: -0.06em; color: #000; text-decoration: none; line-height: 1.1; display: block; }
 .burger-menu a:hover { text-decoration: underline; }
 .burger-menu .burger-order { margin-bottom: 40px; }
 .burger-menu .burger-links { display: flex; flex-direction: column; gap: 4px; }
@@ -212,7 +214,7 @@ a { color: inherit; }
 </div>
 
 <div class="description">
-  <p id="site-description">Midnight Collective — студия двух упоротых, которые делают дизайн, фирменный стиль, 3D и моушен. Если срочно — уже поздно. Если не срочно — скорее всего тоже.</p>
+  <p id="site-description">Midnight Collective — помогаем бизнесам формировать понятный, современный и выразительный визуальный стиль.</p>
 </div>
 
 <h2 class="sec-head" id="cases">Кейсы<sup id="cases-count">(1)</sup></h2>
@@ -226,7 +228,7 @@ a { color: inherit; }
 
 <div class="services" id="services">
   <div class="svc-label">Услуги</div>
-  <div class="svc-list" id="site-services"><p>Сайт</p><p>Фирменный стиль</p><p>Motion</p><p>3D</p><p>Монтаж</p><p>Рилсы</p></div>
+  <div class="svc-list" id="site-services"><a href="/commercial/web/">Сайт</a><a href="/commercial/branding/">Фирменный стиль</a><a href="/commercial/design/">Дизайн</a><a href="/commercial/reels/">Reels</a><a href="/commercial/social/">Социальные сети</a><a href="/commercial/bots/">Телеграм-бот</a><a href="/commercial/motion/">Motion</a><a href="/commercial/youtube/">YouTube</a><a href="/commercial/3d/">3D & AI</a></div>
 </div>
 
 <h2 class="sec-head" style="padding-left: calc(48px + 30%); text-align: left;">Кто мы?<sup>(2)</sup></h2>
@@ -242,13 +244,13 @@ a { color: inherit; }
     <div>
       <a href="https://t.me/egorkurakin" target="_blank" rel="noopener"><div class="team-photo p2" id="photo-egor"><img src="/e.jpg" alt="Егор Куракин"></div></a>
       <div class="team-name" id="site-name2">Егор Куракин</div>
-      <div class="team-role" id="site-role2">Аналитик, Влиятель</div>
+      <div class="team-role" id="site-role2">Креативный директор</div>
     </div>
     <div class="team-right">
-      <p class="team-bio" id="site-bio">Как и было написано ранее, эти двое — два огромных ельдака в мире дизайна, которые вот уже более 7 лет трахают бизнесы в попку и награждают их визуальными кримпаями.</p>
+      <p class="team-bio" id="site-bio">Два опытных дизайнера, которые уже более 7 лет помогают брендам и бизнесам создавать выразительный визуальный язык.</p>
       <div class="team-clients">
         <div class="clients-lbl">Наши клиенты</div>
-        <div class="clients-list" id="site-clients">El Copitas Bar<br>Sergey Nasonov<br>И т.д.</div>
+        <div class="clients-list" id="site-clients">EL COPITAS BAR<br>КЛУБ ОТКЛИК<br>SAINTS PETERSBURG COCKTAIL WEEK<br>SLIP<br>PURE<br>ВЕЧЕР ХВАЛЫ<br>MEMRA<br>YOUTUBE-КАНАЛ ПУШКА<br>XOCREW<br>HOSPITALITYFAQTORY<br>ПАПА ДЖОНС<br>CARELY GROUP<br>БОЛЬШЕ ЧЕМ СЕРВИС<br>VLADIMIR NIKANDROV<br>EYES PLATFORM<br>YEGREC<br>ONTAP<br>FORMA<br>PORTRETCA<br>TSELOVALNIK<br>ГОЛЬФ-КЛУБ SKOLKOVO<br>МОСФОРУМ<br>И ДРУГИЕ</div>
       </div>
     </div>
   </div>
@@ -276,21 +278,8 @@ a { color: inherit; }
 
 <div class="form-sec">
   <div class="mc-form">
-    <input class="fld" type="text" id="f-name" placeholder="Как вас зовут?">
-    <input class="fld" type="tel" id="f-phone" placeholder="+7 (999) 999 99 99">
-    <div class="sel-wrap">
-      <select id="f-service">
-        <option value="" disabled selected>Выберите услугу</option>
-        <option>Сайт</option>
-        <option>Фирменный стиль</option>
-        <option>Motion</option>
-        <option>3D</option>
-        <option>Монтаж</option>
-        <option>Рилсы</option>
-      </select>
-    </div>
-    <input class="fld" type="text" id="f-budget" placeholder="Бюджет">
-    <input class="fld" type="text" id="f-info" placeholder="Дополнительная информация">
+    <input class="fld" type="text" id="f-name" placeholder="Как к вам обращаться?">
+    <input class="fld" type="tel" id="f-phone" placeholder="Номер телефона">
     <div class="chk-row">
       <input type="checkbox" class="chk-box" id="f-agree">
       <label class="chk-lbl" for="f-agree">Я согласен с <u>политикой конфиденциальности</u></label>
@@ -399,7 +388,7 @@ async function loadSettings() {
     const r = await fetch('https://raw.githubusercontent.com/egorasus/midnight-collective/main/data/settings.json?t=' + Date.now());
     const s = await r.json();
     if (s.description) document.getElementById('site-description').textContent = s.description;
-    if (s.services) document.getElementById('site-services').innerHTML = s.services.map(sv => `<p>${sv}</p>`).join('');
+    if (s.services) document.getElementById('site-services').innerHTML = s.services.map(sv => typeof sv === 'object' ? `<a href="${sv.href}">${sv.name}</a>` : `<p>${sv}</p>`).join('');
     if (s.team) {
       if (s.team[0]) { document.getElementById('site-name1').textContent = s.team[0].name; document.getElementById('site-role1').textContent = s.team[0].role; }
       if (s.team[1]) { document.getElementById('site-name2').textContent = s.team[1].name; document.getElementById('site-role2').textContent = s.team[1].role; }
@@ -428,23 +417,17 @@ async function submitForm() {
   if (!agree) { alert('Пожалуйста, согласитесь с политикой конфиденциальности'); return; }
   const name = document.getElementById('f-name').value.trim();
   const phone = document.getElementById('f-phone').value.trim();
-  const service = document.getElementById('f-service').value;
-  const budget = document.getElementById('f-budget').value.trim();
-  const info = document.getElementById('f-info').value.trim();
   if (!name || !phone) { alert('Пожалуйста, заполните имя и телефон'); return; }
   const btn = document.querySelector('.submit-btn');
   btn.textContent = 'Заявка отправлена!';
   btn.disabled = true;
   document.getElementById('f-name').value = '';
   document.getElementById('f-phone').value = '';
-  document.getElementById('f-service').value = '';
-  document.getElementById('f-budget').value = '';
-  document.getElementById('f-info').value = '';
   document.getElementById('f-agree').checked = false;
   fetch('https://midnight-form.egor-kurakin14.workers.dev', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, phone, service, budget, info })
+    body: JSON.stringify({ name, phone })
   }).catch(() => {});
   setTimeout(() => { btn.textContent = 'Оставить заявку'; btn.disabled = false; }, 3000);
 }

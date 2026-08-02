@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Фирменный стиль — Услуги и цены — Midnight Collective</title>
+<style>
+@font-face { font-family: 'Inter'; font-weight: 300; src: url('../../fonts/inter-300.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 400; src: url('../../fonts/inter-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 500; src: url('../../fonts/inter-500.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 600; src: url('../../fonts/inter-600.woff2') format('woff2'); }
+@font-face { font-family: 'Roboto Mono'; font-weight: 400; src: url('../../fonts/roboto-mono-400.woff2') format('woff2'); }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #fff; color: #000; }
+a { color: inherit; }
+
+/* NAV — идентична главной */
+nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; position: sticky; top: 0; z-index: 100; background: #fff; }
+.logo { font-size: 24px; font-weight: 400; letter-spacing: -0.078em; text-decoration: none; color: #000; }
+.nav-links { display: flex; gap: 56px; }
+.nav-links a { font-size: 24px; font-weight: 400; letter-spacing: -0.06em; color: #000; text-decoration: none; }
+.nav-links a:hover { text-decoration: underline; }
+
+/* SERVICE SECTION */
+.kp-section { padding: 96px 48px 0; }
+.kp-section:first-of-type { padding-top: 48px; }
+.kp-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; }
+.kp-title { font-size: 56px; font-weight: 500; letter-spacing: -0.06em; line-height: 1.05; }
+.kp-kicker { font-family: 'Roboto Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; text-transform: uppercase; color: #666; white-space: nowrap; }
+.kp-section-note { padding: 0 48px; margin: -20px 0 40px; font-size: 16px; color: #666; max-width: 720px; }
+
+/* USP BANNER */
+.kp-usp { display: grid; grid-template-columns: 30% 1fr; gap: 24px; align-items: baseline; padding: 56px 48px; margin-top: 96px; }
+.kp-usp-label { visibility: hidden; }
+.kp-usp-text { font-size: 32px; font-weight: 500; letter-spacing: -0.04em; line-height: 1.25; max-width: 720px; }
+
+/* PRICING GRID */
+.kp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+.kp-card { position: relative; border: 1px solid #000; border-radius: 15px; padding: 30px; display: flex; flex-direction: column; min-height: 656px; }
+.kp-card.dashed { border: none; }
+.kp-card-dash-border { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.kp-card-title { font-size: 18px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; }
+.kp-card-sub { font-size: 18px; font-weight: 400; color: #b3b3b3; line-height: 1.1; margin-bottom: 20px; }
+.kp-card-body { flex: 1; display: flex; flex-direction: column; }
+.kp-card-list { list-style: none; font-size: 14px; line-height: 1.2; letter-spacing: 0.01em; color: #b3b3b3; }
+.kp-card-list li { margin-bottom: 10px; }
+.kp-card-list li:last-child { margin-bottom: 0; }
+.kp-card-list li.carry { text-decoration: underline; font-weight: 500; }
+.kp-card-list.extra { margin-top: 24px; }
+.kp-card-foot { margin-top: 24px; }
+.kp-terms { font-size: 14px; font-weight: 500; line-height: 1.2; color: #000; letter-spacing: 0.01em; margin-bottom: 4px; }
+.kp-price { font-size: 14px; font-weight: 500; line-height: 1.2; letter-spacing: 0.01em; }
+.kp-price-note { font-size: 14px; font-weight: 500; color: #999; }
+.kp-duration { font-size: 14px; font-weight: 500; line-height: 1.2; color: #000; letter-spacing: 0.01em; margin-top: 12px; }
+.kp-card-note { font-size: 13px; line-height: 1.5; color: #666; margin-top: 20px; padding-top: 16px; border-top: 1px solid #eee; }
+
+footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
+.footer-phone, .footer-email { font-size: 44px; font-weight: 500; letter-spacing: -0.06em; line-height: 1.1; color: #000; }
+.footer-contacts { padding: 0 0 48px; }
+.footer-wm-logo { display: block; width: 100%; padding: 0.1em 0; }
+.footer-btm { display: flex; gap: 32px; padding: 48px 0 32px; }
+.footer-btm a { font-size: 12px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; }
+.footer-btm a:hover { text-decoration: underline; }
+
+@media (max-width: 768px) {
+  nav { padding: 20px 20px; }
+  .logo { font-size: 18px; }
+  .nav-links { display: none; }
+
+  .kp-section { padding: 56px 20px 0; }
+  .kp-section:first-of-type { padding-top: 32px; }
+  .kp-title { font-size: 32px; }
+  .kp-section-note { padding: 0 20px; }
+  .kp-grid { grid-template-columns: 1fr; }
+
+  .kp-usp { grid-template-columns: 1fr; gap: 12px; padding: 32px 20px; margin-top: 56px; }
+  .kp-usp-text { font-size: 22px; }
+
+  footer { padding: 40px 20px 0; margin-top: 60px; }
+  .footer-phone, .footer-email { font-size: 28px; }
+  .footer-btm { gap: 16px; flex-wrap: wrap; padding: 32px 0 24px; }
+}
+
+/* Burger menu — идентично главной */
+.burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; background: none; border: none; padding: 4px; font-size: 24px; line-height: 1; align-items: center; justify-content: center; }
+.burger span { display: block; width: 24px; height: 2px; background: #000; }
+.burger-menu { display: none; position: fixed; inset: 0; background: #fff; z-index: 1000; flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: 180px 20px 40px; }
+.burger-menu.open { display: flex; }
+.burger-nav-fixed { position: fixed; top: 0; left: 0; right: 0; padding: 20px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1001; background: #fff; }
+.burger-nav-fixed .logo { font-size: 18px; }
+.burger-menu a { font-size: 36px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; line-height: 1.1; display: block; }
+.burger-menu a:hover { text-decoration: underline; }
+.burger-menu .burger-order { margin-bottom: 40px; }
+.burger-menu .burger-links { display: flex; flex-direction: column; gap: 4px; }
+.burger-time { font-family: 'Roboto Mono', monospace; font-size: 10px; font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em; color: #666; margin-top: 40px; }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .burger { display: flex; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Midnight Collective</a>
+  <div class="nav-links">
+    <a href="/#cases">Работы</a>
+    <a href="/#form">Заказать проект</a>
+  </div>
+  <button class="burger" onclick="toggleBurger()" id="burger-btn" aria-label="Меню">
+    <span id="b1"></span>
+    <span id="b2"></span>
+  </button>
+</nav>
+
+<div class="burger-menu" id="burger-menu">
+  <div class="burger-nav-fixed">
+    <a href="/" class="logo">Midnight Collective</a>
+  </div>
+  <a href="/#form" class="burger-order">Заказать проект</a>
+  <div class="burger-links">
+    <a href="/#cases">Кейсы</a>
+    <a href="/commercial/">Услуги и цены</a>
+    <a href="/#team">Кто мы?</a>
+    <a href="/#process">Процесс</a>
+  </div>
+  <div class="burger-time" id="burger-clock"></div>
+</div>
+
+<!-- ===== Раздел: Фирменный стиль ===== -->
+<section class="kp-section">
+  <div class="kp-head">
+    <h2 class="kp-title">Фирменный стиль</h2>
+    <span class="kp-kicker">Услуги и цены</span>
+  </div>
+
+  <div class="kp-grid">
+
+    <div class="kp-card">
+      <div class="kp-card-title">Фирменный стиль</div>
+      <div class="kp-card-sub">Базовый пакет (1 концепция)</div>
+      <div class="kp-card-body">
+        <ul class="kp-card-list">
+          <li>Созвон и брифинг</li>
+          <li>Разработка 3 мудбордов, выбор направления</li>
+          <li>1 концепция типографического логотипа на основе согласованного мудборда, брифа и ТЗ</li>
+          <li>Разработка фирменных цветов, типографики, графических элементов</li>
+          <li>Разработка гайдлайна (руководство по использованию фирменного стиля)</li>
+          <li>2 итерации правок включены в стоимость работ (доп. итерация — 5 000 ₽)</li>
+        </ul>
+      </div>
+      <div class="kp-card-foot">
+        <div class="kp-terms">2 поэтапные оплаты по 25 000 ₽</div>
+        <div class="kp-price">50 000 ₽</div>
+        <div class="kp-duration">Срок: 2 недели</div>
+      </div>
+    </div>
+
+    <div class="kp-card">
+      <div class="kp-card-title">Фирменный стиль</div>
+      <div class="kp-card-sub">Средний пакет (2 концепции)</div>
+      <div class="kp-card-body">
+        <ul class="kp-card-list">
+          <li>Созвон и брифинг</li>
+          <li>Разработка 3 мудбордов, выбор направления</li>
+          <li>2 концепции логотипа и знака</li>
+          <li>1 макет физического носителя на выбор (визитка, пакет и т.д.)</li>
+          <li>Разработка фирменных цветов, типографики, графических элементов</li>
+          <li>Расширенный гайдлайн (руководство по использованию фирменного стиля)</li>
+          <li>3 итерации правок включены в стоимость работ (доп. итерация — 5 000 ₽)</li>
+        </ul>
+      </div>
+      <div class="kp-card-foot">
+        <div class="kp-terms">2 поэтапные оплаты по 37 500 ₽</div>
+        <div class="kp-price">75 000 ₽</div>
+        <div class="kp-duration">Срок: 2-3 недели</div>
+      </div>
+    </div>
+
+    <div class="kp-card">
+      <div class="kp-card-title">Фирменный стиль</div>
+      <div class="kp-card-sub">Расширенный пакет (3 концепции)</div>
+      <div class="kp-card-body">
+        <ul class="kp-card-list">
+          <li>Созвон и брифинг</li>
+          <li>Разработка 3 мудбордов, выбор направления</li>
+          <li>3 концепции логотипа и знака, 2 варианта готового логотипа</li>
+          <li>3 макета физических носителей на выбор (визитка, пакет и т.д.)</li>
+          <li>Полный брендбук с примерами на цифровых и физических носителях</li>
+          <li>3 итерации правок включены в стоимость работ (доп. итерация — 5 000 ₽)</li>
+        </ul>
+      </div>
+      <div class="kp-card-foot">
+        <div class="kp-terms">3 поэтапные оплаты по 50 000 ₽</div>
+        <div class="kp-price">150 000 ₽</div>
+        <div class="kp-duration">Срок: 3-4 недели</div>
+      </div>
+    </div>
+
+    <div class="kp-card dashed">
+      <svg class="kp-card-dash-border"><rect x="0" y="0" width="100%" height="100%" rx="14.3" ry="14.3" fill="none" stroke="#000" stroke-width="1.4" stroke-dasharray="10 10"/></svg>
+      <div class="kp-card-title">Макеты носителей</div>
+      <div class="kp-card-sub">Физические и диджитал</div>
+      <div class="kp-card-body">
+        <ul class="kp-card-list">
+          <li>Разработка доп. макетов для полиграфии, упаковки, социальных сетей и т.д.</li>
+        </ul>
+        <ul class="kp-card-list extra">
+          <li class="carry">Физические носители</li>
+          <li>Визитка</li>
+          <li>Фирменный конверт/бланк</li>
+          <li>Упаковка</li>
+          <li>Бирки, стикеры, наклейки, этикетки</li>
+          <li>Вывеска/Оформление витрины</li>
+          <li>Сувенирка (ручка, блокнот, кружка)</li>
+        </ul>
+        <ul class="kp-card-list extra">
+          <li class="carry">Диджитал носители</li>
+          <li>Шаблон презентации</li>
+          <li>Favicon</li>
+          <li>Водяной знак</li>
+        </ul>
+      </div>
+      <div class="kp-card-foot">
+        <div class="kp-price">От 5 000 ₽</div>
+        <div class="kp-duration">Срок: 3-7 рабочих дней</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ===== /Раздел ===== -->
+
+<footer>
+  <div class="footer-contacts">
+    <div class="footer-phone">+7 (912) 021-43-07</div>
+    <div class="footer-email">midnight2collective@gmail.com</div>
+  </div>
+  <img src="/logo.svg" alt="Midnight Collective" class="footer-wm-logo">
+  <div class="footer-btm">
+    <a href="/privacy/">Политика конфиденциальности</a>
+  </div>
+</footer>
+
+<script>
+function goTo(url) {
+  const menu = document.getElementById('burger-menu');
+  menu.classList.remove('open');
+  document.body.style.overflow = '';
+  window.location.href = url;
+}
+function toggleBurger() {
+  const menu = document.getElementById('burger-menu');
+  menu.classList.toggle('open');
+  const open = menu.classList.contains('open');
+  document.body.style.overflow = open ? 'hidden' : '';
+  const btn = document.getElementById('burger-btn');
+  btn.innerHTML = open
+    ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="2" y1="2" x2="22" y2="22" stroke="black" stroke-width="2"/><line x1="22" y1="2" x2="2" y2="22" stroke="black" stroke-width="2"/></svg>'
+    : '<span></span><span></span>';
+}
+function updateClock() {
+  const now = new Date();
+  const msk = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Moscow' }));
+  const h = String(msk.getHours()).padStart(2, '0');
+  const m = String(msk.getMinutes()).padStart(2, '0');
+  const s = String(msk.getSeconds()).padStart(2, '0');
+  const el = document.getElementById('burger-clock');
+  if (el) el.textContent = h + ':' + m + ':' + s + ' МСК';
+}
+updateClock();
+setInterval(updateClock, 1000);
+</script>
+
+</body>
+</html>

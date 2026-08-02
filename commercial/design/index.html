@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дизайн — Услуги и цены — Midnight Collective</title>
+<style>
+@font-face { font-family: 'Inter'; font-weight: 300; src: url('../../fonts/inter-300.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 400; src: url('../../fonts/inter-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 500; src: url('../../fonts/inter-500.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 600; src: url('../../fonts/inter-600.woff2') format('woff2'); }
+@font-face { font-family: 'Roboto Mono'; font-weight: 400; src: url('../../fonts/roboto-mono-400.woff2') format('woff2'); }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: #fff; color: #000; }
+a { color: inherit; }
+
+/* NAV — идентична главной */
+nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; position: sticky; top: 0; z-index: 100; background: #fff; }
+.logo { font-size: 24px; font-weight: 400; letter-spacing: -0.078em; text-decoration: none; color: #000; }
+.nav-links { display: flex; gap: 56px; }
+.nav-links a { font-size: 24px; font-weight: 400; letter-spacing: -0.06em; color: #000; text-decoration: none; }
+.nav-links a:hover { text-decoration: underline; }
+
+/* SERVICE SECTION */
+.kp-section { padding: 96px 48px 0; }
+.kp-section:first-of-type { padding-top: 48px; }
+.kp-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; }
+.kp-title { font-size: 56px; font-weight: 500; letter-spacing: -0.06em; line-height: 1.05; }
+.kp-kicker { font-family: 'Roboto Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0; text-transform: uppercase; color: #666; white-space: nowrap; }
+.kp-head-note { font-size: 17px; font-weight: 500; color: #151515; letter-spacing: -0.03em; text-align: right; width: 490px; flex-shrink: 0; line-height: 0.9; transform: translateY(-10px); }
+
+/* USP BANNER — между разделами */
+.kp-usp { display: grid; grid-template-columns: 30% 1fr; gap: 24px; align-items: baseline; padding: 56px 48px; margin-top: 96px; }
+.kp-usp-label { visibility: hidden; }
+.kp-usp-text { font-size: 32px; font-weight: 500; letter-spacing: -0.04em; line-height: 1.25; max-width: 720px; }
+
+/* PRICING GRID */
+.kp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+.kp-grid.two-col { grid-template-columns: repeat(2, 1fr); }
+.kp-card { position: relative; border: 1px solid #000; border-radius: 15px; padding: 30px; display: flex; flex-direction: column; min-height: 656px; }
+.kp-card.dashed { border: none; }
+.kp-card-dash-border { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.kp-card-title { font-size: 18px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; }
+.kp-card-sub { font-size: 18px; font-weight: 400; color: #b3b3b3; line-height: 1.1; margin-bottom: 20px; }
+.kp-card-body { flex: 1; display: flex; flex-direction: column; }
+.kp-card-list { list-style: none; font-size: 14px; line-height: 1.2; letter-spacing: 0.01em; color: #b3b3b3; }
+.kp-card-list li { margin-bottom: 10px; }
+.kp-card-list li:last-child { margin-bottom: 0; }
+.kp-card-list li.carry { text-decoration: underline; font-weight: 500; }
+.kp-card-list.extra { margin-top: 24px; }
+.kp-card-foot { margin-top: 24px; }
+.kp-terms { font-size: 14px; font-weight: 500; line-height: 1.2; color: #000; letter-spacing: 0.01em; margin-bottom: 4px; }
+.kp-price { font-size: 14px; font-weight: 500; line-height: 1.2; letter-spacing: 0.01em; }
+.kp-price-note { font-size: 14px; font-weight: 500; color: #999; }
+.kp-duration { font-size: 14px; font-weight: 500; line-height: 1.2; color: #000; letter-spacing: 0.01em; margin-top: 12px; }
+
+footer { padding: 64px 48px 0; margin-top: 120px; background: #fff; }
+.footer-phone, .footer-email { font-size: 44px; font-weight: 500; letter-spacing: -0.06em; line-height: 1.1; color: #000; }
+.footer-contacts { padding: 0 0 48px; }
+.footer-wm-logo { display: block; width: 100%; padding: 0.1em 0; }
+.footer-btm { display: flex; gap: 32px; padding: 48px 0 32px; }
+.footer-btm a { font-size: 12px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; }
+.footer-btm a:hover { text-decoration: underline; }
+
+@media (max-width: 768px) {
+  nav { padding: 20px 20px; }
+  .logo { font-size: 18px; }
+  .nav-links { display: none; }
+
+  .kp-section { padding: 56px 20px 0; }
+  .kp-section:first-of-type { padding-top: 32px; }
+  .kp-title { font-size: 32px; }
+  .kp-grid, .kp-grid.two-col { grid-template-columns: 1fr; }
+
+  .kp-head-note { width: 100%; text-align: left; transform: none; font-size: 15px; }
+
+  .kp-usp { grid-template-columns: 1fr; gap: 12px; padding: 32px 20px; margin-top: 56px; }
+  .kp-usp-text { font-size: 22px; }
+
+  footer { padding: 40px 20px 0; margin-top: 60px; }
+  .footer-phone, .footer-email { font-size: 28px; }
+  .footer-btm { gap: 16px; flex-wrap: wrap; padding: 32px 0 24px; }
+}
+
+/* Burger menu — идентично главной */
+.burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; background: none; border: none; padding: 4px; font-size: 24px; line-height: 1; align-items: center; justify-content: center; }
+.burger span { display: block; width: 24px; height: 2px; background: #000; }
+.burger-menu { display: none; position: fixed; inset: 0; background: #fff; z-index: 1000; flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: 180px 20px 40px; }
+.burger-menu.open { display: flex; }
+.burger-nav-fixed { position: fixed; top: 0; left: 0; right: 0; padding: 20px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1001; background: #fff; }
+.burger-nav-fixed .logo { font-size: 18px; }
+.burger-menu a { font-size: 36px; font-weight: 500; letter-spacing: -0.06em; color: #000; text-decoration: none; line-height: 1.1; display: block; }
+.burger-menu a:hover { text-decoration: underline; }
+.burger-menu .burger-order { margin-bottom: 40px; }
+.burger-menu .burger-links { display: flex; flex-direction: column; gap: 4px; }
+.burger-time { font-family: 'Roboto Mono', monospace; font-size: 10px; font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em; color: #666; margin-top: 40px; }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .burger { display: flex; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Midnight Collective</a>
+  <div class="nav-links">
+    <a href="/#cases">Работы</a>
+    <a href="/#form">Заказать проект</a>
+  </div>
+  <button class="burger" onclick="toggleBurger()" id="burger-btn" aria-label="Меню">
+    <span id="b1"></span>
+    <span id="b2"></span>
+  </button>
+</nav>
+
+<div class="burger-menu" id="burger-menu">
+  <div class="burger-nav-fixed">
+    <a href="/" class="logo">Midnight Collective</a>
+  </div>
+  <a href="/#form" class="burger-order">Заказать проект</a>
+  <div class="burger-links">
+    <a href="/#cases">Кейсы</a>
+    <a href="/commercial/">Услуги и цены</a>
+    <a href="/#team">Кто мы?</a>
+    <a href="/#process">Процесс</a>
+  </div>
+  <div class="burger-time" id="burger-clock"></div>
+</div>
+
+<!-- ===== Раздел: Дизайн ===== -->
+<section class="kp-section">
+  <div class="kp-head">
+    <h2 class="kp-title">Дизайн</h2>
+    <p class="kp-head-note">Если нужен не полный фирменный стиль, а конкретный носитель: логотип, мерч, презентация или упаковка.</p>
+  </div>
+
+  <div class="kp-grid">
+
+    <div class="kp-card">
+      <div class="kp-card-title">Логотип</div>
+      <div class="kp-card-sub">Типографический</div>
+      <div class="kp-card-body">
+        <ul class="kp-card-list">
+          <li>Созвон и брифинг</li>
+          <li>Разработка 3 мудбордов, выбор направления</li>
+          <li>1 концепция логотипа на основе согласованного мудборда, брифа и ТЗ</li>
+          <li>Базовая цветовая палитра</li>
+          <li>Логобук, представляющий детальное описание логотипа, его цветовую палитру и шрифты</li>
+          <li>Векторные и растровые файлы</li>
+        </ul>
+        <ul class="kp-card-list extra">
+          <li>2 итерации правок</li>
+        </ul>
+      </div>
+      <div class="kp-card-foot">
+        <div class="kp-terms">2 поэтапные оплаты по 50%</div>
+        <div class="kp-price">от 20 000 ₽</div>
+        <div class="kp-duration">Срок: 1 неделя</div>
+      </div>
+    </div>
+
+    <div class="kp-card">
+      <div class="kp-card-title">Логотип</div>
+      <div class="kp-card-sub">Графический</div>
+      <div class="kp-card-body">
+        <ul class="kp-card-list">
+          <li>Созвон и брифинг</li>
+          <li>Разработка 3 мудбордов, выбор направления</li>
+          <li>1 концепция логотипа на основе согласованного мудборда, брифа и ТЗ</li>
+          <li>Знак отдельно от полного логотипа</li>
+          <li>Базовая цветовая палитра</li>
+          <li>Подбор шрифтовой пары</li>
+          <li>Логобук, представляющий детальное описание логотипа, его цветовую палитру и шрифты</li>
+          <li>Векторные и растровые файлы</li>
+        </ul>
+        <ul class="kp-card-list extra">
+          <li>3 итерации правок</li>
+        </ul>
+      </div>
+      <div class="kp-card-foot">
+        <div class="kp-terms">2 поэтапные оплаты по 50%</div>
+        <div class="kp-price">от 40 000 ₽</div>
+        <div class="kp-duration">Срок: 1-2 недели</div>
+      </div>
+    </div>
+
+    <div class="kp-card">
+      <div class="kp-card-title">Мерч</div>
+      <div class="kp-card-sub">&nbsp;</div>
+      <div class="kp-card-body">
+        <ul class="kp-card-list">
+          <li>Созвон и брифинг</li>
+          <li>Создание мудборда, выбор направления</li>
+          <li>Разработка дизайн-концепции с нуля: принты и графика под одежду</li>
+          <li>Основной дизайн-носитель (1 на выбор): футболка, худи, кепка, шоппер, носки</li>
+          <li>Доп. дизайн-носители (3 на выбор): стикеры, блокнот, ручка, кружка, полиграфия</li>
+          <li>Визуализация мерча</li>
+          <li>Файлы под печать</li>
+        </ul>
+        <ul class="kp-card-list extra">
+          <li>3 итерации правок</li>
+          <li>Доп. носитель — 3 000 ₽/шт</li>
+        </ul>
+      </div>
+      <div class="kp-card-foot">
+        <div class="kp-terms">2 поэтапные оплаты по 50%</div>
+        <div class="kp-price">от 40 000 ₽</div>
+        <div class="kp-duration">Срок: 2 недели</div>
+      </div>
+    </div>
+
+    <div class="kp-card">
+      <div class="kp-card-title">Презентация</div>
+      <div class="kp-card-sub">&nbsp;</div>
+      <div class="kp-card-body">
+        <ul class="kp-card-list">
+          <li>Созвон и брифинг: цель презентации и аудитории</li>
+          <li>Создание мудборда, выбор направления</li>
+          <li>Разработка структуры и сторителлинга слайдов</li>
+          <li>Дизайн-концепция на основе брендбука клиента (если есть) или базовой стилистики</li>
+          <li>Вёрстка до 15 слайдов</li>
+          <li>Инфографика, иконки, диаграммы под контент</li>
+          <li>Файлы в PDF + редактируемый формат (Figma/PPTX/Keynote)</li>
+        </ul>
+        <ul class="kp-card-list extra">
+          <li>3 итерации правок</li>
+          <li>Доп. слайд — 2 000 ₽/шт</li>
+        </ul>
+      </div>
+      <div class="kp-card-foot">
+        <div class="kp-terms">2 поэтапные оплаты по 50%</div>
+        <div class="kp-price">от 35 000 ₽</div>
+        <div class="kp-duration">Срок: 1-2 недели</div>
+      </div>
+    </div>
+
+    <div class="kp-card">
+      <div class="kp-card-title">Упаковка продукта</div>
+      <div class="kp-card-sub">&nbsp;</div>
+      <div class="kp-card-body">
+        <ul class="kp-card-list">
+          <li>Созвон и брифинг</li>
+          <li>Создание мудборда, выбор направления</li>
+          <li>2-3 концепции дизайна упаковки (коробки/этикетка/пакет — по типу проекта)</li>
+          <li>Подготовка макета под печать (высечка/разверстка, вылеты, CMYK)</li>
+          <li>3D-мокап упаковки для презентации</li>
+        </ul>
+        <ul class="kp-card-list extra">
+          <li>3 итерации правок</li>
+        </ul>
+      </div>
+      <div class="kp-card-foot">
+        <div class="kp-terms">2 оплаты по 50%</div>
+        <div class="kp-price">от 35 000 ₽</div>
+        <div class="kp-duration">Срок: 2 недели</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ===== /Раздел ===== -->
+
+<div class="kp-usp">
+  <span class="kp-usp-label">УТП</span>
+  <p class="kp-usp-text">Уже есть фирменный стиль и нужна точечная правка? Разовая поддержка обойдётся дешевле и быстрее, чем разработка с нуля.</p>
+</div>
+
+<!-- ===== Раздел: Поддержка бизнеса ===== -->
+<section class="kp-section">
+  <div class="kp-head">
+    <h2 class="kp-title">Поддержка бизнеса</h2>
+  </div>
+
+  <div class="kp-grid two-col">
+
+    <div class="kp-card dashed">
+      <svg class="kp-card-dash-border"><rect x="0" y="0" width="100%" height="100%" rx="14.3" ry="14.3" fill="none" stroke="#000" stroke-width="1.4" stroke-dasharray="10 10"/></svg>
+      <div class="kp-card-title">Поддержка бизнеса</div>
+      <div class="kp-card-sub">с носителями</div>
+      <div class="kp-card-body">
+        <ul class="kp-card-list">
+          <li>Созвон и брифинг по конкретной задаче</li>
+          <li>Работа в рамках уже существующего фирменного стиля клиента (без разработки с нуля)</li>
+          <li>Один точечный запрос: обновление/добавление макета, доработка шаблона, адаптация под новый формат</li>
+          <li>До 2 носителей за обращение</li>
+          <li>Файлы под нужный формат (диджитал или печать)</li>
+        </ul>
+        <ul class="kp-card-list extra">
+          <li>1 итерация правок</li>
+        </ul>
+      </div>
+      <div class="kp-card-foot">
+        <div class="kp-terms">100% предоплата</div>
+        <div class="kp-price">от 10 000 ₽ за обращение</div>
+        <div class="kp-duration">Срок: 2-3 дня</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ===== /Раздел ===== -->
+
+<footer>
+  <div class="footer-contacts">
+    <div class="footer-phone">+7 (912) 021-43-07</div>
+    <div class="footer-email">midnight2collective@gmail.com</div>
+  </div>
+  <img src="/logo.svg" alt="Midnight Collective" class="footer-wm-logo">
+  <div class="footer-btm">
+    <a href="/privacy/">Политика конфиденциальности</a>
+  </div>
+</footer>
+
+<script>
+function goTo(url) {
+  const menu = document.getElementById('burger-menu');
+  menu.classList.remove('open');
+  document.body.style.overflow = '';
+  window.location.href = url;
+}
+function toggleBurger() {
+  const menu = document.getElementById('burger-menu');
+  menu.classList.toggle('open');
+  const open = menu.classList.contains('open');
+  document.body.style.overflow = open ? 'hidden' : '';
+  const btn = document.getElementById('burger-btn');
+  btn.innerHTML = open
+    ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="2" y1="2" x2="22" y2="22" stroke="black" stroke-width="2"/><line x1="22" y1="2" x2="2" y2="22" stroke="black" stroke-width="2"/></svg>'
+    : '<span></span><span></span>';
+}
+function updateClock() {
+  const now = new Date();
+  const msk = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Moscow' }));
+  const h = String(msk.getHours()).padStart(2, '0');
+  const m = String(msk.getMinutes()).padStart(2, '0');
+  const s = String(msk.getSeconds()).padStart(2, '0');
+  const el = document.getElementById('burger-clock');
+  if (el) el.textContent = h + ':' + m + ':' + s + ' МСК';
+}
+updateClock();
+setInterval(updateClock, 1000);
+</script>
+
+</body>
+</html>
