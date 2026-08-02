@@ -147,7 +147,8 @@ function renderFilters() {
     const isActive = t === activeFilter;
     const sepColor = isActive ? '#000' : '#ddd';
     const sep = i < tags.length - 1 ? `<span class="filter-sep sep-${i}" style="color:${sepColor}">,</span>` : '';
-    return `<button class="filter-btn ${isActive ? 'active' : ''}" data-tag="${t}" onclick="setFilter('${t}')" onmouseenter="hoverSep(${i},true)" onmouseleave="hoverSep(${i},false)">${label}</button>${sep}`;
+    const btn = `<button class="filter-btn ${isActive ? 'active' : ''}" data-tag="${t}" onclick="setFilter('${t}')" onmouseenter="hoverSep(${i},true)" onmouseleave="hoverSep(${i},false)">${label}</button>`;
+    return `<span class="filter-item">${btn}${sep}</span>`;
   }).join('');
 }
 
