@@ -7,7 +7,7 @@
       "Айдентика",
       "Мерч"
     ],
-    "thumbnail": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777186163/hmgmlblhdoymuzhis2u2.png",
+    "thumbnail": "https://res.cloudinary.com/dckjt7i6f/image/upload/f_auto,q_auto,w_1600/v1777186163/hmgmlblhdoymuzhis2u2.png",
     "thumbnailDark": true,
     "coverRatio": "1:1",
     "featured": false,
@@ -20,11 +20,11 @@
         "type": "c2",
         "images": [
           {
-            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777186172/mr2cdclv9v9azajiddrl.png",
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/f_auto,q_auto,w_1600/v1777186172/mr2cdclv9v9azajiddrl.png",
             "ratio": "portrait"
           },
           {
-            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777186175/irmezanra0r9oopii38l.png",
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/f_auto,q_auto,w_1600/v1777186175/irmezanra0r9oopii38l.png",
             "ratio": "portrait"
           }
         ]
@@ -33,7 +33,7 @@
         "type": "c1",
         "images": [
           {
-            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777304759/n4ig9aa8pxjwxinv9gjo.png",
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/f_auto,q_auto,w_1600/v1777304759/n4ig9aa8pxjwxinv9gjo.png",
             "ratio": "portrait"
           }
         ]
@@ -42,7 +42,7 @@
         "type": "c1",
         "images": [
           {
-            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777304771/iifswgbhnhgrrffds92c.png",
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/f_auto,q_auto,w_1600/v1777304771/iifswgbhnhgrrffds92c.png",
             "ratio": "portrait"
           },
           {
@@ -55,11 +55,11 @@
         "type": "c2",
         "images": [
           {
-            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777304797/iy3sufhul8pfnvdqu9p0.png",
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/f_auto,q_auto,w_1600/v1777304797/iy3sufhul8pfnvdqu9p0.png",
             "ratio": "square"
           },
           {
-            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777304807/hhzjlcvsfrn81mzdajpd.png",
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/f_auto,q_auto,w_1600/v1777304807/hhzjlcvsfrn81mzdajpd.png",
             "ratio": "landscape"
           }
         ]
@@ -75,7 +75,7 @@
       "3D & AI",
       "Motion"
     ],
-    "thumbnail": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777219256/sm3rnkqnfksfqzdg9y9a.png",
+    "thumbnail": "https://res.cloudinary.com/dckjt7i6f/image/upload/f_auto,q_auto,w_1600/v1777219256/sm3rnkqnfksfqzdg9y9a.png",
     "thumbnailDark": false,
     "desc": [],
     "rows": [
@@ -83,7 +83,7 @@
         "type": "c1",
         "images": [
           {
-            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777219287/ngjjcczjmh1rdintks6h.jpg",
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/f_auto,q_auto,w_1600/v1777219287/ngjjcczjmh1rdintks6h.jpg",
             "ratio": "portrait"
           }
         ]
@@ -92,11 +92,11 @@
         "type": "c2",
         "images": [
           {
-            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777219327/aq34emn1fixtxcfjjhbd.jpg",
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/f_auto,q_auto,w_1600/v1777219327/aq34emn1fixtxcfjjhbd.jpg",
             "ratio": "portrait"
           },
           {
-            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777304914/t2wfhmmqv1iqxfhipko7.jpg",
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/f_auto,q_auto,w_1600/v1777304914/t2wfhmmqv1iqxfhipko7.jpg",
             "ratio": "portrait"
           }
         ]
@@ -105,11 +105,11 @@
         "type": "c2",
         "images": [
           {
-            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777304932/bqsytvjiyz0ewtswzxcy.jpg",
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/f_auto,q_auto,w_1600/v1777304932/bqsytvjiyz0ewtswzxcy.jpg",
             "ratio": "portrait"
           },
           {
-            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/v1777304943/cmchc1nvpejobydbfqre.jpg",
+            "url": "https://res.cloudinary.com/dckjt7i6f/image/upload/f_auto,q_auto,w_1600/v1777304943/cmchc1nvpejobydbfqre.jpg",
             "ratio": "portrait"
           }
         ]
